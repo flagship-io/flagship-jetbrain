@@ -1,18 +1,27 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.chadiii.flagshipjetbrain</id>
-    <name>flagship-jetbrain Template</name>
-    <vendor>chadiii</vendor>
+    <id>com.github.flagshipio.jetbrain</id>
+    <name>Flagship Jetbrain</name>
+    <vendor>flagship-io</vendor>
 
     <depends>com.intellij.modules.platform</depends>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.chadiii.flagshipjetbrain.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <toolWindow factoryClass="com.github.flagshipio.jetbrain.toolWindow.MyToolWindowFactory" id="Flagship" icon="/icons/logo.svg" anchor="right"/>
+        <documentationProvider implementation="com.github.flagshipio.jetbrain.hover.HoverDoc"/>
+        <completion.contributor language="any" implementationClass="com.github.flagshipio.jetbrain.codeInsight.MyCompletionContributor"/>
     </extensions>
 
     <applicationListeners>
-        <listener class="com.github.chadiii.flagshipjetbrain.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
+        <listener class="com.github.flagshipio.jetbrain.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
     </applicationListeners>
+
+    <actions>
+        <action class="com.github.flagshipio.jetbrain.MyAction" id="MyAction">
+            <add-to-group group-id="StructureViewPopupMenu" />
+        </action>
+        <action class="com.github.flagshipio.jetbrain.action.CopyKeyAction" id="com.github.flagshipio.jetbrain.action.CopyKeyAction" text="Copy Flag Key" description="Copy flag key to clipboard" icon="AllIcons.Actions.Copy"/>
+    </actions>
 </idea-plugin>

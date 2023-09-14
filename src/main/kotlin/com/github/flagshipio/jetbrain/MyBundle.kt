@@ -1,4 +1,4 @@
-package com.github.chadiii.flagshipjetbrain
+package com.github.flagshipio.jetbrain
 
 import com.intellij.DynamicBundle
 import org.jetbrains.annotations.NonNls

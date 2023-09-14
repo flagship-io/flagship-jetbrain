@@ -1,9 +1,9 @@
-package com.github.chadiii.flagshipjetbrain.services
+package com.github.flagshipio.jetbrain.services
 
+import com.github.flagshipio.jetbrain.MyBundle
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
-import com.github.chadiii.flagshipjetbrain.MyBundle
 
 @Service(Service.Level.PROJECT)
 class MyProjectService(project: Project) {

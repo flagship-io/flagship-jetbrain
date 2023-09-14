@@ -1,4 +1,4 @@
-package com.github.chadiii.flagshipjetbrain.listeners
+package com.github.flagshipio.jetbrain.listeners
 
 import com.intellij.openapi.application.ApplicationActivationListener
 import com.intellij.openapi.diagnostic.thisLogger

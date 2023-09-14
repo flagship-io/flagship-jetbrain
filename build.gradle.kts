@@ -21,8 +21,15 @@ repositories {
     mavenCentral()
 }
 
+configurations.all {
+    // Dependencies provided by IntelliJ runtime
+    exclude("com.google.code.gson", "gson")
+    exclude("org.slf4j", "slf4j-api")
+}
+
 // Dependencies are managed with Gradle version catalog - read more: https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog
 dependencies {
+    implementation("io.pebbletemplates:pebble:3.2.1")
 //    implementation(libs.annotations)
 }
 
@@ -124,4 +131,10 @@ tasks {
         // https://plugins.jetbrains.com/docs/intellij/deployment.html#specifying-a-release-channel
         channels = properties("pluginVersion").map { listOf(it.split('-').getOrElse(1) { "default" }.split('.').first()) }
     }
+
+    listProductsReleases {
+        var ideas = properties("ideas").map { it.split(',') }
+        types = ideas
+    }
+
 }
