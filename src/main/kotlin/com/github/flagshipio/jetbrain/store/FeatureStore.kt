@@ -14,10 +14,6 @@ class FeatureStore(project: Project) {
 
     fun refreshFeatureFlag(project: Project): List<Feature>? {
         val checkCLI = CheckCLI(project)
-        var featureList: List<Feature>?
-        /*ApplicationManager.getApplication().invokeLater {
-            featureList = checkCLI.listFlagCli(project)
-        }*/
 
         return checkCLI.listFlagCli(project)
 

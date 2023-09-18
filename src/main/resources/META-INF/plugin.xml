@@ -12,6 +12,7 @@
         <toolWindow factoryClass="com.github.flagshipio.jetbrain.toolWindow.MyToolWindowFactory" id="Flagship" icon="/icons/logo.svg" anchor="right"/>
         <documentationProvider implementation="com.github.flagshipio.jetbrain.hover.HoverDoc"/>
         <completion.contributor language="any" implementationClass="com.github.flagshipio.jetbrain.codeInsight.MyCompletionContributor"/>
+
     </extensions>
 
     <applicationListeners>
@@ -19,9 +20,18 @@
     </applicationListeners>
 
     <actions>
-        <action class="com.github.flagshipio.jetbrain.MyAction" id="MyAction">
-            <add-to-group group-id="StructureViewPopupMenu" />
-        </action>
         <action class="com.github.flagshipio.jetbrain.action.CopyKeyAction" id="com.github.flagshipio.jetbrain.action.CopyKeyAction" text="Copy Flag Key" description="Copy flag key to clipboard" icon="AllIcons.Actions.Copy"/>
+        <action class="com.github.flagshipio.jetbrain.action.CreateCredentialPanel" id="com.github.flagshipio.jetbrain.action.CreateCredentialPanel" text="Create Configuration" icon="/icons/logo.svg">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+            <keyboard-shortcut first-keystroke="ctrl shift H" keymap="$default"/>
+            <keyboard-shortcut first-keystroke="ctrl shift H" keymap="Mac OS X"/>
+            <keyboard-shortcut first-keystroke="ctrl shift H" keymap="Mac OS X 10.5+"/>
+        </action>
+        <action class="com.github.flagshipio.jetbrain.action.LoadCredentialPanel" id="com.github.flagshipio.jetbrain.action.LoadCredentialPanel" text="Load Configuration" icon="/icons/logo.svg">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+            <keyboard-shortcut first-keystroke="ctrl shift W" keymap="$default"/>
+            <keyboard-shortcut first-keystroke="ctrl shift W" keymap="Mac OS X"/>
+            <keyboard-shortcut first-keystroke="ctrl shift W" keymap="Mac OS X 10.5+"/>
+        </action>
     </actions>
 </idea-plugin>
