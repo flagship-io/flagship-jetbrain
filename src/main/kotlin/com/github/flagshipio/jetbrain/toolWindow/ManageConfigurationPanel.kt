@@ -19,192 +19,160 @@ import javax.swing.border.LineBorder
 
 class ManageConfigurationPanel :
     SimpleToolWindowPanel(false, false), Disposable {
-    private fun customPanel(): JPanel {
-        var panel = JPanel();
 
-        var lblNewLabel = JLabel("Add configuration");
-        lblNewLabel.border = JBUI.Borders.empty(0, 10, 0, 20)
-        panel.add(lblNewLabel);
+        private fun mainFrame(): JPanel {
+        val mainPanel = JPanel();
 
-        var btnNewButton = JButton("From credentials");
-        btnNewButton.addActionListener { e: ActionEvent? ->
-            updateContent(customPanel1())
+        val addConfigLabel = JLabel("Add configuration");
+        addConfigLabel.border = JBUI.Borders.empty(0, 10, 0, 20)
+        mainPanel.add(addConfigLabel);
+
+        val fromCredBtn = JButton("From credentials");
+        fromCredBtn.addActionListener { e: ActionEvent? ->
+            updateContent(fromCredFrame())
         }
 
-        panel.setLayout(
-            BoxLayout(panel, BoxLayout.X_AXIS)
+        mainPanel.setLayout(
+            BoxLayout(mainPanel, BoxLayout.X_AXIS)
         );
-        btnNewButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(btnNewButton);
+        fromCredBtn.setAlignmentX(Component.CENTER_ALIGNMENT)
+            mainPanel.add(fromCredBtn);
 
-        var btnNewButton_1 = JButton("From file");
-        btnNewButton_1.addActionListener { e: ActionEvent? ->
-            updateContent(customPanel2())
+        val fromFileBtn = JButton("From file");
+        fromFileBtn.addActionListener { e: ActionEvent? ->
+            updateContent(fromFileFrame())
         }
-        btnNewButton_1.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(btnNewButton_1);
-        return panel
+        fromFileBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mainPanel.add(fromFileBtn);
+
+        return mainPanel
     }
 
-    private fun customPanel1(): JPanel {
-        val contentPane = JPanel();
-        contentPane.setLayout(BorderLayout(0, 0));
+    private fun fromCredFrame(): JPanel {
+        val fromCredPanel = JPanel();
+        fromCredPanel.setLayout(BorderLayout(0, 0));
 
-        val panel_1 = JPanel()
-        contentPane.add(panel_1, BorderLayout.SOUTH)
+        val fromCredSubPanel = JPanel()
+        fromCredPanel.add(fromCredSubPanel, BorderLayout.SOUTH)
 
 
-        val btnNewButton_3 = JButton("Cancel")
-        btnNewButton_3.addActionListener { e: ActionEvent? ->
-            updateContent(customPanel())
+        val cancelBtn = JButton("Cancel")
+        cancelBtn.addActionListener { e: ActionEvent? ->
+            updateContent(mainFrame())
         }
-        panel_1.add(btnNewButton_3)
+        fromCredSubPanel.add(cancelBtn)
 
-        val btnNewButton_2 = JButton("Save")
-        panel_1.add(btnNewButton_2)
+        val saveBtn = JButton("Save")
+        fromCredSubPanel.add(saveBtn)
 
-        val lblNewLabel = JLabel("Add configuration")
-        lblNewLabel.setBorder(EmptyBorder(10, 10, 0, 0))
-        contentPane.add(lblNewLabel, BorderLayout.NORTH)
+        val addConfigLabel = JLabel("Add configuration")
+        addConfigLabel.setBorder(JBUI.Borders.empty(10, 10, 0, 0))
+        fromCredPanel.add(addConfigLabel, BorderLayout.NORTH)
 
-        val panel = JPanel()
-        panel.setBorder(EmptyBorder(10, 0, 0, 0))
-        contentPane.add(panel, BorderLayout.CENTER)
-        panel.setLayout(FormLayout("7dlu center:120px center:260px", "25px 15dlu 25px 7dlu 25px 7dlu 25px 7dlu 25px"))
+        val credFormPanel = JPanel()
+        credFormPanel.setBorder(JBUI.Borders.emptyTop(10))
+        fromCredPanel.add(credFormPanel, BorderLayout.CENTER)
+        credFormPanel.setLayout(FormLayout("7dlu center:120px center:260px", "25px 15dlu 25px 7dlu 25px 7dlu 25px 7dlu 25px"))
 
-        val lblNewLabel_3 = JLabel("Name")
-        lblNewLabel_3.setBorder(EmptyBorder(0, 0, 0, 8))
-        panel.add(lblNewLabel_3, "2, 1, right, default")
+        val nameLabel = JLabel("Name")
+        nameLabel.setBorder(JBUI.Borders.emptyRight(8))
+        credFormPanel.add(nameLabel, "2, 1, right, default")
 
-        val textField_2 = JTextField()
-        textField_2.setBorder(EmptyBorder(0, 0, 0, 8))
-        panel.add(textField_2, "3, 1, fill, default")
-        textField_2.setColumns(10)
+        val nameTextField = JTextField()
+        nameTextField.setBorder(JBUI.Borders.emptyRight(8))
+        credFormPanel.add(nameTextField, "3, 1, fill, default")
+        nameTextField.setColumns(10)
 
-        val lblNewLabel_4 = JLabel("Client ID")
-        lblNewLabel_4.setBorder(EmptyBorder(0, 0, 0, 8))
-        panel.add(lblNewLabel_4, "2, 3, right, default")
+        val clientIdLabel = JLabel("Client ID")
+        clientIdLabel.setBorder(JBUI.Borders.emptyRight(8))
+        credFormPanel.add(clientIdLabel, "2, 3, right, default")
 
-        val textField_3 = JTextField()
-        textField_3.setBorder(EmptyBorder(0, 0, 0, 8))
-        panel.add(textField_3, "3, 3, fill, default")
-        textField_3.setColumns(10)
+        val clientIdTextField = JTextField()
+        clientIdTextField.setBorder(JBUI.Borders.emptyRight(8))
+        credFormPanel.add(clientIdTextField, "3, 3, fill, default")
+        clientIdTextField.setColumns(10)
 
-        val lblNewLabel_6 = JLabel("Client Secret")
-        lblNewLabel_6.setBorder(EmptyBorder(0, 0, 0, 8))
-        panel.add(lblNewLabel_6, "2, 5, right, default")
+        val clientSecretLabel = JLabel("Client Secret")
+        clientSecretLabel.setBorder(JBUI.Borders.emptyRight(8))
+        credFormPanel.add(clientSecretLabel, "2, 5, right, default")
 
-        val textField_5 = JTextField()
-        textField_5.setBorder(EmptyBorder(0, 0, 0, 8))
-        panel.add(textField_5, "3, 5, fill, default")
-        textField_5.setColumns(10)
+        val clientSecretTextField = JTextField()
+        clientSecretTextField.setBorder(JBUI.Borders.emptyRight(8))
+        credFormPanel.add(clientSecretTextField, "3, 5, fill, default")
+        clientSecretTextField.setColumns(10)
 
-        val lblNewLabel_5 = JLabel("Account ID")
-        lblNewLabel_5.setBorder(EmptyBorder(0, 0, 0, 8))
-        panel.add(lblNewLabel_5, "2, 7, right, default")
+        val accountIdLabel = JLabel("Account ID")
+        accountIdLabel.setBorder(JBUI.Borders.emptyRight(8))
+        credFormPanel.add(accountIdLabel, "2, 7, right, default")
 
-        val textField_4 = JTextField()
-        textField_4.setBorder(EmptyBorder(0, 0, 0, 8))
-        panel.add(textField_4, "3, 7, fill, default")
-        textField_4.setColumns(10)
+        val accountIdTextField = JTextField()
+        accountIdTextField.setBorder(JBUI.Borders.emptyRight(8))
+        credFormPanel.add(accountIdTextField, "3, 7, fill, default")
+        accountIdTextField.setColumns(10)
 
         val lblNewLabel_1 = JLabel("Account Environment ID")
-        lblNewLabel_1.setBorder(EmptyBorder(0, 0, 0, 8))
-        panel.add(lblNewLabel_1, "2, 9, right, default")
+        lblNewLabel_1.setBorder(JBUI.Borders.emptyRight(8))
+        credFormPanel.add(lblNewLabel_1, "2, 9, right, default")
 
         val textField = JTextField()
-        textField.setBorder(EmptyBorder(0, 0, 0, 8))
-        panel.add(textField, "3, 9, fill, default")
+        textField.setBorder(JBUI.Borders.emptyRight(8))
+        credFormPanel.add(textField, "3, 9, fill, default")
         textField.setColumns(10)
 
-        return contentPane
+        return fromCredPanel
     }
 
-    private fun customPanel2(): JPanel {
+    private fun fromFileFrame(): JPanel {
 
+        val fromFilePanel = JPanel();
+        fromFilePanel.setLayout(BorderLayout(0, 0));
 
-        val contentPane = JPanel();
-        contentPane.setLayout(BorderLayout(0, 0));
+        val cancelSavePanel = JPanel()
+        fromFilePanel.add(cancelSavePanel, BorderLayout.SOUTH)
 
-        val panel_1 = JPanel()
-        contentPane.add(panel_1, BorderLayout.SOUTH)
-
-        val btnNewButton_3 = JButton("Cancel")
-        btnNewButton_3.addActionListener { e: ActionEvent? ->
-            updateContent(customPanel())
+        val fromFilecancelBtn = JButton("Cancel")
+        fromFilecancelBtn.addActionListener { e: ActionEvent? ->
+            updateContent(mainFrame())
         }
-        panel_1.add(btnNewButton_3)
+        cancelSavePanel.add(fromFilecancelBtn)
 
-        val btnNewButton_2 = JButton("Save")
-        panel_1.add(btnNewButton_2)
+        val fromFilesaveBtn = JButton("Save")
+        cancelSavePanel.add(fromFilesaveBtn)
 
-        var lblNewLabel = JLabel("Add configuration");
-        lblNewLabel.border = JBUI.Borders.empty(10, 10, 0, 0)
-        contentPane.add(lblNewLabel, BorderLayout.NORTH);
+        val addConfigLabel = JLabel("Add configuration");
+        addConfigLabel.border = JBUI.Borders.empty(10, 10, 0, 0)
+        fromFilePanel.add(addConfigLabel, BorderLayout.NORTH);
 
-        var panel = JPanel();
-        contentPane.add(panel, BorderLayout.CENTER);
+        val browserFile = JPanel();
+        fromFilePanel.add(browserFile, BorderLayout.CENTER);
 
 
-        var btnNewLabel = JLabel("/path/to/file.yaml");
-        btnNewLabel.border = LineBorder(JBColor.BLACK)
-        btnNewLabel.preferredSize = Dimension(600, 30)
+        val pathToFileLabel = JLabel("/path/to/file.yaml");
+        pathToFileLabel.border = LineBorder(JBColor.BLACK)
+        pathToFileLabel.preferredSize = Dimension(600, 30)
 
-        panel.setLayout(
+        browserFile.setLayout(
             FormLayout(
                 "center:210px center:100px",
                 "center:120px"
             )
         );
-        btnNewLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.add(btnNewLabel, "1, 1, center, center");
+        pathToFileLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        browserFile.add(pathToFileLabel, "1, 1, center, center");
 
-        var btnNewButton_1 = JButton("Browser");
-        btnNewButton_1.setAlignmentX(Component.CENTER_ALIGNMENT);
-        panel.border = JBUI.Borders.empty(10, 40, 0, 0)
-        panel.add(btnNewButton_1, "2, 1, center, center");
-        return contentPane
-    }
+        val browserBtn = JButton("Browser");
+        browserBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        browserFile.border = JBUI.Borders.empty(10, 40, 0, 0)
+        browserFile.add(browserBtn, "2, 1, center, center");
 
-
-    private fun createControlsPanel(): JPanel {
-        val controlsPanel = JPanel()
-        controlsPanel.layout = BoxLayout(controlsPanel, BoxLayout.Y_AXIS)
-        val textBox = JLabel("Add configuration")
-        val refreshDateAndTimeButton = JButton("From credentials")
-        refreshDateAndTimeButton.addActionListener { e: ActionEvent? -> updateContent(customPanel1()) }
-        val hideToolWindowButton = JButton("From file")
-        hideToolWindowButton.addActionListener { e: ActionEvent? ->
-            updateContent(customPanel2())
-        }
-
-        refreshDateAndTimeButton.alignmentX = Component.CENTER_ALIGNMENT
-        hideToolWindowButton.alignmentX = Component.CENTER_ALIGNMENT
-
-        controlsPanel.add(textBox, BorderLayout.PAGE_START)
-        controlsPanel.add(refreshDateAndTimeButton)
-        controlsPanel.add(hideToolWindowButton)
-        return controlsPanel
-    }
-
-    private fun createControlsPanel1(): JPanel {
-        val controlsPanel = JPanel()
-        val refreshDateAndTimeButton = JButton("Refresh2")
-        refreshDateAndTimeButton.addActionListener { e: ActionEvent? -> updateContent(createControlsPanel()) }
-        controlsPanel.add(refreshDateAndTimeButton)
-        val hideToolWindowButton = JButton("Hide")
-        hideToolWindowButton.addActionListener { e: ActionEvent? ->
-            updateContent(createControlsPanel1())
-        }
-        controlsPanel.add(hideToolWindowButton)
-        return controlsPanel
+        return fromFilePanel
     }
 
     override fun dispose() {
     }
 
     init {
-        this.setContent(customPanel())
+        this.setContent(mainFrame())
     }
 
     private fun updateContent(content: JPanel) {

@@ -22,11 +22,11 @@ class ConfigurationToolWindow(project: Project) : JPanel() {
     private val listConfigurationPanel = ConfigurationPanel(project, messageBus)
 
     init {
-        val goalTitle: Border = BorderFactory.createTitledBorder("Manage configuration")
-        val targetingTitle: Border = BorderFactory.createTitledBorder("List configuration")
+        val manageConfigurationBorder: Border = BorderFactory.createTitledBorder("Manage configuration")
+        val listConfigurationBorder: Border = BorderFactory.createTitledBorder("List configuration")
 
-        manageConfigurationPanel.border = goalTitle
-        listConfigurationPanel.border = targetingTitle
+        manageConfigurationPanel.border = manageConfigurationBorder
+        listConfigurationPanel.border = listConfigurationBorder
 
         layout = BorderLayout(0, 0)
         splitter.apply {
