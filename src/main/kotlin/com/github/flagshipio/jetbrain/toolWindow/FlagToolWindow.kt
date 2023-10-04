@@ -12,6 +12,7 @@ import com.intellij.ui.content.ContentFactory
 class FlagToolWindow(project: Project) : DumbAware, Disposable {
     private val basePanel: BasePanel = BasePanel(project)
     private val goalTargetingPanel: GoalTargetingPanel = GoalTargetingPanel(project)
+    private val configurationPanel: ConfigurationToolWindow = ConfigurationToolWindow(project)
     fun initializeBasePanel(toolWindow: ToolWindow) {
         val contentFactory = ContentFactory.getInstance()
 
@@ -29,6 +30,15 @@ class FlagToolWindow(project: Project) : DumbAware, Disposable {
         contentGoalTargeting.component = goalTargetingPanel
 
         toolWindow.contentManager.addContent(contentGoalTargeting)
+    }
+
+    fun initializeConfigurationPanel(toolWindow: ToolWindow) {
+        val contentFactory = ContentFactory.getInstance()
+
+        val contentConfiguration: Content = contentFactory.createContent(null, "Configuration", false)
+        contentConfiguration.component = configurationPanel
+
+        toolWindow.contentManager.addContent(contentConfiguration)
     }
 
     fun getBasePanel(): BasePanel {

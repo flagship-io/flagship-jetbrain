@@ -28,12 +28,12 @@ class FlagNodeParent(private var viewModel: FlagNodeViewModel) : SimpleNode() {
     }
 
     private fun buildChildren() {
-        children.add(FlagNodeBase("Id: ${viewModel.flagId}", Debugger.Db_muted_breakpoint))
-        children.add(FlagNodeBase("$KEY_PREFIX ${flag.name}", Debugger.Db_muted_breakpoint))
-        children.add(FlagNodeBase("Type: ${viewModel.flagType}", Debugger.Db_muted_breakpoint))
-        children.add(FlagNodeBase("Description: ${viewModel.flagDescription}", Debugger.Db_muted_breakpoint))
-        children.add(FlagNodeBase("Default value: ${viewModel.defaultValue}", Debugger.Db_muted_breakpoint))
-        children.add(FlagNodeBase("Source: ${viewModel.flagSource}", Debugger.Db_muted_breakpoint))
+        children.add(NodeBase("Id: ${viewModel.flagId}", Debugger.Db_muted_breakpoint))
+        children.add(NodeBase("$KEY_PREFIX ${flag.name}", Debugger.Db_muted_breakpoint))
+        children.add(NodeBase("Type: ${viewModel.flagType}", Debugger.Db_muted_breakpoint))
+        children.add(NodeBase("Description: ${viewModel.flagDescription}", Debugger.Db_muted_breakpoint))
+        children.add(NodeBase("Default value: ${viewModel.defaultValue}", Debugger.Db_muted_breakpoint))
+        children.add(NodeBase("Source: ${viewModel.flagSource}", Debugger.Db_muted_breakpoint))
     }
 
     override fun update(data: PresentationData) {

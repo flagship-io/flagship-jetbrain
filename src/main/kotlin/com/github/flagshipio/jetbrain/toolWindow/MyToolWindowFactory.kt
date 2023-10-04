@@ -2,6 +2,7 @@ package com.github.flagshipio.jetbrain.toolWindow
 
 import com.github.flagshipio.jetbrain.cli.Cli
 import com.github.flagshipio.jetbrain.store.FeatureStore
+import com.github.flagshipio.jetbrain.store.ConfigurationStore
 import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.ToolWindow
@@ -19,19 +20,15 @@ class MyToolWindowFactory : ToolWindowFactory {
 
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
         val flagStore = FeatureStore(project)
-        /*val checkCLI = CheckCLI(project)
-            ApplicationManager.getApplication().invokeLater {
-                checkCLI.runCli(project)
-            }
-
-            ApplicationManager.getApplication().invokeLater {
-                checkCLI.listFlagCli(project)
-            }*/
+        val configurationStore = ConfigurationStore(project)
 
         flagStore.saveFeatureFlag(project)
+        configurationStore.saveConfiguration(project)
         println(flagStore.getFeatureFlag(project))
+        println(configurationStore.getConfiguration(project))
 
         val flagToolWindow = FlagToolWindow.getInstance(project)
+        flagToolWindow.initializeConfigurationPanel(toolWindow)
         flagToolWindow.initializeBasePanel(toolWindow)
         flagToolWindow.initializeGoalTargetingPanel(toolWindow)
     }

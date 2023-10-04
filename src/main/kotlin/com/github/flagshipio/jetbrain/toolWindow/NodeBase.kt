@@ -4,7 +4,7 @@ import com.intellij.ide.projectView.PresentationData
 import com.intellij.ui.treeStructure.SimpleNode
 import javax.swing.Icon
 
-class FlagNodeBase(val label: String, val labelIcon: Icon? = null) : SimpleNode() {
+class NodeBase(val label: String, val labelIcon: Icon? = null) : SimpleNode() {
     override fun getChildren(): Array<SimpleNode> {
         return NO_CHILDREN
     }

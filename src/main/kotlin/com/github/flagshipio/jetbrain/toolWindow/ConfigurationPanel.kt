@@ -1,9 +1,11 @@
 package com.github.flagshipio.jetbrain.toolWindow
 
 import com.github.flagshipio.jetbrain.action.CopyKeyAction
+import com.github.flagshipio.jetbrain.dataClass.Configuration
 import com.github.flagshipio.jetbrain.dataClass.Feature
 import com.github.flagshipio.jetbrain.messaging.FlagNotifier
 import com.github.flagshipio.jetbrain.messaging.MessageBusService
+import com.github.flagshipio.jetbrain.store.ConfigurationStore
 import com.github.flagshipio.jetbrain.store.FeatureStore
 import com.google.gson.annotations.SerializedName
 import com.intellij.ide.projectView.PresentationData
@@ -39,10 +41,9 @@ import javax.swing.tree.TreeSelectionModel
 
 private const val SPLITTER_PROPERTY = "BuildAttribution.Splitter.Proportion"
 
+class Configurations {
 
-class Features {
-
-    var items: MutableList<Feature>? = null
+    var items: MutableList<Configuration>? = null
 
     /**
      * Get totalCount
@@ -54,12 +55,12 @@ class Features {
 
 
 
-    fun items(items: MutableList<Feature>?): Features {
+    fun items(items: MutableList<Configuration>?): Configurations {
         this.items = items
         return this
     }
 
-    fun addItemsItem(itemsItem: Feature): Features {
+    fun addItemsItem(itemsItem: Configuration): Configurations {
         if (items == null) {
             items = ArrayList()
         }
@@ -73,7 +74,7 @@ class Features {
      */
 
 
-    fun totalCount(totalCount: BigDecimal?): Features {
+    fun totalCount(totalCount: BigDecimal?): Configurations {
         this.totalCount = totalCount
         return this
     }
@@ -81,27 +82,24 @@ class Features {
 }
 
 
-class RootNode(private val intProject: Project) :
+class RootNode1(private val intProject: Project) :
     SimpleNode() {
     private var myChildren: MutableList<SimpleNode> = ArrayList()
 
     override fun getChildren(): Array<SimpleNode> {
-        val flags_ = FeatureStore(intProject).getFeatureFlag(intProject)
+        val configurations_ = ConfigurationStore(intProject).getConfiguration(intProject)
 
-        //val flag1 = Feature("1", "flag1", "string", "flag1 desc", "cli", "1");
-        //val flag2 = Feature("2", "flag2", "string", "flag2 desc", "cli", "2");
-
-        val flags = Features()
-        flags_.map { flags.addItemsItem(it) }
+        val configurations = Configurations()
+        configurations_.map { configurations.addItemsItem(it) }
 
         when {
-            myChildren.isEmpty() && flags.items != null -> {
-                for (flag in flags.items!!) {
-                    val flagViewModel = FlagNodeViewModel(flag)
-                    myChildren.add(FlagNodeParent(flagViewModel))
+            myChildren.isEmpty() && configurations.items != null -> {
+                for (configuration in configurations.items!!) {
+                    val configViewModel = ConfigurationNodeViewModel(configuration)
+                    myChildren.add(ConfigurationNodeParent(configViewModel))
                 }
             }
-            flags.items == null -> myChildren.add(NodeBase("Flagship is not configured."))
+            configurations.items == null -> myChildren.add(NodeBase("Flagship is not configured."))
         }
 
         return myChildren.toTypedArray()
@@ -113,9 +111,9 @@ class RootNode(private val intProject: Project) :
     }
 }
 
-class FlagPanel(private val myProject: Project, messageBusService: MessageBusService) :
+class ConfigurationPanel(private val myProject: Project, messageBusService: MessageBusService) :
     SimpleToolWindowPanel(false, false), Disposable {
-    private var root = RootNode(myProject)
+    private var root = RootNode1(myProject)
     private var treeStructure = createTreeStructure()
     private var treeModel = StructureTreeModel(treeStructure, this)
     lateinit var tree: Tree
@@ -137,7 +135,7 @@ class FlagPanel(private val myProject: Project, messageBusService: MessageBusSer
     }
 
     fun updateNodeInfo() {
-        root = RootNode(myProject)
+        root = RootNode1(myProject)
         treeStructure = createTreeStructure()
         treeModel = StructureTreeModel(treeStructure, this)
         val reviewTreeBuilder = AsyncTreeModel(treeModel, this)
