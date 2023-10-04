@@ -2,20 +2,18 @@ package com.github.flagshipio.jetbrain.action
 
 import com.github.flagshipio.jetbrain.dataClass.Credential
 import com.github.flagshipio.jetbrain.store.CredentialStore
-import com.intellij.openapi.actionSystem.*
+import com.intellij.openapi.actionSystem.AnAction
+import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.fileChooser.FileChooserDescriptor
 import com.intellij.openapi.fileChooser.FileChooserFactory
 import com.intellij.openapi.fileEditor.FileEditorManager
-import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.Messages
-import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import org.apache.commons.io.IOUtils
 import java.io.File
 import java.io.IOException
 import java.nio.charset.StandardCharsets
-import java.util.ArrayList
 
 class CreateCredentialPanel : AnAction() {
 
@@ -23,7 +21,7 @@ class CreateCredentialPanel : AnAction() {
 
         val project = e.project ?: return
         val credentialStore = CredentialStore(project)
-        val credentialName = credentialNameInput?: return
+        val credentialName = credentialNameInput ?: return
         val clientID: String;
         val clientSecret: String;
         val accountID: String;
@@ -31,9 +29,15 @@ class CreateCredentialPanel : AnAction() {
         //var credential: Credential
 
 
-        val result = Messages.showOkCancelDialog("Choose", "Choose Method", "Load Configuration From File", "Create Configuration With Inputs", Messages.getInformationIcon())
+        val result = Messages.showOkCancelDialog(
+            "Choose",
+            "Choose Method",
+            "Load Configuration From File",
+            "Create Configuration With Inputs",
+            Messages.getInformationIcon()
+        )
 
-        if (result == 0){
+        if (result == 0) {
 
             val fileChooserDialog = FileChooserFactory.getInstance().createFileChooser(
                 createFileChooserDescriptor(),
@@ -67,7 +71,7 @@ class CreateCredentialPanel : AnAction() {
         accountEnvironmentID = accountEnvironmentIDInput ?: return
 
         val credential = Credential(credentialName, clientID, clientSecret, accountID, accountEnvironmentID)
-        if(credentialStore.exists(credential)){
+        if (credentialStore.exists(credential)) {
             Messages.showMessageDialog("Credential not saved", "Status", Messages.getErrorIcon())
             return
         }
@@ -78,11 +82,19 @@ class CreateCredentialPanel : AnAction() {
     }
 
     private val credentialNameInput: String?
-        get() = Messages.showInputDialog("Enter your Credential name:", "Step 1 - Client ID", Messages.getQuestionIcon())
+        get() = Messages.showInputDialog(
+            "Enter your Credential name:",
+            "Step 1 - Client ID",
+            Messages.getQuestionIcon()
+        )
     private val clientIDInput: String?
         get() = Messages.showInputDialog("Enter your Client ID:", "Step 2 - Client ID", Messages.getQuestionIcon())
     private val clientSecretInput: String?
-        get() = Messages.showInputDialog("Enter your Client secret:", "Step 3 - Client Secret", Messages.getQuestionIcon())
+        get() = Messages.showInputDialog(
+            "Enter your Client secret:",
+            "Step 3 - Client Secret",
+            Messages.getQuestionIcon()
+        )
     private val accountIDInput: String?
         get() {
             return Messages.showInputDialog(
@@ -90,7 +102,11 @@ class CreateCredentialPanel : AnAction() {
             )
         }
     private val accountEnvironmentIDInput: String?
-        get() = Messages.showInputDialog("Enter your Account environment ID:", "Step 5 - Account Environment ID", Messages.getQuestionIcon())
+        get() = Messages.showInputDialog(
+            "Enter your Account environment ID:",
+            "Step 5 - Account Environment ID",
+            Messages.getQuestionIcon()
+        )
 
 
     private fun openFileInEditor(project: Project, virtualFile: VirtualFile) {
@@ -101,8 +117,9 @@ class CreateCredentialPanel : AnAction() {
         val descriptor = FileChooserDescriptor(true, false, false, false, false, false)
         descriptor.title = "Open File"
         descriptor.description = "Select a file to open in IntelliJ IDEA"
-        descriptor.withFileFilter{
-            it.isDirectory || it.name.lowercase().endsWith(".yml") || it.name.lowercase().endsWith(".yaml") || it.name.lowercase().endsWith(".json")
+        descriptor.withFileFilter {
+            it.isDirectory || it.name.lowercase().endsWith(".yml") || it.name.lowercase()
+                .endsWith(".yaml") || it.name.lowercase().endsWith(".json")
         }
         return descriptor
     }
@@ -118,6 +135,7 @@ class CreateCredentialPanel : AnAction() {
         }
         return null
     }
+
     private fun showYmlContentDialog(content: String, fileName: String) {
         Messages.showInfoMessage(content, "YML File: $fileName")
     }

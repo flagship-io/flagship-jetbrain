@@ -1,11 +1,9 @@
 package com.github.flagshipio.jetbrain.services
 
 import com.github.flagshipio.jetbrain.dataClass.Configuration
-import com.github.flagshipio.jetbrain.dataClass.Feature
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.State
-import com.intellij.openapi.components.Storage
 
 @Service
 @State(name = "ConfigurationDataService")

@@ -1,14 +1,12 @@
 package com.github.flagshipio.jetbrain.toolWindow
 
+import com.github.flagshipio.jetbrain.messaging.DefaultMessageBusService
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.components.JBPanel
-import com.github.flagshipio.jetbrain.messaging.DefaultMessageBusService
-
 import java.awt.BorderLayout
 import javax.swing.BorderFactory
-import javax.swing.JPanel
 import javax.swing.border.Border
 
 

@@ -5,7 +5,6 @@ import com.github.flagshipio.jetbrain.dataClass.Feature
 import com.github.flagshipio.jetbrain.messaging.FlagNotifier
 import com.github.flagshipio.jetbrain.messaging.MessageBusService
 import com.github.flagshipio.jetbrain.store.FeatureStore
-import com.google.gson.annotations.SerializedName
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationType
@@ -30,7 +29,6 @@ import com.intellij.util.ui.UIUtil.invokeLaterIfNeeded
 import com.intellij.util.ui.tree.TreeUtil
 import java.awt.CardLayout
 import java.math.BigDecimal
-import java.util.*
 import javax.swing.tree.TreeSelectionModel
 
 /*
@@ -51,7 +49,6 @@ class Features {
 
 
     var totalCount: BigDecimal? = null
-
 
 
     fun items(items: MutableList<Feature>?): Features {
@@ -101,6 +98,7 @@ class RootNode(private val intProject: Project) :
                     myChildren.add(FlagNodeParent(flagViewModel))
                 }
             }
+
             flags.items == null -> myChildren.add(NodeBase("Flagship is not configured."))
         }
 
@@ -176,8 +174,8 @@ class FlagPanel(private val myProject: Project, messageBusService: MessageBusSer
 
     init {
 
-            tree = start()
-            actions(tree)
+        tree = start()
+        actions(tree)
 
         var start = false
         if (!this::tree.isInitialized) {
@@ -189,9 +187,9 @@ class FlagPanel(private val myProject: Project, messageBusService: MessageBusSer
                 messageBusService.flagsUpdatedTopic,
                 object : FlagNotifier {
                     override fun notify(isConfigured: Boolean, flag: String, rebuild: Boolean) {
-                            if (start) {
-                                tree = start()
-                                actions(tree)
+                        if (start) {
+                            tree = start()
+                            actions(tree)
                         } else {
                             val notification = Notification(
                                 "ProjectOpenNotification",

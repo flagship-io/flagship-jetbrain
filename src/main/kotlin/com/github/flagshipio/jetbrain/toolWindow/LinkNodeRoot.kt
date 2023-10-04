@@ -8,36 +8,36 @@ class LinkNodeRoot :
     private var myChildren: MutableList<SimpleNode> = ArrayList()
 
     override fun getChildren(): Array<SimpleNode> {
-            myChildren.add(
-                LinkNodeBase(
-                    "Flags",
-                    "https://example.com"
-                )
+        myChildren.add(
+            LinkNodeBase(
+                "Flags",
+                "https://example.com"
             )
-            myChildren.add(
-                LinkNodeBase(
-                    "Segments",
-                    "https://example.com"
-                )
+        )
+        myChildren.add(
+            LinkNodeBase(
+                "Segments",
+                "https://example.com"
             )
-            myChildren.add(
-                LinkNodeBase(
-                    "Users",
-                    "https://example.com"
-                )
+        )
+        myChildren.add(
+            LinkNodeBase(
+                "Users",
+                "https://example.com"
             )
-            myChildren.add(
-                LinkNodeBase(
-                    "Debugger",
-                    "https://example.com"
-                )
+        )
+        myChildren.add(
+            LinkNodeBase(
+                "Debugger",
+                "https://example.com"
             )
-            myChildren.add(
-                LinkNodeBase(
-                    "Experiments",
-                    "https://example.com"
-                )
+        )
+        myChildren.add(
+            LinkNodeBase(
+                "Experiments",
+                "https://example.com"
             )
+        )
 
 
         return myChildren.toTypedArray()

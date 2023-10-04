@@ -8,8 +8,9 @@ import com.intellij.openapi.project.Project
 class FeatureStore(project: Project) {
 
     private var featureDataService: FeatureDataService
+
     init {
-       featureDataService = project.getService(FeatureDataService::class.java)
+        featureDataService = project.getService(FeatureDataService::class.java)
     }
 
     fun refreshFeatureFlag(project: Project): List<Feature>? {
@@ -19,7 +20,7 @@ class FeatureStore(project: Project) {
 
     }
 
-    fun saveFeatureFlag(project: Project){
+    fun saveFeatureFlag(project: Project) {
         val features = refreshFeatureFlag(project)
         // Save or retrieve features from the service
 
@@ -28,7 +29,7 @@ class FeatureStore(project: Project) {
         }
     }
 
-    fun getFeatureFlag(project: Project): List<Feature>{
+    fun getFeatureFlag(project: Project): List<Feature> {
         return featureDataService.getFeatures()
     }
 }

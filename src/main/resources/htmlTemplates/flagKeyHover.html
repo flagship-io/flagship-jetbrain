@@ -12,7 +12,13 @@
         }
 
         .flagOnOff {
-            color: {{ flag.on ? "green" : "gray" }}
+            color: {
+        {
+            flag.on
+
+            ? "green": "gray"
+        }
+        }
         }
 
         .marginTop {

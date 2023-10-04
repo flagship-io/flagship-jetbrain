@@ -4,23 +4,19 @@ import com.intellij.openapi.Disposable
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.ui.JBColor
 import com.intellij.util.ui.JBUI
-import com.jgoodies.forms.layout.ColumnSpec
 import com.jgoodies.forms.layout.FormLayout
-import com.jgoodies.forms.layout.RowSpec
 import java.awt.BorderLayout
-import java.awt.Color
 import java.awt.Component
 import java.awt.Dimension
 import java.awt.event.ActionEvent
 import javax.swing.*
-import javax.swing.border.EmptyBorder
 import javax.swing.border.LineBorder
 
 
 class ManageConfigurationPanel :
     SimpleToolWindowPanel(false, false), Disposable {
 
-        private fun mainFrame(): JPanel {
+    private fun mainFrame(): JPanel {
         val mainPanel = JPanel();
 
         val addConfigLabel = JLabel("Add configuration");
@@ -36,7 +32,7 @@ class ManageConfigurationPanel :
             BoxLayout(mainPanel, BoxLayout.X_AXIS)
         );
         fromCredBtn.setAlignmentX(Component.CENTER_ALIGNMENT)
-            mainPanel.add(fromCredBtn);
+        mainPanel.add(fromCredBtn);
 
         val fromFileBtn = JButton("From file");
         fromFileBtn.addActionListener { e: ActionEvent? ->
@@ -72,7 +68,12 @@ class ManageConfigurationPanel :
         val credFormPanel = JPanel()
         credFormPanel.setBorder(JBUI.Borders.emptyTop(10))
         fromCredPanel.add(credFormPanel, BorderLayout.CENTER)
-        credFormPanel.setLayout(FormLayout("7dlu center:120px center:260px", "25px 15dlu 25px 7dlu 25px 7dlu 25px 7dlu 25px"))
+        credFormPanel.setLayout(
+            FormLayout(
+                "7dlu center:120px center:260px",
+                "25px 15dlu 25px 7dlu 25px 7dlu 25px 7dlu 25px"
+            )
+        )
 
         val nameLabel = JLabel("Name")
         nameLabel.setBorder(JBUI.Borders.emptyRight(8))

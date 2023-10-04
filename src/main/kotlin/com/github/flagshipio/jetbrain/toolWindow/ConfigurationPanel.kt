@@ -2,12 +2,9 @@ package com.github.flagshipio.jetbrain.toolWindow
 
 import com.github.flagshipio.jetbrain.action.CopyKeyAction
 import com.github.flagshipio.jetbrain.dataClass.Configuration
-import com.github.flagshipio.jetbrain.dataClass.Feature
 import com.github.flagshipio.jetbrain.messaging.FlagNotifier
 import com.github.flagshipio.jetbrain.messaging.MessageBusService
 import com.github.flagshipio.jetbrain.store.ConfigurationStore
-import com.github.flagshipio.jetbrain.store.FeatureStore
-import com.google.gson.annotations.SerializedName
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationType
@@ -32,7 +29,6 @@ import com.intellij.util.ui.UIUtil.invokeLaterIfNeeded
 import com.intellij.util.ui.tree.TreeUtil
 import java.awt.CardLayout
 import java.math.BigDecimal
-import java.util.*
 import javax.swing.tree.TreeSelectionModel
 
 /*
@@ -52,7 +48,6 @@ class Configurations {
 
 
     var totalCount: BigDecimal? = null
-
 
 
     fun items(items: MutableList<Configuration>?): Configurations {
@@ -99,6 +94,7 @@ class RootNode1(private val intProject: Project) :
                     myChildren.add(ConfigurationNodeParent(configViewModel))
                 }
             }
+
             configurations.items == null -> myChildren.add(NodeBase("Flagship is not configured."))
         }
 
@@ -174,8 +170,8 @@ class ConfigurationPanel(private val myProject: Project, messageBusService: Mess
 
     init {
 
-            tree = start()
-            actions(tree)
+        tree = start()
+        actions(tree)
 
         var start = false
         if (!this::tree.isInitialized) {
@@ -187,9 +183,9 @@ class ConfigurationPanel(private val myProject: Project, messageBusService: Mess
                 messageBusService.flagsUpdatedTopic,
                 object : FlagNotifier {
                     override fun notify(isConfigured: Boolean, flag: String, rebuild: Boolean) {
-                            if (start) {
-                                tree = start()
-                                actions(tree)
+                        if (start) {
+                            tree = start()
+                            actions(tree)
                         } else {
                             val notification = Notification(
                                 "ProjectOpenNotification",

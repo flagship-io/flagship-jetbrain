@@ -4,7 +4,6 @@ import com.github.flagshipio.jetbrain.dataClass.Feature
 import com.github.flagshipio.jetbrain.store.FeatureStore
 import com.intellij.lang.Language
 import com.intellij.lang.documentation.AbstractDocumentationProvider
-import com.intellij.openapi.components.service
 import com.intellij.openapi.editor.Editor
 import com.intellij.patterns.PlatformPatterns
 import com.intellij.patterns.StandardPatterns
@@ -13,7 +12,6 @@ import com.intellij.psi.PsiFile
 import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.psi.util.PsiTreeUtil
 import io.pebbletemplates.pebble.PebbleEngine
-
 import java.io.StringWriter
 
 class HoverDoc : AbstractDocumentationProvider() {

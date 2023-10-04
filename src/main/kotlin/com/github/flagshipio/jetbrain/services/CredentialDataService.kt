@@ -1,7 +1,6 @@
 package com.github.flagshipio.jetbrain.services
 
 import com.github.flagshipio.jetbrain.dataClass.Credential
-import com.github.flagshipio.jetbrain.dataClass.Feature
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.State
@@ -34,7 +33,7 @@ class CredentialDataService : PersistentStateComponent<List<Credential>> {
     }
 
     fun getCredentialByName(name: String): Credential? {
-        credentialList.forEach{
+        credentialList.forEach {
             if (it.name == name) {
                 return it
             }

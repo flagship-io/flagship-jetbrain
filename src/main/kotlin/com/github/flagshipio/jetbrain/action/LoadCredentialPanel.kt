@@ -1,8 +1,8 @@
 package com.github.flagshipio.jetbrain.action
 
-import com.github.flagshipio.jetbrain.dataClass.Credential
 import com.github.flagshipio.jetbrain.store.CredentialStore
-import com.intellij.openapi.actionSystem.*
+import com.intellij.openapi.actionSystem.AnAction
+import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.ui.Messages
 
 class LoadCredentialPanel : AnAction() {
@@ -17,7 +17,7 @@ class LoadCredentialPanel : AnAction() {
             credentialNames.add(credential.name)
         }
 
-        if(credentialNames.isEmpty()){
+        if (credentialNames.isEmpty()) {
             credentialNames.add("No credentials found.")
         }
         println(credentials.toString())

@@ -45,6 +45,7 @@ class Cli {
                     )
                 )
             }
+
             DownloadResult.Failed -> {
                 Notifications.Bus.notify(
                     Notification(
@@ -134,6 +135,7 @@ class Cli {
                         URL("https://github.com/flagship-io/flagship/releases/download/v$cliVersion/flagship_${cliVersion}_windows_386.tar.gz")
                     }
                 }
+
                 else -> return URL("")
             }
         }

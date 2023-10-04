@@ -1,8 +1,8 @@
 package com.github.flagshipio.jetbrain.toolWindow
 
 import com.github.flagshipio.jetbrain.cli.Cli
-import com.github.flagshipio.jetbrain.store.FeatureStore
 import com.github.flagshipio.jetbrain.store.ConfigurationStore
+import com.github.flagshipio.jetbrain.store.FeatureStore
 import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.ToolWindow

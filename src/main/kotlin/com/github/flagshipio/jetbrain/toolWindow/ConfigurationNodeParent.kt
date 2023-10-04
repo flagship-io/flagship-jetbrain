@@ -1,10 +1,8 @@
 package com.github.flagshipio.jetbrain.toolWindow
 
 import com.intellij.icons.AllIcons.Debugger
-import com.intellij.icons.AllIcons.Icons
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.ui.treeStructure.SimpleNode
-import java.util.*
 
 const val KEY_PREFIX_1 = "name:"
 

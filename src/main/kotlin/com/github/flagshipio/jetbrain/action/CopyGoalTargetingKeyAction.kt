@@ -8,6 +8,7 @@ import java.awt.Toolkit
 import java.awt.datatransfer.Clipboard
 import java.awt.datatransfer.StringSelection
 import javax.swing.tree.DefaultMutableTreeNode
+
 class CopyGoalTargetingKeyAction : AnAction() {
     companion object {
         const val ID = "com.github.flagshipio.jetbrain.action.CopyKeyAction"

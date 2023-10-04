@@ -14,35 +14,44 @@ class CheckCLI(private var project: Project) {
 
     fun runCli(project: Project) {
         println("running")
-            try {
-                val processBuilder = ProcessBuilder(PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/"+cli.cliVersion+"/flagship", "version")
-                processBuilder.redirectErrorStream(true) // Redirect error stream to the output stream
-                val process = processBuilder.start()
+        try {
+            val processBuilder = ProcessBuilder(
+                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
+                "version"
+            )
+            processBuilder.redirectErrorStream(true) // Redirect error stream to the output stream
+            val process = processBuilder.start()
 
-                val output = process.inputStream.bufferedReader().use { it.readText() }
-                val exitCode = process.waitFor()
+            val output = process.inputStream.bufferedReader().use { it.readText() }
+            val exitCode = process.waitFor()
 
-                if (exitCode == 0) {
-                    // Command succeeded
-                    println("Command completed successfully.")
-                    println("Output: $output")
+            if (exitCode == 0) {
+                // Command succeeded
+                println("Command completed successfully.")
+                println("Output: $output")
 
-                } else {
-                    // Command failed
-                    println("Command failed with exit code $exitCode.")
-                }
-
-                // Add a shutdown hook to destroy the process when the JVM exits
-                Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
-            } catch (exception: Exception) {
-                println(exception)
-                println("didn't work")
+            } else {
+                // Command failed
+                println("Command failed with exit code $exitCode.")
             }
+
+            // Add a shutdown hook to destroy the process when the JVM exits
+            Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+        } catch (exception: Exception) {
+            println(exception)
+            println("didn't work")
+        }
     }
+
     fun listFlagCli(project: Project): List<Feature>? {
         println("running")
         try {
-            val processBuilder = ProcessBuilder(PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/"+cli.cliVersion+"/flagship", "flag", "list", "--output-format=json")
+            val processBuilder = ProcessBuilder(
+                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
+                "flag",
+                "list",
+                "--output-format=json"
+            )
             processBuilder.redirectErrorStream(true)
             val process = processBuilder.start()
             val gson = Gson()
@@ -70,7 +79,12 @@ class CheckCLI(private var project: Project) {
     fun listConfigurationCli(project: Project): List<Configuration>? {
         println("running")
         try {
-            val processBuilder = ProcessBuilder(PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/"+cli.cliVersion+"/flagship", "configuration", "list", "--output-format=json")
+            val processBuilder = ProcessBuilder(
+                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
+                "configuration",
+                "list",
+                "--output-format=json"
+            )
             processBuilder.redirectErrorStream(true)
             val process = processBuilder.start()
             val gson = Gson()
