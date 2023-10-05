@@ -3,14 +3,17 @@ package com.github.flagshipio.jetbrain.cli
 import com.github.flagshipio.jetbrain.dataClass.Configuration
 import com.github.flagshipio.jetbrain.dataClass.Feature
 import com.google.gson.Gson
+import com.intellij.ide.plugins.PluginManagerCore
 import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.components.Service
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.project.Project
 import java.io.File
 
 @Service(Service.Level.PROJECT)
-class CheckCLI(private var project: Project) {
+class CheckCLI() {
     val cli = Cli()
+
 
     fun runCli(project: Project) {
         println("running")
@@ -43,14 +46,16 @@ class CheckCLI(private var project: Project) {
         }
     }
 
-    fun listFlagCli(project: Project): List<Feature>? {
+    fun listFlagCli(): List<Feature>? {
         println("running")
         try {
             val processBuilder = ProcessBuilder(
                 PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
                 "flag",
                 "list",
-                "--output-format=json"
+                "--output-format=json",
+                "--user-agent=flagship-ext-jetbrain/v" + (PluginManagerCore.getPlugin(PluginId.getId("com.github.flagshipio.jetbrain"))?.version
+                    ?: "")
             )
             processBuilder.redirectErrorStream(true)
             val process = processBuilder.start()
@@ -76,14 +81,90 @@ class CheckCLI(private var project: Project) {
         return null
     }
 
-    fun listConfigurationCli(project: Project): List<Configuration>? {
+    fun addConfigurationCli(configuration: Configuration): String? {
+        println("running")
+        try {
+            val processBuilder = ProcessBuilder(
+                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
+                "configuration",
+                "create",
+                "-n=" + configuration.name,
+                "-i=" + configuration.clientID,
+                "-s=" + configuration.clientSecret,
+                "-a=" + configuration.accountID,
+                "-e=" + configuration.accountEnvironmentID,
+                "--user-agent=flagship-ext-jetbrain/v" + (PluginManagerCore.getPlugin(PluginId.getId("com.github.flagshipio.jetbrain"))?.version
+                    ?: "")
+            )
+            processBuilder.redirectErrorStream(true)
+            processBuilder.command()
+            val process = processBuilder.start()
+
+            val output = process.inputStream.bufferedReader().use { it.readText() }
+            val exitCode = process.waitFor()
+
+            if (exitCode == 0) {
+                println("Command completed successfully.")
+
+                return output
+
+            } else {
+                println("Command failed with exit code $exitCode.")
+            }
+
+            Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+        } catch (exception: Exception) {
+            println(exception)
+            println("didn't work")
+        }
+
+        return null
+    }
+
+    fun addConfigurationFromFileCli(filePath: String): String? {
+        println("running")
+        try {
+            val processBuilder = ProcessBuilder(
+                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
+                "configuration",
+                "create",
+                "-p=$filePath",
+                "--user-agent=flagship-ext-jetbrain/v" + (PluginManagerCore.getPlugin(PluginId.getId("com.github.flagshipio.jetbrain"))?.version
+                    ?: "")
+            )
+            processBuilder.redirectErrorStream(true)
+            val process = processBuilder.start()
+
+            val output = process.inputStream.bufferedReader().use { it.readText() }
+            val exitCode = process.waitFor()
+
+            if (exitCode == 0) {
+                println("Command completed successfully.")
+                return output
+
+            } else {
+                println("Command failed with exit code $exitCode.")
+            }
+
+            Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+        } catch (exception: Exception) {
+            println(exception)
+            println("didn't work")
+        }
+
+        return null
+    }
+
+    fun listConfigurationCli(): List<Configuration>? {
         println("running")
         try {
             val processBuilder = ProcessBuilder(
                 PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
                 "configuration",
                 "list",
-                "--output-format=json"
+                "--output-format=json",
+                "--user-agent=flagship-ext-jetbrain/v" + (PluginManagerCore.getPlugin(PluginId.getId("com.github.flagshipio.jetbrain"))?.version
+                    ?: "")
             )
             processBuilder.redirectErrorStream(true)
             val process = processBuilder.start()

@@ -22,10 +22,10 @@ class MyToolWindowFactory : ToolWindowFactory {
         val flagStore = FeatureStore(project)
         val configurationStore = ConfigurationStore(project)
 
-        flagStore.saveFeatureFlag(project)
-        configurationStore.saveConfiguration(project)
+        flagStore.refreshFeatureFlag()
+        configurationStore.refreshConfiguration()
         println(flagStore.getFeatureFlag(project))
-        println(configurationStore.getConfiguration(project))
+        println(configurationStore.getConfigurations(project))
 
         val flagToolWindow = FlagToolWindow.getInstance(project)
         flagToolWindow.initializeConfigurationPanel(toolWindow)

@@ -1,21 +1,38 @@
 package com.github.flagshipio.jetbrain.toolWindow
 
+import com.github.flagshipio.jetbrain.dataClass.Configuration
+import com.github.flagshipio.jetbrain.store.ConfigurationStore
 import com.intellij.openapi.Disposable
+import com.intellij.openapi.fileChooser.FileChooserDescriptor
+import com.intellij.openapi.fileChooser.FileChooserFactory
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.ui.SimpleToolWindowPanel
+import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.ui.JBColor
 import com.intellij.util.ui.JBUI
 import com.jgoodies.forms.layout.FormLayout
+import org.apache.commons.io.IOUtils
 import java.awt.BorderLayout
 import java.awt.Component
 import java.awt.Dimension
 import java.awt.event.ActionEvent
+import java.io.File
+import java.io.IOException
+import java.nio.charset.StandardCharsets
 import javax.swing.*
 import javax.swing.border.LineBorder
 
 
-class ManageConfigurationPanel :
+class ManageConfigurationPanel(
+    project: Project,
+    configurationStore: ConfigurationStore,
+    listConfigPanel: ConfigurationPanel
+) :
     SimpleToolWindowPanel(false, false), Disposable {
-
+    val configurationStoreLocal: ConfigurationStore = configurationStore
+    val listConfigPanelLocal: ConfigurationPanel = listConfigPanel
+    val projectLocal: Project = project
     private fun mainFrame(): JPanel {
         val mainPanel = JPanel();
 
@@ -51,16 +68,6 @@ class ManageConfigurationPanel :
         val fromCredSubPanel = JPanel()
         fromCredPanel.add(fromCredSubPanel, BorderLayout.SOUTH)
 
-
-        val cancelBtn = JButton("Cancel")
-        cancelBtn.addActionListener { e: ActionEvent? ->
-            updateContent(mainFrame())
-        }
-        fromCredSubPanel.add(cancelBtn)
-
-        val saveBtn = JButton("Save")
-        fromCredSubPanel.add(saveBtn)
-
         val addConfigLabel = JLabel("Add configuration")
         addConfigLabel.setBorder(JBUI.Borders.empty(10, 10, 0, 0))
         fromCredPanel.add(addConfigLabel, BorderLayout.NORTH)
@@ -70,7 +77,7 @@ class ManageConfigurationPanel :
         fromCredPanel.add(credFormPanel, BorderLayout.CENTER)
         credFormPanel.setLayout(
             FormLayout(
-                "7dlu center:120px center:260px",
+                "7dlu center:200px center:260px",
                 "25px 15dlu 25px 7dlu 25px 7dlu 25px 7dlu 25px"
             )
         )
@@ -111,14 +118,35 @@ class ManageConfigurationPanel :
         credFormPanel.add(accountIdTextField, "3, 7, fill, default")
         accountIdTextField.setColumns(10)
 
-        val lblNewLabel_1 = JLabel("Account Environment ID")
-        lblNewLabel_1.setBorder(JBUI.Borders.emptyRight(8))
-        credFormPanel.add(lblNewLabel_1, "2, 9, right, default")
+        val accountEnvIdLabel = JLabel("Account Environment ID")
+        accountEnvIdLabel.setBorder(JBUI.Borders.emptyRight(8))
+        credFormPanel.add(accountEnvIdLabel, "2, 9, right, default")
 
-        val textField = JTextField()
-        textField.setBorder(JBUI.Borders.emptyRight(8))
-        credFormPanel.add(textField, "3, 9, fill, default")
-        textField.setColumns(10)
+        val accountEnvIdTextField = JTextField()
+        accountEnvIdTextField.setBorder(JBUI.Borders.emptyRight(8))
+        credFormPanel.add(accountEnvIdTextField, "3, 9, fill, default")
+        accountEnvIdTextField.setColumns(10)
+
+        val cancelBtn = JButton("Cancel")
+        cancelBtn.addActionListener { e: ActionEvent? ->
+            updateContent(mainFrame())
+        }
+        fromCredSubPanel.add(cancelBtn)
+
+        val saveBtn = JButton("Save")
+        fromCredSubPanel.add(saveBtn)
+        saveBtn.addActionListener { e: ActionEvent? ->
+            println(nameTextField.text)
+            val configuration = Configuration(
+                nameTextField.text,
+                clientIdTextField.text,
+                clientSecretTextField.text,
+                accountIdTextField.text,
+                accountEnvIdTextField.text
+            )
+            configurationStoreLocal.saveConfiguration(configuration)
+            listConfigPanelLocal.updateNodeInfo()
+        }
 
         return fromCredPanel
     }
@@ -131,14 +159,15 @@ class ManageConfigurationPanel :
         val cancelSavePanel = JPanel()
         fromFilePanel.add(cancelSavePanel, BorderLayout.SOUTH)
 
-        val fromFilecancelBtn = JButton("Cancel")
-        fromFilecancelBtn.addActionListener { e: ActionEvent? ->
+        val fromFileCancelBtn = JButton("Cancel")
+        fromFileCancelBtn.addActionListener { e: ActionEvent? ->
             updateContent(mainFrame())
         }
-        cancelSavePanel.add(fromFilecancelBtn)
+        cancelSavePanel.add(fromFileCancelBtn)
 
-        val fromFilesaveBtn = JButton("Save")
-        cancelSavePanel.add(fromFilesaveBtn)
+        val fromFileSaveBtn = JButton("Save")
+
+        cancelSavePanel.add(fromFileSaveBtn)
 
         val addConfigLabel = JLabel("Add configuration");
         addConfigLabel.border = JBUI.Borders.empty(10, 10, 0, 0)
@@ -147,24 +176,38 @@ class ManageConfigurationPanel :
         val browserFile = JPanel();
         fromFilePanel.add(browserFile, BorderLayout.CENTER);
 
-
-        val pathToFileLabel = JLabel("/path/to/file.yaml");
+        var pathToFileLabel = JLabel("/path/to/file.yaml");
         pathToFileLabel.border = LineBorder(JBColor.BLACK)
-        pathToFileLabel.preferredSize = Dimension(600, 30)
+        pathToFileLabel.preferredSize = Dimension(900, 30)
 
         browserFile.setLayout(
-            FormLayout(
-                "center:210px center:100px",
-                "center:120px"
-            )
+            BorderLayout(0, 0)
         );
-        pathToFileLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        browserFile.add(pathToFileLabel, "1, 1, center, center");
+        pathToFileLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        browserFile.add(pathToFileLabel, BorderLayout.CENTER)
+
+        var fileChosenPath: String = ""
 
         val browserBtn = JButton("Browser");
-        browserBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        browserBtn.setAlignmentX(Component.RIGHT_ALIGNMENT);
         browserFile.border = JBUI.Borders.empty(10, 40, 0, 0)
-        browserFile.add(browserBtn, "2, 1, center, center");
+        browserFile.add(browserBtn, BorderLayout.EAST);
+
+        browserBtn.addActionListener { e: ActionEvent? ->
+            val openedFilePath = openFileSystem(projectLocal)
+            if (openedFilePath != null) {
+                pathToFileLabel.text = openedFilePath
+                fileChosenPath = openedFilePath
+            }
+        }
+
+        fromFileSaveBtn.addActionListener { e: ActionEvent? ->
+            if (fileChosenPath != "") {
+                val cliResponse = configurationStoreLocal.saveConfigurationFromFile(fileChosenPath)
+                listConfigPanelLocal.updateNodeInfo()
+                Messages.showInfoMessage(cliResponse, "Information")
+            }
+        }
 
         return fromFilePanel
     }
@@ -181,3 +224,51 @@ class ManageConfigurationPanel :
     }
 }
 
+private fun openFileSystem(project: Project): String? {
+    val fileChooserDialog = FileChooserFactory.getInstance().createFileChooser(
+        createFileChooserDescriptor(),
+        project,
+        null
+    )
+    val selectedFiles = fileChooserDialog.choose(project)
+    if (selectedFiles.isEmpty()) {
+        return null
+    }
+    val content = readYmlFileContent(selectedFiles[0])
+    if (content == null) {
+        Messages.showErrorDialog("Failed to read YML file content.", "Error")
+    }
+
+    for (selectedFile in selectedFiles) {
+        val selectedIoFile = File(selectedFile.path)
+
+        if (selectedIoFile.exists() && !selectedIoFile.isDirectory()) {
+            return selectedIoFile.path
+        }
+    }
+
+    return null
+}
+
+private fun createFileChooserDescriptor(): FileChooserDescriptor {
+    val descriptor = FileChooserDescriptor(true, false, false, false, false, false)
+    descriptor.title = "Open File"
+    descriptor.description = "Select a file to open in IntelliJ IDEA"
+    descriptor.withFileFilter {
+        it.isDirectory || it.name.lowercase().endsWith(".yml") || it.name.lowercase()
+            .endsWith(".yaml") || it.name.lowercase().endsWith(".json")
+    }
+    return descriptor
+}
+
+private fun readYmlFileContent(file: VirtualFile): String? {
+    try {
+        val inputStream = file.inputStream
+        val content = IOUtils.toString(inputStream, StandardCharsets.UTF_8)
+        inputStream.close()
+        return content
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
+    return null
+}

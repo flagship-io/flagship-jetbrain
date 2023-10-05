@@ -1,6 +1,7 @@
 package com.github.flagshipio.jetbrain.toolWindow
 
 import com.github.flagshipio.jetbrain.messaging.DefaultMessageBusService
+import com.github.flagshipio.jetbrain.store.ConfigurationStore
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
@@ -13,9 +14,10 @@ import javax.swing.border.Border
 class ConfigurationToolWindow(project: Project) : JPanel() {
     private val messageBus = project.service<DefaultMessageBusService>()
     private val splitter = OnePixelSplitter(true, "FSSplitterProportion", .25f)
+    val configurationStore = ConfigurationStore(project)
 
-    private val manageConfigurationPanel = ManageConfigurationPanel()
     private val listConfigurationPanel = ConfigurationPanel(project, messageBus)
+    private val manageConfigurationPanel = ManageConfigurationPanel(project, configurationStore, listConfigurationPanel)
 
     init {
         val manageConfigurationBorder: Border = BorderFactory.createTitledBorder("Manage configuration")

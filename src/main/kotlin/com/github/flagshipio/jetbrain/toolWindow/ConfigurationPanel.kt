@@ -82,7 +82,7 @@ class RootNode1(private val intProject: Project) :
     private var myChildren: MutableList<SimpleNode> = ArrayList()
 
     override fun getChildren(): Array<SimpleNode> {
-        val configurations_ = ConfigurationStore(intProject).getConfiguration(intProject)
+        val configurations_ = ConfigurationStore(intProject).getConfigurations(intProject)
 
         val configurations = Configurations()
         configurations_.map { configurations.addItemsItem(it) }

@@ -8,25 +8,25 @@ import com.intellij.openapi.project.Project
 class FeatureStore(project: Project) {
 
     private var featureDataService: FeatureDataService
+    private val checkCLI = CheckCLI()
 
     init {
         featureDataService = project.getService(FeatureDataService::class.java)
     }
 
-    fun refreshFeatureFlag(project: Project): List<Feature>? {
-        val checkCLI = CheckCLI(project)
-
-        return checkCLI.listFlagCli(project)
-
-    }
-
-    fun saveFeatureFlag(project: Project) {
-        val features = refreshFeatureFlag(project)
-        // Save or retrieve features from the service
+    fun refreshFeatureFlag(): List<Feature>? {
+        val features = checkCLI.listFlagCli()
 
         if (features != null) {
             featureDataService.saveFeatures(features)
         }
+        return features
+
+    }
+
+    fun saveFeatureFlag(project: Project) {
+        val features = refreshFeatureFlag()
+        // Save or retrieve features from the service
     }
 
     fun getFeatureFlag(project: Project): List<Feature> {

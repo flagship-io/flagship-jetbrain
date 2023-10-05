@@ -8,28 +8,34 @@ import com.intellij.openapi.project.Project
 class ConfigurationStore(project: Project) {
 
     private var configurationDataService: ConfigurationDataService
+    private val checkCLI = CheckCLI()
 
     init {
         configurationDataService = project.getService(ConfigurationDataService::class.java)
     }
 
-    fun refreshConfiguration(project: Project): List<Configuration>? {
-        val checkCLI = CheckCLI(project)
-
-        return checkCLI.listConfigurationCli(project)
-
-    }
-
-    fun saveConfiguration(project: Project) {
-        val configurations = refreshConfiguration(project)
-        // Save or retrieve features from the service
-
-        if (configurations != null) {
-            configurationDataService.saveConfigurations(configurations)
+    fun refreshConfiguration(): List<Configuration>? {
+        val configurationList = checkCLI.listConfigurationCli()
+        if (configurationList != null) {
+            configurationDataService.saveConfigurations(configurationList)
         }
+        return configurationList
+
     }
 
-    fun getConfiguration(project: Project): List<Configuration> {
+    fun saveConfiguration(configuration: Configuration): String? {
+        val cliResponse = checkCLI.addConfigurationCli(configuration)
+        refreshConfiguration()
+        return cliResponse
+    }
+
+    fun saveConfigurationFromFile(filePath: String): String? {
+        val cliResponse = checkCLI.addConfigurationFromFileCli(filePath)
+        refreshConfiguration()
+        return cliResponse
+    }
+
+    fun getConfigurations(project: Project): List<Configuration> {
         return configurationDataService.getConfigurations()
     }
 }
