@@ -8,9 +8,9 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.ui.Messages
 import javax.swing.tree.DefaultMutableTreeNode
 
-class DeleteConfigurationAction : AnAction() {
+class SelectConfigurationAction : AnAction() {
     companion object {
-        const val ID = "com.github.flagshipio.jetbrain.action.DeleteConfigurationAction"
+        const val ID = "com.github.flagshipio.jetbrain.action.SelectConfigurationAction"
     }
 
     override fun actionPerformed(event: AnActionEvent) {
@@ -22,9 +22,9 @@ class DeleteConfigurationAction : AnAction() {
                 val configurationNodeParent = selectedNode.userObject as ConfigurationNodeParent
                 println(configurationNodeParent.name_)
                 println(configurationNodeParent.configuration)
-                configurationStore.deleteConfiguration(configurationNodeParent.configuration)
-                ActionHelpers.getListConfigurationPanel(project).updateNodeInfo()
-                Messages.showMessageDialog("Configuration deleted", "Status", Messages.getInformationIcon())
+                configurationStore.useConfiguration(configurationNodeParent.configuration)
+                ActionHelpers.getListFlagPanel(project).updateNodeInfo()
+                Messages.showMessageDialog("Configuration selected", "Status", Messages.getInformationIcon())
                 return
             } else {
                 selectedNode = selectedNode.parent as? DefaultMutableTreeNode

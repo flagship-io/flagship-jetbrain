@@ -1,8 +1,10 @@
-package com.github.flagshipio.jetbrain.toolWindow
+package com.github.flagshipio.jetbrain.toolWindow.configuration
 
 import com.github.flagshipio.jetbrain.action.DeleteConfigurationAction
+import com.github.flagshipio.jetbrain.action.SelectConfigurationAction
 import com.github.flagshipio.jetbrain.dataClass.Configuration
 import com.github.flagshipio.jetbrain.store.ConfigurationStore
+import com.github.flagshipio.jetbrain.toolWindow.*
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.actionSystem.ActionManager
@@ -24,6 +26,7 @@ import com.intellij.ui.treeStructure.Tree
 import com.intellij.util.ui.tree.TreeUtil
 import java.awt.CardLayout
 import java.math.BigDecimal
+import javax.swing.JPanel
 import javax.swing.tree.TreeSelectionModel
 
 /*
@@ -110,7 +113,7 @@ class ConfigurationListPanel(private val myProject: Project) :
     lateinit var tree: Tree
 
     private fun createTreeStructure(): SimpleTreeStructure {
-        return FlagTreeStructure(root)
+        return NodeTreeStructure(root)
     }
 
     override fun dispose() {}
@@ -118,7 +121,7 @@ class ConfigurationListPanel(private val myProject: Project) :
     private fun initTree(model: AsyncTreeModel): Tree {
         tree = Tree(model)
         tree.isRootVisible = false
-        FlagTreeSearch(tree)
+        NodeTreeSearch(tree)
         TreeUtil.installActions(tree)
         tree.selectionModel.selectionMode = TreeSelectionModel.SINGLE_TREE_SELECTION
 
@@ -139,24 +142,26 @@ class ConfigurationListPanel(private val myProject: Project) :
 
         val componentsSplitter = OnePixelSplitter(SPLITTER_PROPERTY, 0.33f)
         componentsSplitter.setHonorComponentsMinimumSize(true)
-        componentsSplitter.firstComponent = JBPanel<BasePanel>(CardLayout()).apply {
+        componentsSplitter.firstComponent = JPanel(CardLayout()).apply {
             add(ScrollPaneFactory.createScrollPane(tree, SideBorder.NONE), "Tree")
         }
         setContent(componentsSplitter)
         return tree
     }
 
-    fun actions(tree: Tree) {
+    private fun actions(tree: Tree) {
         val actionManager: ActionManager = ActionManager.getInstance()
         val actionGroup = DefaultActionGroup()
         val actionPopup = DefaultActionGroup()
         val actionToolbar: ActionToolbar = actionManager.createActionToolbar("ACTION_TOOLBAR", actionGroup, true)
         toolbar = actionToolbar.component
         val deleteConfigurationAction = actionManager.getAction(DeleteConfigurationAction.ID)
+        val selectConfigurationAction = actionManager.getAction(SelectConfigurationAction.ID)
         actionToolbar.targetComponent = this
         PopupHandler.installPopupMenu(
             tree,
             actionPopup.apply {
+                add(selectConfigurationAction)
                 add(deleteConfigurationAction)
             },
             ActionPlaces.POPUP
@@ -164,13 +169,7 @@ class ConfigurationListPanel(private val myProject: Project) :
     }
 
     init {
-
         tree = start()
         actions(tree)
-
-        var start = false
-        if (!this::tree.isInitialized) {
-            start = true
-        }
     }
 }

@@ -1,10 +1,11 @@
-package com.github.flagshipio.jetbrain.toolWindow
+package com.github.flagshipio.jetbrain.toolWindow.linkflag
 
 import com.github.flagshipio.jetbrain.action.CopyKeyAction
-import com.github.flagshipio.jetbrain.dataClass.Feature
+import com.github.flagshipio.jetbrain.dataClass.Flag
 import com.github.flagshipio.jetbrain.messaging.FlagNotifier
 import com.github.flagshipio.jetbrain.messaging.MessageBusService
-import com.github.flagshipio.jetbrain.store.FeatureStore
+import com.github.flagshipio.jetbrain.store.FlagStore
+import com.github.flagshipio.jetbrain.toolWindow.*
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationType
@@ -19,7 +20,6 @@ import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.PopupHandler
 import com.intellij.ui.ScrollPaneFactory
 import com.intellij.ui.SideBorder
-import com.intellij.ui.components.JBPanel
 import com.intellij.ui.tree.AsyncTreeModel
 import com.intellij.ui.tree.StructureTreeModel
 import com.intellij.ui.treeStructure.SimpleNode
@@ -29,6 +29,7 @@ import com.intellij.util.ui.UIUtil.invokeLaterIfNeeded
 import com.intellij.util.ui.tree.TreeUtil
 import java.awt.CardLayout
 import java.math.BigDecimal
+import javax.swing.JPanel
 import javax.swing.tree.TreeSelectionModel
 
 /*
@@ -38,9 +39,9 @@ import javax.swing.tree.TreeSelectionModel
 private const val SPLITTER_PROPERTY = "BuildAttribution.Splitter.Proportion"
 
 
-class Features {
+class Flags {
 
-    var items: MutableList<Feature>? = null
+    var items: MutableList<Flag>? = null
 
     /**
      * Get totalCount
@@ -51,12 +52,12 @@ class Features {
     var totalCount: BigDecimal? = null
 
 
-    fun items(items: MutableList<Feature>?): Features {
+    fun items(items: MutableList<Flag>?): Flags {
         this.items = items
         return this
     }
 
-    fun addItemsItem(itemsItem: Feature): Features {
+    fun addItemsItem(itemsItem: Flag): Flags {
         if (items == null) {
             items = ArrayList()
         }
@@ -70,7 +71,7 @@ class Features {
      */
 
 
-    fun totalCount(totalCount: BigDecimal?): Features {
+    fun totalCount(totalCount: BigDecimal?): Flags {
         this.totalCount = totalCount
         return this
     }
@@ -83,12 +84,9 @@ class RootNode(private val intProject: Project) :
     private var myChildren: MutableList<SimpleNode> = ArrayList()
 
     override fun getChildren(): Array<SimpleNode> {
-        val flags_ = FeatureStore(intProject).getFeatureFlag(intProject)
+        val flags_ = FlagStore(intProject).getFlag()
 
-        //val flag1 = Feature("1", "flag1", "string", "flag1 desc", "cli", "1");
-        //val flag2 = Feature("2", "flag2", "string", "flag2 desc", "cli", "2");
-
-        val flags = Features()
+        val flags = Flags()
         flags_.map { flags.addItemsItem(it) }
 
         when {
@@ -111,7 +109,7 @@ class RootNode(private val intProject: Project) :
     }
 }
 
-class FlagPanel(private val myProject: Project, messageBusService: MessageBusService) :
+class FlagListPanel(private val myProject: Project, messageBusService: MessageBusService) :
     SimpleToolWindowPanel(false, false), Disposable {
     private var root = RootNode(myProject)
     private var treeStructure = createTreeStructure()
@@ -119,7 +117,7 @@ class FlagPanel(private val myProject: Project, messageBusService: MessageBusSer
     lateinit var tree: Tree
 
     private fun createTreeStructure(): SimpleTreeStructure {
-        return FlagTreeStructure(root)
+        return NodeTreeStructure(root)
     }
 
     override fun dispose() {}
@@ -127,7 +125,7 @@ class FlagPanel(private val myProject: Project, messageBusService: MessageBusSer
     private fun initTree(model: AsyncTreeModel): Tree {
         tree = Tree(model)
         tree.isRootVisible = false
-        FlagTreeSearch(tree)
+        NodeTreeSearch(tree)
         TreeUtil.installActions(tree)
         tree.selectionModel.selectionMode = TreeSelectionModel.SINGLE_TREE_SELECTION
 
@@ -148,7 +146,7 @@ class FlagPanel(private val myProject: Project, messageBusService: MessageBusSer
 
         val componentsSplitter = OnePixelSplitter(SPLITTER_PROPERTY, 0.33f)
         componentsSplitter.setHonorComponentsMinimumSize(true)
-        componentsSplitter.firstComponent = JBPanel<BasePanel>(CardLayout()).apply {
+        componentsSplitter.firstComponent = JPanel(CardLayout()).apply {
             add(ScrollPaneFactory.createScrollPane(tree, SideBorder.NONE), "Tree")
         }
         setContent(componentsSplitter)

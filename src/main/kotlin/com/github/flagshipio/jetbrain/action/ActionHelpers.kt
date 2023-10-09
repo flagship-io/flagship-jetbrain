@@ -1,18 +1,29 @@
 package com.github.flagshipio.jetbrain.action
 
-import com.github.flagshipio.jetbrain.toolWindow.FlagToolWindow
+import com.github.flagshipio.jetbrain.toolWindow.configuration.ConfigurationListPanel
+import com.github.flagshipio.jetbrain.toolWindow.linkflag.FlagPanel
+import com.github.flagshipio.jetbrain.toolWindow.ApplicationToolWindow
+import com.github.flagshipio.jetbrain.toolWindow.linkflag.FlagListPanel
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import javax.swing.tree.DefaultMutableTreeNode
 
 object ActionHelpers {
     fun getLastSelectedDefaultMutableListFlagTreeNode(project: Project): DefaultMutableTreeNode? {
-        return project.service<FlagToolWindow>().getBasePanel()
-            .getFlagPanel().tree.lastSelectedPathComponent as? DefaultMutableTreeNode
+        return project.service<ApplicationToolWindow>().getFlagPanel()
+            .getFlagListPanel().tree.lastSelectedPathComponent as? DefaultMutableTreeNode
     }
 
     fun getLastSelectedDefaultMutableListConfigurationTreeNode(project: Project): DefaultMutableTreeNode? {
-        return project.service<FlagToolWindow>().getConfigurationPanel().getListConfigurationPanel()
+        return project.service<ApplicationToolWindow>().getConfigurationPanel().getListConfigurationPanel()
             .tree.lastSelectedPathComponent as? DefaultMutableTreeNode
+    }
+
+    fun getListConfigurationPanel(project: Project): ConfigurationListPanel {
+        return project.service<ApplicationToolWindow>().getConfigurationPanel().getListConfigurationPanel()
+    }
+
+    fun getListFlagPanel(project: Project): FlagListPanel {
+        return project.service<ApplicationToolWindow>().getFlagPanel().getFlagListPanel()
     }
 }

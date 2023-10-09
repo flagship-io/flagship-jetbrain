@@ -1,5 +1,8 @@
 package com.github.flagshipio.jetbrain.toolWindow
 
+import com.github.flagshipio.jetbrain.toolWindow.configuration.ConfigurationPanel
+import com.github.flagshipio.jetbrain.toolWindow.linkflag.FlagPanel
+import com.github.flagshipio.jetbrain.toolWindow.goaltargeting.GoalTargetingPanel
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.project.DumbAware
@@ -9,15 +12,15 @@ import com.intellij.ui.content.Content
 import com.intellij.ui.content.ContentFactory
 
 @Service(Service.Level.PROJECT)
-class FlagToolWindow(project: Project) : DumbAware, Disposable {
-    private val basePanel: BasePanel = BasePanel(project)
+class ApplicationToolWindow(project: Project) : DumbAware, Disposable {
+    private val FlagPanel: FlagPanel = FlagPanel(project)
     private val goalTargetingPanel: GoalTargetingPanel = GoalTargetingPanel(project)
     private val configurationPanel: ConfigurationPanel = ConfigurationPanel(project)
     fun initializeBasePanel(toolWindow: ToolWindow) {
         val contentFactory = ContentFactory.getInstance()
 
         val content: Content = contentFactory.createContent(null, "Quick & Feature Flag", false)
-        content.component = basePanel
+        content.component = FlagPanel
 
         toolWindow.contentManager.addContent(content)
 
@@ -41,8 +44,8 @@ class FlagToolWindow(project: Project) : DumbAware, Disposable {
         toolWindow.contentManager.addContent(contentConfiguration)
     }
 
-    fun getBasePanel(): BasePanel {
-        return basePanel
+    fun getFlagPanel(): FlagPanel {
+        return FlagPanel
     }
 
     fun getConfigurationPanel(): ConfigurationPanel {
@@ -54,8 +57,8 @@ class FlagToolWindow(project: Project) : DumbAware, Disposable {
     }
 
     companion object {
-        fun getInstance(project: Project): FlagToolWindow =
-            project.getService(FlagToolWindow::class.java)
+        fun getInstance(project: Project): ApplicationToolWindow =
+            project.getService(ApplicationToolWindow::class.java)
     }
 
     override fun dispose() {}

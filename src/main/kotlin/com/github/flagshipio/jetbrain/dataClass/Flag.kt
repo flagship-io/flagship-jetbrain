@@ -2,7 +2,7 @@ package com.github.flagshipio.jetbrain.dataClass
 
 import com.google.gson.annotations.SerializedName
 
-data class Feature(
+data class Flag(
     var id: String?,
     var name: String?,
     var type: String?,

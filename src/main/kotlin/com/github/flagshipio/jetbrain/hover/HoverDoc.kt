@@ -1,7 +1,7 @@
 package com.github.flagshipio.jetbrain.hover
 
-import com.github.flagshipio.jetbrain.dataClass.Feature
-import com.github.flagshipio.jetbrain.store.FeatureStore
+import com.github.flagshipio.jetbrain.dataClass.Flag
+import com.github.flagshipio.jetbrain.store.FlagStore
 import com.intellij.lang.Language
 import com.intellij.lang.documentation.AbstractDocumentationProvider
 import com.intellij.openapi.editor.Editor
@@ -16,9 +16,9 @@ import java.io.StringWriter
 
 class HoverDoc : AbstractDocumentationProvider() {
 
-    private fun getFlag(contextElement: PsiElement): Feature? {
-        val flagStore = FeatureStore(contextElement.project)
-        val flags = flagStore.getFeatureFlag(contextElement.project)
+    private fun getFlag(contextElement: PsiElement): Flag? {
+        val flagStore = FlagStore(contextElement.project)
+        val flags = flagStore.getFlag()
         // flags.items can be null if the IDE is not ready during startup
 
         return flags.find { contextElement.text.contains(it?.name.toString()) }

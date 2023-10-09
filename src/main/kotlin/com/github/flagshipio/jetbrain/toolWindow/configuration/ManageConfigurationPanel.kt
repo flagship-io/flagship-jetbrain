@@ -1,4 +1,4 @@
-package com.github.flagshipio.jetbrain.toolWindow
+package com.github.flagshipio.jetbrain.toolWindow.configuration
 
 import com.github.flagshipio.jetbrain.dataClass.Configuration
 import com.github.flagshipio.jetbrain.store.ConfigurationStore
@@ -14,7 +14,6 @@ import com.intellij.util.ui.JBUI
 import com.jgoodies.forms.layout.FormLayout
 import org.apache.commons.io.IOUtils
 import java.awt.BorderLayout
-import java.awt.Component
 import java.awt.Dimension
 import java.awt.event.ActionEvent
 import java.io.File
@@ -22,7 +21,6 @@ import java.io.IOException
 import java.nio.charset.StandardCharsets
 import javax.swing.*
 import javax.swing.border.LineBorder
-
 
 class ManageConfigurationPanel(
     project: Project,
@@ -48,14 +46,14 @@ class ManageConfigurationPanel(
         mainPanel.setLayout(
             BoxLayout(mainPanel, BoxLayout.X_AXIS)
         );
-        fromCredBtn.setAlignmentX(Component.CENTER_ALIGNMENT)
+        fromCredBtn.setAlignmentX(CENTER_ALIGNMENT)
         mainPanel.add(fromCredBtn);
 
         val fromFileBtn = JButton("From file");
         fromFileBtn.addActionListener { e: ActionEvent? ->
             updateContent(fromFileFrame())
         }
-        fromFileBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        fromFileBtn.setAlignmentX(CENTER_ALIGNMENT);
         mainPanel.add(fromFileBtn);
 
         return mainPanel
@@ -182,13 +180,13 @@ class ManageConfigurationPanel(
         browserFile.setLayout(
             BorderLayout(0, 0)
         );
-        pathToFileLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        pathToFileLabel.setAlignmentX(LEFT_ALIGNMENT);
         browserFile.add(pathToFileLabel, BorderLayout.CENTER)
 
         var fileChosenPath: String = ""
 
         val browserBtn = JButton("Browser");
-        browserBtn.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        browserBtn.setAlignmentX(RIGHT_ALIGNMENT);
         browserFile.border = JBUI.Borders.empty(10, 40, 0, 0)
         browserFile.add(browserBtn, BorderLayout.EAST);
 

@@ -9,6 +9,7 @@ class ConfigurationStore(project: Project) {
 
     private var configurationDataService: ConfigurationDataService
     private val checkCLI = CheckCLI()
+    private val flagStore = FlagStore(project)
 
     init {
         configurationDataService = project.getService(ConfigurationDataService::class.java)
@@ -40,6 +41,16 @@ class ConfigurationStore(project: Project) {
             }
         }
         return cliResponse
+    }
+
+    fun useConfiguration(configuration: Configuration): Boolean {
+        val cliResponse = configuration.name?.let { checkCLI.useConfigurationCli(it) }
+        if (cliResponse != null) {
+            if (cliResponse.contains("selected successfully", true)) {
+                flagStore.refreshFlag()
+            }
+        }
+        return false
     }
 
     fun saveConfigurationFromFile(filePath: String): String? {

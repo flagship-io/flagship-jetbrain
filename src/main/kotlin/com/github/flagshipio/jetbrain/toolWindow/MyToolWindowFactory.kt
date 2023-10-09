@@ -2,7 +2,7 @@ package com.github.flagshipio.jetbrain.toolWindow
 
 import com.github.flagshipio.jetbrain.cli.Cli
 import com.github.flagshipio.jetbrain.store.ConfigurationStore
-import com.github.flagshipio.jetbrain.store.FeatureStore
+import com.github.flagshipio.jetbrain.store.FlagStore
 import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.ToolWindow
@@ -19,16 +19,16 @@ class MyToolWindowFactory : ToolWindowFactory {
     }
 
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
-        val flagStore = FeatureStore(project)
+        val flagStore = FlagStore(project)
         val configurationStore = ConfigurationStore(project)
 
-        flagStore.refreshFeatureFlag()
+        flagStore.refreshFlag()
         configurationStore.refreshConfiguration()
 
-        val flagToolWindow = FlagToolWindow.getInstance(project)
-        flagToolWindow.initializeConfigurationPanel(toolWindow)
-        flagToolWindow.initializeBasePanel(toolWindow)
-        flagToolWindow.initializeGoalTargetingPanel(toolWindow)
+        val applicationToolWindow = ApplicationToolWindow.getInstance(project)
+        applicationToolWindow.initializeConfigurationPanel(toolWindow)
+        applicationToolWindow.initializeBasePanel(toolWindow)
+        applicationToolWindow.initializeGoalTargetingPanel(toolWindow)
     }
 
     override fun shouldBeAvailable(project: Project) = true

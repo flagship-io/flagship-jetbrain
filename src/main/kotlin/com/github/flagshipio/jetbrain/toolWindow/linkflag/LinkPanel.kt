@@ -1,5 +1,7 @@
-package com.github.flagshipio.jetbrain.toolWindow
+package com.github.flagshipio.jetbrain.toolWindow.linkflag
 
+import com.github.flagshipio.jetbrain.toolWindow.NodeTreeSearch
+import com.github.flagshipio.jetbrain.toolWindow.NodeTreeStructure
 import com.intellij.ide.browsers.BrowserLauncher
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.project.Project
@@ -7,7 +9,6 @@ import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.ScrollPaneFactory
 import com.intellij.ui.SideBorder
-import com.intellij.ui.components.JBPanel
 import com.intellij.ui.tree.AsyncTreeModel
 import com.intellij.ui.tree.StructureTreeModel
 import com.intellij.ui.treeStructure.SimpleTreeStructure
@@ -17,6 +18,7 @@ import java.awt.CardLayout
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import java.awt.event.MouseEvent.BUTTON1
+import javax.swing.JPanel
 import javax.swing.tree.DefaultMutableTreeNode
 import javax.swing.tree.TreeSelectionModel
 
@@ -33,7 +35,7 @@ class LinkPanel(private val myProject: Project) :
     lateinit var tree: Tree
 
     private fun createTreeStructure(): SimpleTreeStructure {
-        return FlagTreeStructure(root)
+        return NodeTreeStructure(root)
     }
 
     override fun dispose() {}
@@ -41,7 +43,7 @@ class LinkPanel(private val myProject: Project) :
     private fun initTree(model: AsyncTreeModel): Tree {
         tree = Tree(model)
         tree.isRootVisible = false
-        FlagTreeSearch(tree)
+        NodeTreeSearch(tree)
         TreeUtil.installActions(tree)
         tree.selectionModel.selectionMode = TreeSelectionModel.SINGLE_TREE_SELECTION
 
@@ -54,7 +56,7 @@ class LinkPanel(private val myProject: Project) :
 
         val componentsSplitter = OnePixelSplitter("BuildAttribution.Splitter.Proportion", 0.33f)
         componentsSplitter.setHonorComponentsMinimumSize(true)
-        componentsSplitter.firstComponent = JBPanel<BasePanel>(CardLayout()).apply {
+        componentsSplitter.firstComponent = JPanel(CardLayout()).apply {
             add(ScrollPaneFactory.createScrollPane(tree, SideBorder.NONE), "Tree")
         }
         setContent(componentsSplitter)

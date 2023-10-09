@@ -1,5 +1,6 @@
-package com.github.flagshipio.jetbrain.toolWindow
+package com.github.flagshipio.jetbrain.toolWindow.configuration
 
+import com.github.flagshipio.jetbrain.toolWindow.NodeBase
 import com.intellij.icons.AllIcons.Debugger
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.ui.treeStructure.SimpleNode

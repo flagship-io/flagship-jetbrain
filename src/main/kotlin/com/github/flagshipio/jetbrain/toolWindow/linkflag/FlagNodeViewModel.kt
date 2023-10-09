@@ -1,9 +1,9 @@
-package com.github.flagshipio.jetbrain.toolWindow
+package com.github.flagshipio.jetbrain.toolWindow.linkflag
 
-import com.github.flagshipio.jetbrain.dataClass.Feature
+import com.github.flagshipio.jetbrain.dataClass.Flag
 
 class FlagNodeViewModel(
-    val flag: Feature,
+    val flag: Flag,
 ) {
     val flagDescription = flag.description
     val hasDescription = flag.description != ""

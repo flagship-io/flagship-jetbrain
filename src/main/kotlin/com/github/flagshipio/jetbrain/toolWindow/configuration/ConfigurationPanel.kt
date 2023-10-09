@@ -1,4 +1,4 @@
-package com.github.flagshipio.jetbrain.toolWindow
+package com.github.flagshipio.jetbrain.toolWindow.configuration
 
 import com.github.flagshipio.jetbrain.messaging.DefaultMessageBusService
 import com.github.flagshipio.jetbrain.store.ConfigurationStore

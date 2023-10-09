@@ -1,13 +1,14 @@
 package com.github.flagshipio.jetbrain.action
 
-import com.github.flagshipio.jetbrain.toolWindow.FlagNodeParent
-import com.github.flagshipio.jetbrain.toolWindow.KEY_PREFIX
+import com.github.flagshipio.jetbrain.toolWindow.linkflag.FlagNodeParent
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import java.awt.Toolkit
 import java.awt.datatransfer.Clipboard
 import java.awt.datatransfer.StringSelection
 import javax.swing.tree.DefaultMutableTreeNode
+
+const val KEY_PREFIX = "Key:"
 
 class CopyKeyAction : AnAction() {
     companion object {
@@ -16,7 +17,7 @@ class CopyKeyAction : AnAction() {
 
     override fun actionPerformed(event: AnActionEvent) {
         val project = event.project ?: return
-        var selectedNode = ActionHelpers.getLastSelectedDefaultMutableTreeNode(project)
+        var selectedNode = ActionHelpers.getLastSelectedDefaultMutableListFlagTreeNode(project)
         while (selectedNode != null) {
             if (selectedNode.userObject is FlagNodeParent) {
                 val flagNodeParent = selectedNode.userObject as FlagNodeParent
@@ -32,7 +33,7 @@ class CopyKeyAction : AnAction() {
     override fun update(e: AnActionEvent) {
         super.update(e)
         val project = e.project
-        val selectedNode = ActionHelpers.getLastSelectedDefaultMutableTreeNode(project!!)
+        val selectedNode = ActionHelpers.getLastSelectedDefaultMutableListFlagTreeNode(project!!)
         val isFlagParentNode = selectedNode!!.userObject is FlagNodeParent
         val hasKeyPrefix = selectedNode.toString().startsWith(KEY_PREFIX)
 

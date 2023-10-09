@@ -1,31 +1,34 @@
-package com.github.flagshipio.jetbrain.toolWindow
+package com.github.flagshipio.jetbrain.toolWindow.goaltargeting
 
 import com.github.flagshipio.jetbrain.messaging.DefaultMessageBusService
+import com.github.flagshipio.jetbrain.toolWindow.linkflag.FlagListPanel
+import com.github.flagshipio.jetbrain.toolWindow.linkflag.FlagPanel
+import com.github.flagshipio.jetbrain.toolWindow.linkflag.LinkPanel
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
-import com.intellij.ui.components.JBPanel
+
 import java.awt.BorderLayout
 import javax.swing.BorderFactory
+import javax.swing.JPanel
 import javax.swing.border.Border
 
 
-class BasePanel(project: Project) : JBPanel<BasePanel>(null) {
+class GoalTargetingPanel(project: Project) : JPanel() {
     private val messageBus = project.service<DefaultMessageBusService>()
     private val splitter = OnePixelSplitter(true, "LDSplitterProportion", .25f)
     private val linkPanel = LinkPanel(project)
-    private val flagPanel = FlagPanel(project, messageBus)
+    private val flagPanel = FlagListPanel(project, messageBus)
 
     init {
+        val goalTitle: Border = BorderFactory.createTitledBorder("Goal")
+        val targetingTitle: Border = BorderFactory.createTitledBorder("Targeting")
 
-        val quickLinksTitle: Border = BorderFactory.createTitledBorder("Quick Links")
-        val flagsTitle: Border = BorderFactory.createTitledBorder("Feature Flags")
-
-        linkPanel.border = quickLinksTitle
-        flagPanel.border = flagsTitle
+        linkPanel.border = goalTitle
+        flagPanel.border = targetingTitle
         layout = BorderLayout(0, 0)
         splitter.apply {
-            setResizeEnabled(true)
+            setResizeEnabled(false)
             firstComponent = linkPanel
             secondComponent = flagPanel
 
@@ -33,8 +36,5 @@ class BasePanel(project: Project) : JBPanel<BasePanel>(null) {
         add(splitter, BorderLayout.CENTER)
     }
 
-    fun getFlagPanel(): FlagPanel {
-        return flagPanel
-    }
 
 }
