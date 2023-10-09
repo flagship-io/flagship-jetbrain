@@ -26,6 +26,9 @@
         <action class="com.github.flagshipio.jetbrain.action.CopyKeyAction"
                 id="com.github.flagshipio.jetbrain.action.CopyKeyAction" text="Copy Flag Key"
                 description="Copy flag key to clipboard" icon="AllIcons.Actions.Copy"/>
+        <action class="com.github.flagshipio.jetbrain.action.DeleteConfigurationAction"
+                id="com.github.flagshipio.jetbrain.action.DeleteConfigurationAction" text="Copy Configuration Name"
+                description="Copy Configuration Name to clipboard" icon="AllIcons.Actions.Copy"/>
         <action class="com.github.flagshipio.jetbrain.action.CreateCredentialPanel"
                 id="com.github.flagshipio.jetbrain.action.CreateCredentialPanel" text="Create Configuration"
                 icon="/icons/logo.svg">

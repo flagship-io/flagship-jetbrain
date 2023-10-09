@@ -17,15 +17,28 @@ class ConfigurationStore(project: Project) {
     fun refreshConfiguration(): List<Configuration>? {
         val configurationList = checkCLI.listConfigurationCli()
         if (configurationList != null) {
-            configurationDataService.saveConfigurations(configurationList)
+            configurationDataService.loadState(configurationList)
         }
         return configurationList
-
     }
 
     fun saveConfiguration(configuration: Configuration): String? {
         val cliResponse = checkCLI.addConfigurationCli(configuration)
-        refreshConfiguration()
+        if (cliResponse != null) {
+            if (cliResponse.contains("created successfully", true)) {
+                configurationDataService.saveConfiguration(configuration)
+            }
+        }
+        return cliResponse
+    }
+
+    fun deleteConfiguration(configuration: Configuration): String? {
+        val cliResponse = configuration.name?.let { checkCLI.deleteConfigurationCli(it) }
+        if (cliResponse != null) {
+            if (cliResponse.contains("deleted successfully", true)) {
+                configurationDataService.deleteConfiguration(configuration)
+            }
+        }
         return cliResponse
     }
 
@@ -35,7 +48,7 @@ class ConfigurationStore(project: Project) {
         return cliResponse
     }
 
-    fun getConfigurations(project: Project): List<Configuration> {
-        return configurationDataService.getConfigurations()
+    fun getConfigurations(): List<Configuration> {
+        return configurationDataService.state
     }
 }

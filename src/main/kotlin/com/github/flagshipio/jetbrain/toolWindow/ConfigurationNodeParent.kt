@@ -4,11 +4,12 @@ import com.intellij.icons.AllIcons.Debugger
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.ui.treeStructure.SimpleNode
 
-const val KEY_PREFIX_1 = "name:"
+const val NAME_PREFIX = "Name:"
 
 class ConfigurationNodeParent(private var viewModel: ConfigurationNodeViewModel) : SimpleNode() {
     private var children: MutableList<SimpleNode> = ArrayList()
     val configuration get() = viewModel.configuration
+    val name_: String? get() = viewModel.configuration.name
 
     override fun getChildren(): Array<SimpleNode> {
         if (children.isEmpty()) {
@@ -25,7 +26,7 @@ class ConfigurationNodeParent(private var viewModel: ConfigurationNodeViewModel)
     }
 
     private fun buildChildren() {
-        children.add(NodeBase("Name: ${viewModel.configName}", Debugger.Db_muted_breakpoint))
+        children.add(NodeBase("$NAME_PREFIX ${viewModel.configName}", Debugger.Db_muted_breakpoint))
         children.add(NodeBase("Client ID:  ${viewModel.configClientID}", Debugger.Db_muted_breakpoint))
         children.add(NodeBase("Client Secret: ${viewModel.configClientSecret}", Debugger.Db_muted_breakpoint))
         children.add(NodeBase("Account ID: ${viewModel.configAccountID}", Debugger.Db_muted_breakpoint))

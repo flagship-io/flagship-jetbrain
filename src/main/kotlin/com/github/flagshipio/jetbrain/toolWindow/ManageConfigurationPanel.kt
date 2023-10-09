@@ -27,12 +27,12 @@ import javax.swing.border.LineBorder
 class ManageConfigurationPanel(
     project: Project,
     configurationStore: ConfigurationStore,
-    listConfigPanel: ConfigurationPanel
+    listConfigPanel: ConfigurationListPanel
 ) :
     SimpleToolWindowPanel(false, false), Disposable {
-    val configurationStoreLocal: ConfigurationStore = configurationStore
-    val listConfigPanelLocal: ConfigurationPanel = listConfigPanel
-    val projectLocal: Project = project
+    private val configurationStoreLocal: ConfigurationStore = configurationStore
+    private val listConfigPanelLocal: ConfigurationListPanel = listConfigPanel
+    private val projectLocal: Project = project
     private fun mainFrame(): JPanel {
         val mainPanel = JPanel();
 
@@ -136,7 +136,6 @@ class ManageConfigurationPanel(
         val saveBtn = JButton("Save")
         fromCredSubPanel.add(saveBtn)
         saveBtn.addActionListener { e: ActionEvent? ->
-            println(nameTextField.text)
             val configuration = Configuration(
                 nameTextField.text,
                 clientIdTextField.text,

@@ -18,11 +18,13 @@ class ConfigurationDataService : PersistentStateComponent<List<Configuration>> {
         configurationList = state
     }
 
-    fun saveConfigurations(features: List<Configuration>) {
-        configurationList = features
+    fun saveConfiguration(configuration: Configuration) {
+        val newConfigurations = state.plus(configuration)
+        loadState(newConfigurations)
     }
 
-    fun getConfigurations(): List<Configuration> {
-        return configurationList
+    fun deleteConfiguration(configuration: Configuration) {
+        val newConfigurations = state.minus(configuration)
+        loadState(newConfigurations)
     }
 }

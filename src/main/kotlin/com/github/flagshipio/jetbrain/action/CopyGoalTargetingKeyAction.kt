@@ -1,7 +1,6 @@
 package com.github.flagshipio.jetbrain.action
 
 import com.github.flagshipio.jetbrain.toolWindow.FlagNodeParent
-import com.github.flagshipio.jetbrain.toolWindow.KEY_PREFIX
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import java.awt.Toolkit
@@ -16,7 +15,7 @@ class CopyGoalTargetingKeyAction : AnAction() {
 
     override fun actionPerformed(event: AnActionEvent) {
         val project = event.project ?: return
-        var selectedNode = ActionHelpers.getLastSelectedDefaultMutableTreeNode1(project)
+        var selectedNode = ActionHelpers.getLastSelectedDefaultMutableListFlagTreeNode(project)
         while (selectedNode != null) {
             if (selectedNode.userObject is FlagNodeParent) {
                 val flagNodeParent = selectedNode.userObject as FlagNodeParent
@@ -30,12 +29,6 @@ class CopyGoalTargetingKeyAction : AnAction() {
     }
 
     override fun update(e: AnActionEvent) {
-        super.update(e)
-        val project = e.project
-        val selectedNode = ActionHelpers.getLastSelectedDefaultMutableTreeNode1(project!!)
-        val isFlagParentNode = selectedNode!!.userObject is FlagNodeParent
-        val hasKeyPrefix = selectedNode.toString().startsWith(KEY_PREFIX)
 
-        e.presentation.isEnabledAndVisible = e.presentation.isEnabled && (hasKeyPrefix || isFlagParentNode)
     }
 }

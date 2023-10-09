@@ -13,6 +13,7 @@ import java.io.File
 @Service(Service.Level.PROJECT)
 class CheckCLI() {
     val cli = Cli()
+    val gson = Gson()
 
 
     fun runCli(project: Project) {
@@ -59,7 +60,6 @@ class CheckCLI() {
             )
             processBuilder.redirectErrorStream(true)
             val process = processBuilder.start()
-            val gson = Gson()
 
             val output = process.inputStream.bufferedReader().use { it.readText() }
             val exitCode = process.waitFor()
@@ -105,7 +105,6 @@ class CheckCLI() {
 
             if (exitCode == 0) {
                 println("Command completed successfully.")
-
                 return output
 
             } else {
@@ -168,7 +167,6 @@ class CheckCLI() {
             )
             processBuilder.redirectErrorStream(true)
             val process = processBuilder.start()
-            val gson = Gson()
 
             val output = process.inputStream.bufferedReader().use { it.readText() }
             val exitCode = process.waitFor()
@@ -190,6 +188,41 @@ class CheckCLI() {
 
         return null
     }
+
+    fun deleteConfigurationCli(configurationName: String): String? {
+        println("running")
+        try {
+            val processBuilder = ProcessBuilder(
+                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
+                "configuration",
+                "delete",
+                "-n=$configurationName",
+                "--user-agent=flagship-ext-jetbrain/v" + (PluginManagerCore.getPlugin(PluginId.getId("com.github.flagshipio.jetbrain"))?.version
+                    ?: "")
+            )
+            processBuilder.redirectErrorStream(true)
+            val process = processBuilder.start()
+
+            val output = process.inputStream.bufferedReader().use { it.readText() }
+            val exitCode = process.waitFor()
+
+            if (exitCode == 0) {
+                println("Command completed successfully.")
+                return output
+
+            } else {
+                println("Command failed with exit code $exitCode.")
+            }
+
+            Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+        } catch (exception: Exception) {
+            println(exception)
+            println("didn't work")
+        }
+
+        return null
+    }
+
 
     fun checkCli(): Boolean {
         val pluginPath = File("${cli.cliPath}${cli.cliVersion}")
