@@ -23,6 +23,13 @@ class ConfigurationDataService : PersistentStateComponent<List<Configuration>> {
         loadState(newConfigurations)
     }
 
+    fun editConfiguration(configuration: Configuration, newConfiguration: Configuration) {
+        val oldConfigurations = state.minus(configuration)
+        val newConfigurations = oldConfigurations.plus(newConfiguration)
+
+        loadState(newConfigurations)
+    }
+
     fun deleteConfiguration(configuration: Configuration) {
         val newConfigurations = state.minus(configuration)
         loadState(newConfigurations)

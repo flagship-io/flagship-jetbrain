@@ -1,6 +1,7 @@
 package com.github.flagshipio.jetbrain.toolWindow.configuration
 
 import com.github.flagshipio.jetbrain.dataClass.Configuration
+import com.github.flagshipio.jetbrain.dialog.EditConfigurationDialog
 import com.github.flagshipio.jetbrain.store.ConfigurationStore
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.fileChooser.FileChooserDescriptor

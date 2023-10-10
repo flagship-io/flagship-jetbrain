@@ -4,6 +4,9 @@ import com.github.flagshipio.jetbrain.dataClass.Configuration
 import com.github.flagshipio.jetbrain.dataClass.Flag
 import com.google.gson.Gson
 import com.intellij.ide.plugins.PluginManagerCore
+import com.intellij.notification.Notification
+import com.intellij.notification.NotificationType
+import com.intellij.notification.Notifications
 import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.extensions.PluginId
@@ -103,15 +106,24 @@ class CheckCLI() {
             val output = process.inputStream.bufferedReader().use { it.readText() }
             val exitCode = process.waitFor()
 
+            Notifications.Bus.notify(
+                Notification(
+                    Cli.FLAGSHIP_CLI_ID,
+                    "Flagship",
+                    output,
+                    NotificationType.INFORMATION
+                )
+            )
+
             if (exitCode == 0) {
                 println("Command completed successfully.")
-                return output
 
             } else {
                 println("Command failed with exit code $exitCode.")
             }
 
             Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+            return output
         } catch (exception: Exception) {
             println(exception)
             println("didn't work")
@@ -137,15 +149,23 @@ class CheckCLI() {
             val output = process.inputStream.bufferedReader().use { it.readText() }
             val exitCode = process.waitFor()
 
+            Notifications.Bus.notify(
+                Notification(
+                    Cli.FLAGSHIP_CLI_ID,
+                    "Flagship",
+                    output,
+                    NotificationType.INFORMATION
+                )
+            )
+
             if (exitCode == 0) {
                 println("Command completed successfully.")
-                return output
-
             } else {
                 println("Command failed with exit code $exitCode.")
             }
 
             Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+            return output
         } catch (exception: Exception) {
             println(exception)
             println("didn't work")
@@ -175,6 +195,52 @@ class CheckCLI() {
                 println("Command completed successfully.")
 
                 return gson.fromJson(output, Array<Configuration>::class.java).toList()
+
+            } else {
+                println("Command failed with exit code $exitCode.")
+            }
+
+            Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+        } catch (exception: Exception) {
+            println(exception)
+            println("didn't work")
+        }
+
+        return null
+    }
+
+    fun editConfigurationCli(configurationName: String, newConfiguration: Configuration): String? {
+        println("running")
+        try {
+            var editCommand = arrayOf("")
+            if (configurationName != newConfiguration.name){
+                editCommand = arrayOf("--new-name=" + newConfiguration.name)
+            }
+
+            val processBuilder = ProcessBuilder(
+                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
+                "configuration",
+                "edit",
+                "-n=$configurationName",
+                "-i=" + newConfiguration.clientID,
+                "-s=" + newConfiguration.clientSecret,
+                "-a=" + newConfiguration.accountID,
+                "-e=" + newConfiguration.accountEnvironmentID,
+                *editCommand,
+                "--user-agent=flagship-ext-jetbrain/v" + (PluginManagerCore.getPlugin(PluginId.getId("com.github.flagshipio.jetbrain"))?.version
+                    ?: "")
+            )
+            processBuilder.redirectErrorStream(true)
+            processBuilder.command()
+            val process = processBuilder.start()
+
+            val output = process.inputStream.bufferedReader().use { it.readText() }
+            val exitCode = process.waitFor()
+            println(output)
+
+            if (exitCode == 0) {
+                println("Command completed successfully.")
+                return output
 
             } else {
                 println("Command failed with exit code $exitCode.")

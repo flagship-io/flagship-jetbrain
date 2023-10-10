@@ -29,6 +29,9 @@
         <action class="com.github.flagshipio.jetbrain.action.DeleteConfigurationAction"
                 id="com.github.flagshipio.jetbrain.action.DeleteConfigurationAction" text="Delete Configuration"
                 description="Delete Configuration from your system" icon="AllIcons.Actions.GC"/>
+        <action class="com.github.flagshipio.jetbrain.action.EditConfigurationAction"
+                id="com.github.flagshipio.jetbrain.action.EditConfigurationAction" text="Edit Configuration"
+                description="Edit Configuration from your system" icon="AllIcons.Actions.Edit"/>
         <action class="com.github.flagshipio.jetbrain.action.SelectConfigurationAction"
                 id="com.github.flagshipio.jetbrain.action.SelectConfigurationAction" text="Select This Configuration"
                 description="Select this configuration" icon="AllIcons.Actions.Forward"/>

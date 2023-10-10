@@ -36,7 +36,6 @@ class ConfigurationNodeParent(private var viewModel: ConfigurationNodeViewModel)
 
     override fun update(data: PresentationData) {
         super.update(data)
-
         data.presentableText = viewModel.configName
     }
 }

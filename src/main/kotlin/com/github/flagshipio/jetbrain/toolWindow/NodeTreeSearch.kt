@@ -1,6 +1,5 @@
 package com.github.flagshipio.jetbrain.toolWindow
 
-
 import com.intellij.ui.TreeSpeedSearch
 import javax.swing.JTree
 import javax.swing.tree.DefaultMutableTreeNode

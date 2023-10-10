@@ -33,6 +33,16 @@ class ConfigurationStore(project: Project) {
         return cliResponse
     }
 
+    fun editConfiguration(configuration: Configuration, newConfiguration: Configuration): String? {
+        val cliResponse = configuration.name?.let { checkCLI.editConfigurationCli(it, newConfiguration) }
+        if (cliResponse != null) {
+            if (cliResponse.contains("edited successfully", true)) {
+                configurationDataService.editConfiguration(configuration, newConfiguration)
+            }
+        }
+        return cliResponse
+    }
+
     fun deleteConfiguration(configuration: Configuration): String? {
         val cliResponse = configuration.name?.let { checkCLI.deleteConfigurationCli(it) }
         if (cliResponse != null) {

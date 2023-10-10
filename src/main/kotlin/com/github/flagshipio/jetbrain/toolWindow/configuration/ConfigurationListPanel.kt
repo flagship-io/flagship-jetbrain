@@ -1,6 +1,7 @@
 package com.github.flagshipio.jetbrain.toolWindow.configuration
 
 import com.github.flagshipio.jetbrain.action.DeleteConfigurationAction
+import com.github.flagshipio.jetbrain.action.EditConfigurationAction
 import com.github.flagshipio.jetbrain.action.SelectConfigurationAction
 import com.github.flagshipio.jetbrain.dataClass.Configuration
 import com.github.flagshipio.jetbrain.store.ConfigurationStore
@@ -92,7 +93,6 @@ class RootNode1(private val intProject: Project) :
                     myChildren.add(ConfigurationNodeParent(configViewModel))
                 }
             }
-
             configurations.items == null -> myChildren.add(NodeBase("Flagship is not configured."))
         }
 
@@ -155,13 +155,16 @@ class ConfigurationListPanel(private val myProject: Project) :
         val actionPopup = DefaultActionGroup()
         val actionToolbar: ActionToolbar = actionManager.createActionToolbar("ACTION_TOOLBAR", actionGroup, true)
         toolbar = actionToolbar.component
-        val deleteConfigurationAction = actionManager.getAction(DeleteConfigurationAction.ID)
         val selectConfigurationAction = actionManager.getAction(SelectConfigurationAction.ID)
+        val editConfigurationAction = actionManager.getAction(EditConfigurationAction.ID)
+        val deleteConfigurationAction = actionManager.getAction(DeleteConfigurationAction.ID)
+
         actionToolbar.targetComponent = this
         PopupHandler.installPopupMenu(
             tree,
             actionPopup.apply {
                 add(selectConfigurationAction)
+                add(editConfigurationAction)
                 add(deleteConfigurationAction)
             },
             ActionPlaces.POPUP
