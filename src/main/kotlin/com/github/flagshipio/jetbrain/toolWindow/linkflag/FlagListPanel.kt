@@ -5,7 +5,9 @@ import com.github.flagshipio.jetbrain.dataClass.Flag
 import com.github.flagshipio.jetbrain.messaging.FlagNotifier
 import com.github.flagshipio.jetbrain.messaging.MessageBusService
 import com.github.flagshipio.jetbrain.store.FlagStore
-import com.github.flagshipio.jetbrain.toolWindow.*
+import com.github.flagshipio.jetbrain.toolWindow.NodeBase
+import com.github.flagshipio.jetbrain.toolWindow.NodeTreeSearch
+import com.github.flagshipio.jetbrain.toolWindow.NodeTreeStructure
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.notification.Notification
 import com.intellij.notification.NotificationType

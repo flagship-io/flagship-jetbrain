@@ -1,7 +1,7 @@
 package com.github.flagshipio.jetbrain.action
 
-import com.github.flagshipio.jetbrain.toolWindow.configuration.ConfigurationListPanel
 import com.github.flagshipio.jetbrain.toolWindow.ApplicationToolWindow
+import com.github.flagshipio.jetbrain.toolWindow.configuration.ConfigurationListPanel
 import com.github.flagshipio.jetbrain.toolWindow.configuration.ManageConfigurationPanel
 import com.github.flagshipio.jetbrain.toolWindow.linkflag.FlagListPanel
 import com.intellij.openapi.components.service

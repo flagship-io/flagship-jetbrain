@@ -213,7 +213,7 @@ class CheckCLI() {
         println("running")
         try {
             var editCommand = arrayOf("")
-            if (configurationName != newConfiguration.name){
+            if (configurationName != newConfiguration.name) {
                 editCommand = arrayOf("--new-name=" + newConfiguration.name)
             }
 

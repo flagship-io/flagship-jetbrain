@@ -20,7 +20,13 @@ class DeleteConfigurationAction : AnAction() {
         while (selectedNode != null) {
             if (selectedNode.userObject is ConfigurationNodeParent) {
                 val configurationNodeParent = selectedNode.userObject as ConfigurationNodeParent
-                val resp = Messages.showOkCancelDialog("Do you want to delete this configuration ?", "Delete Configuration", "Yes", "No", null)
+                val resp = Messages.showOkCancelDialog(
+                    "Do you want to delete this configuration ?",
+                    "Delete Configuration",
+                    "Yes",
+                    "No",
+                    null
+                )
                 if (resp == 2) {
                     return
                 }
@@ -29,7 +35,7 @@ class DeleteConfigurationAction : AnAction() {
                 Messages.showMessageDialog("Configuration deleted", "Status", Messages.getInformationIcon())
                 return
             }
-                selectedNode = selectedNode.parent as? DefaultMutableTreeNode
+            selectedNode = selectedNode.parent as? DefaultMutableTreeNode
 
         }
     }

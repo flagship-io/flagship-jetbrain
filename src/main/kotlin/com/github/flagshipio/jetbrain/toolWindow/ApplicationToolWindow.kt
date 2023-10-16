@@ -1,8 +1,8 @@
 package com.github.flagshipio.jetbrain.toolWindow
 
 import com.github.flagshipio.jetbrain.toolWindow.configuration.ConfigurationPanel
-import com.github.flagshipio.jetbrain.toolWindow.linkflag.FlagPanel
 import com.github.flagshipio.jetbrain.toolWindow.goaltargeting.GoalTargetingPanel
+import com.github.flagshipio.jetbrain.toolWindow.linkflag.FlagPanel
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.project.DumbAware

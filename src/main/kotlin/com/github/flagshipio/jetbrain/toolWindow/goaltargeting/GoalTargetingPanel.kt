@@ -2,12 +2,10 @@ package com.github.flagshipio.jetbrain.toolWindow.goaltargeting
 
 import com.github.flagshipio.jetbrain.messaging.DefaultMessageBusService
 import com.github.flagshipio.jetbrain.toolWindow.linkflag.FlagListPanel
-import com.github.flagshipio.jetbrain.toolWindow.linkflag.FlagPanel
 import com.github.flagshipio.jetbrain.toolWindow.linkflag.LinkPanel
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
-
 import java.awt.BorderLayout
 import javax.swing.BorderFactory
 import javax.swing.JPanel

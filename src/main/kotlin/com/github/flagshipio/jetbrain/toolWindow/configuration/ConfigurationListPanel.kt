@@ -5,7 +5,9 @@ import com.github.flagshipio.jetbrain.action.EditConfigurationAction
 import com.github.flagshipio.jetbrain.action.SelectConfigurationAction
 import com.github.flagshipio.jetbrain.dataClass.Configuration
 import com.github.flagshipio.jetbrain.store.ConfigurationStore
-import com.github.flagshipio.jetbrain.toolWindow.*
+import com.github.flagshipio.jetbrain.toolWindow.NodeBase
+import com.github.flagshipio.jetbrain.toolWindow.NodeTreeSearch
+import com.github.flagshipio.jetbrain.toolWindow.NodeTreeStructure
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.actionSystem.ActionManager
@@ -18,7 +20,6 @@ import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.PopupHandler
 import com.intellij.ui.ScrollPaneFactory
 import com.intellij.ui.SideBorder
-import com.intellij.ui.components.JBPanel
 import com.intellij.ui.tree.AsyncTreeModel
 import com.intellij.ui.tree.StructureTreeModel
 import com.intellij.ui.treeStructure.SimpleNode
@@ -93,6 +94,7 @@ class RootNode1(private val intProject: Project) :
                     myChildren.add(ConfigurationNodeParent(configViewModel))
                 }
             }
+
             configurations.items == null -> myChildren.add(NodeBase("Flagship is not configured."))
         }
 

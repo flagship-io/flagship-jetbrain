@@ -11,11 +11,9 @@ import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.ui.JBColor
 import com.intellij.util.ui.JBUI
-import com.jgoodies.forms.layout.FormLayout
 import org.apache.commons.io.IOUtils
 import java.awt.BorderLayout
 import java.awt.Dimension
-import java.awt.event.ActionEvent
 import java.io.File
 import java.io.IOException
 import java.nio.charset.StandardCharsets
@@ -202,7 +200,7 @@ class ManageConfigurationPanel(
         this.setContent(mainFrame())
     }
 
-     fun updateContent(content: JPanel) {
+    fun updateContent(content: JPanel) {
         this.setContent(content)
     }
 }
