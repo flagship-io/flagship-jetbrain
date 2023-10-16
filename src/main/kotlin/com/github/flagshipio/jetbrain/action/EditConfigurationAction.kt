@@ -19,36 +19,15 @@ class EditConfigurationAction : AnAction() {
 
     override fun actionPerformed(event: AnActionEvent) {
         val project = event.project ?: return
-        val configurationStore = ConfigurationStore(project)
-        //val newConfiguration = Configuration("newName", "ci", "cs", "a", "e")
         var selectedNode = ActionHelpers.getLastSelectedDefaultMutableListConfigurationTreeNode(project)
         while (selectedNode != null) {
             if (selectedNode.userObject is ConfigurationNodeParent) {
                 val configurationNodeParent = selectedNode.userObject as ConfigurationNodeParent
-                println(configurationNodeParent.name_)
-                println(configurationNodeParent.configuration)
-
-                val dialog = EditConfigurationDialog(project)
-                dialog.setNameText(configurationNodeParent.configuration.name!!)
-                dialog.setClientIDText(configurationNodeParent.configuration.clientID!!)
-                dialog.setClientSecretText(configurationNodeParent.configuration.clientSecret!!)
-                dialog.setAccountIDText(configurationNodeParent.configuration.accountID!!)
-                dialog.setAccountEnvironmentIDText(configurationNodeParent.configuration.accountEnvironmentID!!)
-
-                dialog.show()
-
-                if (dialog.exitCode == DialogWrapper.CANCEL_EXIT_CODE) {
-                    return
-                }
-                val newConfiguration = Configuration(dialog.name, dialog.clientID, dialog.clientSecret, dialog.accountID, dialog.accountEnvironmentID)
-
-                configurationStore.editConfiguration(configurationNodeParent.configuration, newConfiguration)
-                ActionHelpers.getListConfigurationPanel(project).updateNodeInfo()
-                Messages.showMessageDialog("Configuration edited", "Status", Messages.getInformationIcon())
+                val managePanel = ActionHelpers.getManageConfigurationPanel(project)
+                managePanel.updateContent(managePanel.fromCredFrame(configurationNodeParent.configuration))
                 return
-            } else {
-                selectedNode = selectedNode.parent as? DefaultMutableTreeNode
             }
+            selectedNode = selectedNode.parent as? DefaultMutableTreeNode
         }
     }
 

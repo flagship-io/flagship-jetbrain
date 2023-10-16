@@ -38,4 +38,8 @@ class ConfigurationPanel(project: Project) : JPanel() {
     fun getListConfigurationPanel(): ConfigurationListPanel {
         return listConfigurationPanel
     }
+
+    fun getManageConfigurationPanel(): ManageConfigurationPanel {
+        return manageConfigurationPanel
+    }
 }

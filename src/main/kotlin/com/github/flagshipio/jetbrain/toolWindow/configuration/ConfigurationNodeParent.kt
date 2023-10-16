@@ -13,17 +13,11 @@ class ConfigurationNodeParent(private var viewModel: ConfigurationNodeViewModel)
     val name_: String? get() = viewModel.configuration.name
 
     override fun getChildren(): Array<SimpleNode> {
-        if (children.isEmpty()) {
-            buildChildren()
-        } else {
+        if (children.isNotEmpty()) {
             children = ArrayList()
-            buildChildren()
         }
+        buildChildren()
         return children.toTypedArray()
-    }
-
-    fun updateViewModel(viewModel: ConfigurationNodeViewModel) {
-        this.viewModel = viewModel
     }
 
     private fun buildChildren() {
@@ -37,5 +31,6 @@ class ConfigurationNodeParent(private var viewModel: ConfigurationNodeViewModel)
     override fun update(data: PresentationData) {
         super.update(data)
         data.presentableText = viewModel.configName
+        data.tooltip = "Right-Click to display the actions"
     }
 }

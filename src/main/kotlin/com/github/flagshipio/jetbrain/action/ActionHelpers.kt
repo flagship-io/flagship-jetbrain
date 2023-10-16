@@ -1,8 +1,8 @@
 package com.github.flagshipio.jetbrain.action
 
 import com.github.flagshipio.jetbrain.toolWindow.configuration.ConfigurationListPanel
-import com.github.flagshipio.jetbrain.toolWindow.linkflag.FlagPanel
 import com.github.flagshipio.jetbrain.toolWindow.ApplicationToolWindow
+import com.github.flagshipio.jetbrain.toolWindow.configuration.ManageConfigurationPanel
 import com.github.flagshipio.jetbrain.toolWindow.linkflag.FlagListPanel
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
@@ -21,6 +21,10 @@ object ActionHelpers {
 
     fun getListConfigurationPanel(project: Project): ConfigurationListPanel {
         return project.service<ApplicationToolWindow>().getConfigurationPanel().getListConfigurationPanel()
+    }
+
+    fun getManageConfigurationPanel(project: Project): ManageConfigurationPanel {
+        return project.service<ApplicationToolWindow>().getConfigurationPanel().getManageConfigurationPanel()
     }
 
     fun getListFlagPanel(project: Project): FlagListPanel {

@@ -15,8 +15,8 @@ import java.io.File
 
 @Service(Service.Level.PROJECT)
 class CheckCLI() {
-    val cli = Cli()
-    val gson = Gson()
+    private val cli = Cli()
+    private val gson = Gson()
 
 
     fun runCli(project: Project) {
