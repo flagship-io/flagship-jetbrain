@@ -14,10 +14,9 @@ import com.intellij.openapi.project.Project
 import java.io.File
 
 @Service(Service.Level.PROJECT)
-class CheckCLI() {
+class CliCommand {
     private val cli = Cli()
     private val gson = Gson()
-
 
     fun runCli(project: Project) {
         println("running")
@@ -193,7 +192,6 @@ class CheckCLI() {
 
             if (exitCode == 0) {
                 println("Command completed successfully.")
-
                 return gson.fromJson(output, Array<Configuration>::class.java).toList()
 
             } else {
@@ -236,7 +234,15 @@ class CheckCLI() {
 
             val output = process.inputStream.bufferedReader().use { it.readText() }
             val exitCode = process.waitFor()
-            println(output)
+
+            Notifications.Bus.notify(
+                Notification(
+                    Cli.FLAGSHIP_CLI_ID,
+                    "Flagship",
+                    output,
+                    NotificationType.INFORMATION
+                )
+            )
 
             if (exitCode == 0) {
                 println("Command completed successfully.")
@@ -272,6 +278,15 @@ class CheckCLI() {
             val output = process.inputStream.bufferedReader().use { it.readText() }
             val exitCode = process.waitFor()
 
+            Notifications.Bus.notify(
+                Notification(
+                    Cli.FLAGSHIP_CLI_ID,
+                    "Flagship",
+                    output,
+                    NotificationType.INFORMATION
+                )
+            )
+
             if (exitCode == 0) {
                 println("Command completed successfully.")
                 return output
@@ -306,6 +321,15 @@ class CheckCLI() {
             val output = process.inputStream.bufferedReader().use { it.readText() }
             val exitCode = process.waitFor()
 
+            Notifications.Bus.notify(
+                Notification(
+                    Cli.FLAGSHIP_CLI_ID,
+                    "Flagship",
+                    output,
+                    NotificationType.INFORMATION
+                )
+            )
+
             if (exitCode == 0) {
                 println("Command completed successfully.")
                 return output
@@ -323,6 +347,39 @@ class CheckCLI() {
         return null
     }
 
+    fun currentConfigurationCli(): Configuration? {
+        println("running")
+        try {
+            val processBuilder = ProcessBuilder(
+                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
+                "configuration",
+                "current",
+                "--output-format=json",
+                "--user-agent=flagship-ext-jetbrain/v" + (PluginManagerCore.getPlugin(PluginId.getId("com.github.flagshipio.jetbrain"))?.version
+                    ?: "")
+            )
+            processBuilder.redirectErrorStream(true)
+            val process = processBuilder.start()
+
+            val output = process.inputStream.bufferedReader().use { it.readText() }
+            val exitCode = process.waitFor()
+
+            if (exitCode == 0) {
+                println("Command completed successfully.")
+                return gson.fromJson(output, Configuration::class.java)
+
+            } else {
+                println("Command failed with exit code $exitCode.")
+            }
+
+            Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+        } catch (exception: Exception) {
+            println(exception)
+            println("didn't work")
+        }
+
+        return null
+    }
 
     fun checkCli(): Boolean {
         val pluginPath = File("${cli.cliPath}${cli.cliVersion}")

@@ -6,6 +6,7 @@ import com.github.flagshipio.jetbrain.toolWindow.configuration.NAME_PREFIX
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.ui.Messages
+import javax.swing.BorderFactory
 import javax.swing.tree.DefaultMutableTreeNode
 
 class SelectConfigurationAction : AnAction() {
@@ -20,11 +21,13 @@ class SelectConfigurationAction : AnAction() {
         while (selectedNode != null) {
             if (selectedNode.userObject is ConfigurationNodeParent) {
                 val configurationNodeParent = selectedNode.userObject as ConfigurationNodeParent
-                println(configurationNodeParent.name_)
-                println(configurationNodeParent.configuration)
-                configurationStore.useConfiguration(configurationNodeParent.configuration)
-                ActionHelpers.getListFlagPanel(project).updateNodeInfo()
-                Messages.showMessageDialog("Configuration selected", "Status", Messages.getInformationIcon())
+                val isChangedConfiguration = configurationStore.useConfiguration(configurationNodeParent.configuration)
+                if (isChangedConfiguration) {
+                    val newBorderTitle = BorderFactory.createTitledBorder("List Configuration - Current Configuration ${configurationNodeParent.configuration.name}")
+                    ActionHelpers.getListConfigurationPanel(project).border = newBorderTitle
+                    ActionHelpers.getListFlagPanel(project).updateNodeInfo()
+                    Messages.showMessageDialog("Configuration selected", "Status", Messages.getInformationIcon())
+                }
                 return
             } else {
                 selectedNode = selectedNode.parent as? DefaultMutableTreeNode

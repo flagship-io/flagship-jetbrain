@@ -3,7 +3,7 @@ package com.github.flagshipio.jetbrain.action
 import com.github.flagshipio.jetbrain.toolWindow.ApplicationToolWindow
 import com.github.flagshipio.jetbrain.toolWindow.configuration.ConfigurationListPanel
 import com.github.flagshipio.jetbrain.toolWindow.configuration.ManageConfigurationPanel
-import com.github.flagshipio.jetbrain.toolWindow.linkflag.FlagListPanel
+import com.github.flagshipio.jetbrain.toolWindow.flag.FlagListPanel
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import javax.swing.tree.DefaultMutableTreeNode

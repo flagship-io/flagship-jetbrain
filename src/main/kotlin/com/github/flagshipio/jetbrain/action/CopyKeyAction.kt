@@ -1,6 +1,6 @@
 package com.github.flagshipio.jetbrain.action
 
-import com.github.flagshipio.jetbrain.toolWindow.linkflag.FlagNodeParent
+import com.github.flagshipio.jetbrain.toolWindow.flag.FlagNodeParent
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import java.awt.Toolkit

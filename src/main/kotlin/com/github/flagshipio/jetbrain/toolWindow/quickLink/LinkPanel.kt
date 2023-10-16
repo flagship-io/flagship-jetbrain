@@ -1,4 +1,4 @@
-package com.github.flagshipio.jetbrain.toolWindow.linkflag
+package com.github.flagshipio.jetbrain.toolWindow.quickLink
 
 import com.github.flagshipio.jetbrain.toolWindow.NodeTreeSearch
 import com.github.flagshipio.jetbrain.toolWindow.NodeTreeStructure

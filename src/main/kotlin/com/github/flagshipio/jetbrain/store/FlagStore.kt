@@ -1,6 +1,6 @@
 package com.github.flagshipio.jetbrain.store
 
-import com.github.flagshipio.jetbrain.cli.CheckCLI
+import com.github.flagshipio.jetbrain.cli.CliCommand
 import com.github.flagshipio.jetbrain.dataClass.Flag
 import com.github.flagshipio.jetbrain.services.FlagDataService
 import com.intellij.openapi.project.Project
@@ -8,14 +8,14 @@ import com.intellij.openapi.project.Project
 class FlagStore(project: Project) {
 
     private var flagDataService: FlagDataService
-    private val checkCLI = CheckCLI()
+    private val cliCommand = CliCommand()
 
     init {
         flagDataService = project.getService(FlagDataService::class.java)
     }
 
     fun refreshFlag(): List<Flag>? {
-        val flags = checkCLI.listFlagCli()
+        val flags = cliCommand.listFlagCli()
 
         if (flags != null) {
             flagDataService.loadState(flags)

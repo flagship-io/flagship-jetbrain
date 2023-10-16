@@ -1,4 +1,4 @@
-package com.github.flagshipio.jetbrain.toolWindow.linkflag
+package com.github.flagshipio.jetbrain.toolWindow.flag
 
 import com.github.flagshipio.jetbrain.toolWindow.NodeBase
 import com.intellij.icons.AllIcons.Debugger

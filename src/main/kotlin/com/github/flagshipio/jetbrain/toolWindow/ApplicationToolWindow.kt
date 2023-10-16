@@ -2,7 +2,7 @@ package com.github.flagshipio.jetbrain.toolWindow
 
 import com.github.flagshipio.jetbrain.toolWindow.configuration.ConfigurationPanel
 import com.github.flagshipio.jetbrain.toolWindow.goaltargeting.GoalTargetingPanel
-import com.github.flagshipio.jetbrain.toolWindow.linkflag.FlagPanel
+import com.github.flagshipio.jetbrain.toolWindow.flag.FlagPanel
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.project.DumbAware
@@ -13,14 +13,14 @@ import com.intellij.ui.content.ContentFactory
 
 @Service(Service.Level.PROJECT)
 class ApplicationToolWindow(project: Project) : DumbAware, Disposable {
-    private val FlagPanel: FlagPanel = FlagPanel(project)
+    private val flagPanel: FlagPanel = FlagPanel(project)
     private val goalTargetingPanel: GoalTargetingPanel = GoalTargetingPanel(project)
     private val configurationPanel: ConfigurationPanel = ConfigurationPanel(project)
     fun initializeBasePanel(toolWindow: ToolWindow) {
         val contentFactory = ContentFactory.getInstance()
 
-        val content: Content = contentFactory.createContent(null, "Quick & Feature Flag", false)
-        content.component = FlagPanel
+        val content: Content = contentFactory.createContent(null, "Feature Flag", false)
+        content.component = flagPanel
 
         toolWindow.contentManager.addContent(content)
 
@@ -45,7 +45,7 @@ class ApplicationToolWindow(project: Project) : DumbAware, Disposable {
     }
 
     fun getFlagPanel(): FlagPanel {
-        return FlagPanel
+        return flagPanel
     }
 
     fun getConfigurationPanel(): ConfigurationPanel {

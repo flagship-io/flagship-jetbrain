@@ -1,4 +1,4 @@
-package com.github.flagshipio.jetbrain.toolWindow.linkflag
+package com.github.flagshipio.jetbrain.toolWindow.quickLink
 
 import com.intellij.icons.AllIcons
 import com.intellij.ide.projectView.PresentationData

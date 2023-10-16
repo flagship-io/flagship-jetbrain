@@ -1,6 +1,6 @@
 package com.github.flagshipio.jetbrain.store
 
-import com.github.flagshipio.jetbrain.cli.CheckCLI
+import com.github.flagshipio.jetbrain.cli.CliCommand
 import com.github.flagshipio.jetbrain.dataClass.Configuration
 import com.github.flagshipio.jetbrain.services.ConfigurationDataService
 import com.intellij.openapi.project.Project
@@ -8,7 +8,7 @@ import com.intellij.openapi.project.Project
 class ConfigurationStore(project: Project) {
 
     private var configurationDataService: ConfigurationDataService
-    private val checkCLI = CheckCLI()
+    private val cliCommand = CliCommand()
     private val flagStore = FlagStore(project)
 
     init {
@@ -16,7 +16,7 @@ class ConfigurationStore(project: Project) {
     }
 
     fun refreshConfiguration(): List<Configuration>? {
-        val configurationList = checkCLI.listConfigurationCli()
+        val configurationList = cliCommand.listConfigurationCli()
         if (configurationList != null) {
             configurationDataService.loadState(configurationList)
         }
@@ -24,7 +24,7 @@ class ConfigurationStore(project: Project) {
     }
 
     fun saveConfiguration(configuration: Configuration): String? {
-        val cliResponse = checkCLI.addConfigurationCli(configuration)
+        val cliResponse = cliCommand.addConfigurationCli(configuration)
         if (cliResponse != null) {
             if (cliResponse.contains("created successfully", true)) {
                 configurationDataService.saveConfiguration(configuration)
@@ -34,7 +34,7 @@ class ConfigurationStore(project: Project) {
     }
 
     fun editConfiguration(configuration: Configuration, newConfiguration: Configuration): String? {
-        val cliResponse = configuration.name?.let { checkCLI.editConfigurationCli(it, newConfiguration) }
+        val cliResponse = configuration.name?.let { cliCommand.editConfigurationCli(it, newConfiguration) }
         if (cliResponse != null) {
             if (cliResponse.contains("edited successfully", true)) {
                 configurationDataService.editConfiguration(configuration, newConfiguration)
@@ -44,7 +44,7 @@ class ConfigurationStore(project: Project) {
     }
 
     fun deleteConfiguration(configuration: Configuration): String? {
-        val cliResponse = configuration.name?.let { checkCLI.deleteConfigurationCli(it) }
+        val cliResponse = configuration.name?.let { cliCommand.deleteConfigurationCli(it) }
         if (cliResponse != null) {
             if (cliResponse.contains("deleted successfully", true)) {
                 configurationDataService.deleteConfiguration(configuration)
@@ -54,17 +54,18 @@ class ConfigurationStore(project: Project) {
     }
 
     fun useConfiguration(configuration: Configuration): Boolean {
-        val cliResponse = configuration.name?.let { checkCLI.useConfigurationCli(it) }
+        val cliResponse = configuration.name?.let { cliCommand.useConfigurationCli(it) }
         if (cliResponse != null) {
             if (cliResponse.contains("selected successfully", true)) {
                 flagStore.refreshFlag()
+                return true
             }
         }
         return false
     }
 
     fun saveConfigurationFromFile(filePath: String): String? {
-        val cliResponse = checkCLI.addConfigurationFromFileCli(filePath)
+        val cliResponse = cliCommand.addConfigurationFromFileCli(filePath)
         refreshConfiguration()
         return cliResponse
     }

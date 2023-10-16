@@ -167,7 +167,7 @@ class ManageConfigurationPanel(
         pathToFileLabel.setAlignmentX(LEFT_ALIGNMENT);
         browserFile.add(pathToFileLabel, BorderLayout.CENTER)
 
-        var fileChosenPath: String = ""
+        var fileChosenPath = ""
 
         val browserBtn = JButton("Browser");
         browserBtn.setAlignmentX(RIGHT_ALIGNMENT);
@@ -186,6 +186,7 @@ class ManageConfigurationPanel(
             if (fileChosenPath != "") {
                 val cliResponse = configurationStoreLocal.saveConfigurationFromFile(fileChosenPath)
                 listConfigPanelLocal.updateNodeInfo()
+                updateContent(mainFrame())
                 Messages.showInfoMessage(cliResponse, "Information")
             }
         }

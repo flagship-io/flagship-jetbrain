@@ -1,4 +1,4 @@
-package com.github.flagshipio.jetbrain.toolWindow.linkflag
+package com.github.flagshipio.jetbrain.toolWindow.quickLink
 
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.ui.treeStructure.SimpleNode

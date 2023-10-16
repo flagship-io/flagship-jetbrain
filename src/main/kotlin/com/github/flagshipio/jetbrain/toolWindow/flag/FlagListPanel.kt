@@ -1,4 +1,4 @@
-package com.github.flagshipio.jetbrain.toolWindow.linkflag
+package com.github.flagshipio.jetbrain.toolWindow.flag
 
 import com.github.flagshipio.jetbrain.action.CopyKeyAction
 import com.github.flagshipio.jetbrain.dataClass.Flag

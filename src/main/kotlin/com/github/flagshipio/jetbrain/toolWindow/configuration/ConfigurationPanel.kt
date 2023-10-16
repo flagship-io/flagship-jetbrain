@@ -1,5 +1,6 @@
 package com.github.flagshipio.jetbrain.toolWindow.configuration
 
+import com.github.flagshipio.jetbrain.cli.CliCommand
 import com.github.flagshipio.jetbrain.messaging.DefaultMessageBusService
 import com.github.flagshipio.jetbrain.store.ConfigurationStore
 import com.intellij.openapi.components.service
@@ -14,14 +15,22 @@ import javax.swing.border.Border
 class ConfigurationPanel(project: Project) : JPanel() {
     private val messageBus = project.service<DefaultMessageBusService>()
     private val splitter = OnePixelSplitter(true, "FSSplitterProportion", .25f)
-    val configurationStore = ConfigurationStore(project)
+    private val configurationStore = ConfigurationStore(project)
+    private val cliCommand = CliCommand()
 
     private val listConfigurationPanel = ConfigurationListPanel(project)
     private val manageConfigurationPanel = ManageConfigurationPanel(project, configurationStore, listConfigurationPanel)
 
     init {
-        val manageConfigurationBorder: Border = BorderFactory.createTitledBorder("Manage configuration")
-        val listConfigurationBorder: Border = BorderFactory.createTitledBorder("List configuration")
+        val currentConfig = cliCommand.currentConfigurationCli()
+        var listConfigTitle = "List Configuration"
+        val manageConfigurationBorder: Border = BorderFactory.createTitledBorder("Manage Configuration")
+        if (currentConfig != null) {
+            if (currentConfig.name != ""){
+                listConfigTitle += " - Current Configuration: " + currentConfig.name
+            }
+        }
+        val listConfigurationBorder: Border = BorderFactory.createTitledBorder(listConfigTitle)
 
         manageConfigurationPanel.border = manageConfigurationBorder
         listConfigurationPanel.border = listConfigurationBorder
