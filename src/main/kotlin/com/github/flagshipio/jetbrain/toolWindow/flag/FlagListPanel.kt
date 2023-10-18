@@ -1,6 +1,8 @@
 package com.github.flagshipio.jetbrain.toolWindow.flag
 
-import com.github.flagshipio.jetbrain.action.CopyKeyAction
+import com.github.flagshipio.jetbrain.action.flag.CopyKeyAction
+import com.github.flagshipio.jetbrain.action.flag.DeleteFlagAction
+import com.github.flagshipio.jetbrain.action.flag.EditFlagAction
 import com.github.flagshipio.jetbrain.dataClass.Flag
 import com.github.flagshipio.jetbrain.messaging.FlagNotifier
 import com.github.flagshipio.jetbrain.messaging.MessageBusService
@@ -86,7 +88,7 @@ class RootNode(private val intProject: Project) :
     private var myChildren: MutableList<SimpleNode> = ArrayList()
 
     override fun getChildren(): Array<SimpleNode> {
-        val flags_ = FlagStore(intProject).getFlag()
+        val flags_ = FlagStore(intProject).getFlags()
 
         val flags = Flags()
         flags_.map { flags.addItemsItem(it) }
@@ -111,7 +113,7 @@ class RootNode(private val intProject: Project) :
     }
 }
 
-class FlagListPanel(private val myProject: Project, messageBusService: MessageBusService) :
+class FlagListPanel(private val myProject: Project) :
     SimpleToolWindowPanel(false, false), Disposable {
     private var root = RootNode(myProject)
     private var treeStructure = createTreeStructure()
@@ -142,7 +144,7 @@ class FlagListPanel(private val myProject: Project, messageBusService: MessageBu
         tree.model = reviewTreeBuilder
     }
 
-    fun start(): Tree {
+    private fun start(): Tree {
         val reviewTreeBuilder = AsyncTreeModel(treeModel, this)
         tree = initTree(reviewTreeBuilder)
 
@@ -155,65 +157,29 @@ class FlagListPanel(private val myProject: Project, messageBusService: MessageBu
         return tree
     }
 
-    fun actions(tree: Tree) {
+    private fun actions(tree: Tree) {
         val actionManager: ActionManager = ActionManager.getInstance()
         val actionGroup = DefaultActionGroup()
         val actionPopup = DefaultActionGroup()
         val actionToolbar: ActionToolbar = actionManager.createActionToolbar("ACTION_TOOLBAR", actionGroup, true)
         toolbar = actionToolbar.component
         val copyKeyAction = actionManager.getAction(CopyKeyAction.ID)
+        val editFlagAction = actionManager.getAction(EditFlagAction.ID)
+        val deleteFlagAction = actionManager.getAction(DeleteFlagAction.ID)
         actionToolbar.targetComponent = this
         PopupHandler.installPopupMenu(
             tree,
             actionPopup.apply {
                 add(copyKeyAction)
+                add(editFlagAction)
+                add(deleteFlagAction)
             },
             ActionPlaces.POPUP
         )
     }
 
     init {
-
         tree = start()
         actions(tree)
-
-        var start = false
-        if (!this::tree.isInitialized) {
-            start = true
-        }
-
-        try {
-            myProject.messageBus.connect().subscribe(
-                messageBusService.flagsUpdatedTopic,
-                object : FlagNotifier {
-                    override fun notify(isConfigured: Boolean, flag: String, rebuild: Boolean) {
-                        if (start) {
-                            tree = start()
-                            actions(tree)
-                        } else {
-                            val notification = Notification(
-                                "ProjectOpenNotification",
-                                "Flagship",
-                                String.format("Flagship is not configured"),
-                                NotificationType.WARNING
-                            )
-                            notification.notify(myProject)
-                        }
-                    }
-
-                    override fun reinit() {
-                        if (start) {
-                            tree = start()
-                            actions(tree)
-                        }
-                        invokeLaterIfNeeded {
-                            updateNodeInfo()
-                        }
-                    }
-                }
-            )
-        } catch (err: Error) {
-            println(err)
-        }
     }
 }

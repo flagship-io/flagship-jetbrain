@@ -1,8 +1,8 @@
 package com.github.flagshipio.jetbrain.toolWindow.configuration
 
-import com.github.flagshipio.jetbrain.action.DeleteConfigurationAction
-import com.github.flagshipio.jetbrain.action.EditConfigurationAction
-import com.github.flagshipio.jetbrain.action.SelectConfigurationAction
+import com.github.flagshipio.jetbrain.action.configuration.DeleteConfigurationAction
+import com.github.flagshipio.jetbrain.action.configuration.EditConfigurationAction
+import com.github.flagshipio.jetbrain.action.configuration.SelectConfigurationAction
 import com.github.flagshipio.jetbrain.dataClass.Configuration
 import com.github.flagshipio.jetbrain.store.ConfigurationStore
 import com.github.flagshipio.jetbrain.toolWindow.NodeBase
@@ -77,7 +77,7 @@ class Configurations {
 }
 
 
-class RootNode1(private val intProject: Project) :
+class ConfigurationRootNode(private val intProject: Project) :
     SimpleNode() {
     private var myChildren: MutableList<SimpleNode> = ArrayList()
 
@@ -109,7 +109,7 @@ class RootNode1(private val intProject: Project) :
 
 class ConfigurationListPanel(private val myProject: Project) :
     SimpleToolWindowPanel(false, false), Disposable {
-    private var root = RootNode1(myProject)
+    private var root = ConfigurationRootNode(myProject)
     private var treeStructure = createTreeStructure()
     private var treeModel = StructureTreeModel(treeStructure, this)
     lateinit var tree: Tree
@@ -131,7 +131,7 @@ class ConfigurationListPanel(private val myProject: Project) :
     }
 
     fun updateNodeInfo() {
-        root = RootNode1(myProject)
+        root = ConfigurationRootNode(myProject)
         treeStructure = createTreeStructure()
         treeModel = StructureTreeModel(treeStructure, this)
         val reviewTreeBuilder = AsyncTreeModel(treeModel, this)

@@ -18,7 +18,7 @@ class HoverDoc : AbstractDocumentationProvider() {
 
     private fun getFlag(contextElement: PsiElement): Flag? {
         val flagStore = FlagStore(contextElement.project)
-        val flags = flagStore.getFlag()
+        val flags = flagStore.getFlags()
         // flags.items can be null if the IDE is not ready during startup
 
         return flags.find { contextElement.text.contains(it?.name.toString()) }

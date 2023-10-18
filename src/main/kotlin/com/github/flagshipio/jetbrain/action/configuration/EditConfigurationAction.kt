@@ -1,5 +1,6 @@
-package com.github.flagshipio.jetbrain.action
+package com.github.flagshipio.jetbrain.action.configuration
 
+import com.github.flagshipio.jetbrain.action.ActionHelpers
 import com.github.flagshipio.jetbrain.toolWindow.configuration.ConfigurationNodeParent
 import com.github.flagshipio.jetbrain.toolWindow.configuration.NAME_PREFIX
 import com.intellij.openapi.actionSystem.AnAction

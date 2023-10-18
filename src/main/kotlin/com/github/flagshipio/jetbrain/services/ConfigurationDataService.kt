@@ -4,9 +4,10 @@ import com.github.flagshipio.jetbrain.dataClass.Configuration
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.State
+import com.intellij.openapi.components.Storage
 
 @Service
-@State(name = "ConfigurationDataService")
+@State(name = "ConfigurationDataService", storages = [Storage("ConfigurationData.xml")])
 class ConfigurationDataService : PersistentStateComponent<List<Configuration>> {
     private var configurationList: List<Configuration> = emptyList()
 

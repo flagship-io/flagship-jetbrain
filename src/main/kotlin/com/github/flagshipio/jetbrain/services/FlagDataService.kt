@@ -7,7 +7,7 @@ import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 
 @Service
-@State(name = "FlagDataService", storages = [Storage("flagData.xml")])
+@State(name = "FlagDataService", storages = [Storage("FlagData.xml")])
 class FlagDataService : PersistentStateComponent<List<Flag>> {
     private var flagList: List<Flag> = emptyList()
 
@@ -17,5 +17,22 @@ class FlagDataService : PersistentStateComponent<List<Flag>> {
 
     override fun loadState(state: List<Flag>) {
         flagList = state
+    }
+
+    fun saveFlag(flag: Flag) {
+        val newFlags = state.plus(flag)
+        loadState(newFlags)
+    }
+
+    fun editFlag(flag: Flag, newFlag: Flag) {
+        val oldFlags = state.minus(flag)
+        val newFlags = oldFlags.plus(newFlag)
+
+        loadState(newFlags)
+    }
+
+    fun deleteFlag(flag: Flag) {
+        val newFlags = state.minus(flag)
+        loadState(newFlags)
     }
 }

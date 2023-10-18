@@ -11,6 +11,8 @@ class FlagNodeParent(private var viewModel: FlagNodeViewModel) : SimpleNode() {
     private var children: MutableList<SimpleNode> = ArrayList()
     val key: String? get() = viewModel.flag.name
 
+    val flag get() = viewModel.flag
+
     override fun getChildren(): Array<SimpleNode> {
         if (children.isEmpty()) {
             buildChildren()

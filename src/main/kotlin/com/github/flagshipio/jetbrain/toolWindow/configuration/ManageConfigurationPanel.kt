@@ -58,7 +58,7 @@ class ManageConfigurationPanel(
     }
 
     fun fromCredFrame(editConfiguration: Configuration?): JPanel {
-        val configLabel = JLabel("Add configuration")
+        val configLabel = JLabel("Add Configuration")
         val nameTextField = JTextField(20)
         val clientIdTextField = JTextField(20)
         val clientSecretTextField = JTextField(20)
@@ -66,7 +66,7 @@ class ManageConfigurationPanel(
         val accountEnvIdTextField = JTextField(20)
 
         if (editConfiguration != null) {
-            configLabel.text = "Edit configuration"
+            configLabel.text = "Edit Configuration"
             nameTextField.text = editConfiguration.name
             clientIdTextField.text = editConfiguration.clientID
             clientSecretTextField.text = editConfiguration.clientSecret
@@ -150,7 +150,7 @@ class ManageConfigurationPanel(
 
         cancelSavePanel.add(fromFileSaveBtn)
 
-        val addConfigLabel = JLabel("Add configuration");
+        val addConfigLabel = JLabel("Add Configuration");
         addConfigLabel.border = JBUI.Borders.empty(10, 10, 0, 0)
         fromFilePanel.add(addConfigLabel, BorderLayout.NORTH);
 

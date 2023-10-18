@@ -4,6 +4,7 @@ import com.github.flagshipio.jetbrain.toolWindow.ApplicationToolWindow
 import com.github.flagshipio.jetbrain.toolWindow.configuration.ConfigurationListPanel
 import com.github.flagshipio.jetbrain.toolWindow.configuration.ManageConfigurationPanel
 import com.github.flagshipio.jetbrain.toolWindow.flag.FlagListPanel
+import com.github.flagshipio.jetbrain.toolWindow.flag.ManageFlagPanel
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import javax.swing.tree.DefaultMutableTreeNode
@@ -30,4 +31,9 @@ object ActionHelpers {
     fun getListFlagPanel(project: Project): FlagListPanel {
         return project.service<ApplicationToolWindow>().getFlagPanel().getFlagListPanel()
     }
+
+    fun getManageFlagPanel(project: Project): ManageFlagPanel {
+        return project.service<ApplicationToolWindow>().getFlagPanel().getManageFlagPanel()
+    }
+
 }

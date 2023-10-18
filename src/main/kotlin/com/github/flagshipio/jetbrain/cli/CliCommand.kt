@@ -49,40 +49,6 @@ class CliCommand {
         }
     }
 
-    fun listFlagCli(): List<Flag>? {
-        println("running")
-        try {
-            val processBuilder = ProcessBuilder(
-                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
-                "flag",
-                "list",
-                "--output-format=json",
-                "--user-agent=flagship-ext-jetbrain/v" + (PluginManagerCore.getPlugin(PluginId.getId("com.github.flagshipio.jetbrain"))?.version
-                    ?: "")
-            )
-            processBuilder.redirectErrorStream(true)
-            val process = processBuilder.start()
-
-            val output = process.inputStream.bufferedReader().use { it.readText() }
-            val exitCode = process.waitFor()
-
-            if (exitCode == 0) {
-                println("Command completed successfully.")
-                return gson.fromJson(output, Array<Flag>::class.java).toList()
-
-            } else {
-                println("Command failed with exit code $exitCode.")
-            }
-
-            Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
-        } catch (exception: Exception) {
-            println(exception)
-            println("didn't work")
-        }
-
-        return null
-    }
-
     fun addConfigurationCli(configuration: Configuration): String? {
         println("running")
         try {
@@ -380,6 +346,181 @@ class CliCommand {
 
         return null
     }
+
+    fun addFlagCli(flag: Flag): Flag? {
+        println("running")
+        try {
+
+            val flagDataRaw = if (flag.type == "boolean") {
+                "-d={\"name\":\"${flag.name}\",\"type\":\"${flag.type}\",\"source\":\"cli\",\"description\":\"${flag.description}\"}"
+            } else {
+                "-d={\"name\":\"${flag.name}\",\"type\":\"${flag.type}\",\"source\":\"cli\",\"description\":\"${flag.description}\",\"default_value\":\"${flag.defaultValue}\"}"
+            }
+
+            println(flagDataRaw)
+
+            val processBuilder = ProcessBuilder(
+                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
+                "flag",
+                "create",
+                flagDataRaw,
+                "--user-agent=flagship-ext-jetbrain/v" + (PluginManagerCore.getPlugin(PluginId.getId("com.github.flagshipio.jetbrain"))?.version
+                    ?: "")
+            )
+            processBuilder.redirectErrorStream(true)
+            processBuilder.command()
+            val process = processBuilder.start()
+
+            val output = process.inputStream.bufferedReader().use { it.readText() }
+            val exitCode = process.waitFor()
+
+            if (exitCode == 0) {
+                println("Command completed successfully.")
+
+            } else {
+                println("Command failed with exit code $exitCode.")
+            }
+
+            Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+            return gson.fromJson(output, Flag::class.java)
+
+        } catch (exception: Exception) {
+            println(exception)
+            println("didn't work")
+        }
+
+        return null
+    }
+
+    fun editFlagCli(flagID: String, newFlag: Flag): String? {
+        println("running")
+        try {
+
+            val flagDataRaw = if (newFlag.type == "boolean") {
+                "-d={\"name\":\"${newFlag.name}\",\"type\":\"${newFlag.type}\",\"source\":\"cli\",\"description\":\"${newFlag.description}\"}"
+            } else {
+                "-d={\"name\":\"${newFlag.name}\",\"type\":\"${newFlag.type}\",\"source\":\"cli\",\"description\":\"${newFlag.description}\",\"default_value\":\"${newFlag.defaultValue}\"}"
+            }
+
+            val processBuilder = ProcessBuilder(
+                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
+                "flag",
+                "edit",
+                "-i=$flagID",
+                flagDataRaw,
+                "--user-agent=flagship-ext-jetbrain/v" + (PluginManagerCore.getPlugin(PluginId.getId("com.github.flagshipio.jetbrain"))?.version
+                    ?: "")
+            )
+            processBuilder.redirectErrorStream(true)
+            processBuilder.command()
+            val process = processBuilder.start()
+
+            val output = process.inputStream.bufferedReader().use { it.readText() }
+            val exitCode = process.waitFor()
+
+            Notifications.Bus.notify(
+                Notification(
+                    Cli.FLAGSHIP_CLI_ID,
+                    "Flagship",
+                    output,
+                    NotificationType.INFORMATION
+                )
+            )
+
+            if (exitCode == 0) {
+                println("Command completed successfully.")
+                return output
+
+            } else {
+                println("Command failed with exit code $exitCode.")
+            }
+
+            Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+        } catch (exception: Exception) {
+            println(exception)
+            println("didn't work")
+        }
+
+        return null
+    }
+
+    fun deleteFlagCli(flagID: String): String? {
+        println("running")
+        try {
+            val processBuilder = ProcessBuilder(
+                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
+                "flag",
+                "delete",
+                "-i=$flagID",
+                "--user-agent=flagship-ext-jetbrain/v" + (PluginManagerCore.getPlugin(PluginId.getId("com.github.flagshipio.jetbrain"))?.version
+                    ?: "")
+            )
+            processBuilder.redirectErrorStream(true)
+            val process = processBuilder.start()
+
+            val output = process.inputStream.bufferedReader().use { it.readText() }
+            val exitCode = process.waitFor()
+
+            Notifications.Bus.notify(
+                Notification(
+                    Cli.FLAGSHIP_CLI_ID,
+                    "Flagship",
+                    output,
+                    NotificationType.INFORMATION
+                )
+            )
+
+            if (exitCode == 0) {
+                println("Command completed successfully.")
+                return output
+
+            } else {
+                println("Command failed with exit code $exitCode.")
+            }
+
+            Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+        } catch (exception: Exception) {
+            println(exception)
+            println("didn't work")
+        }
+
+        return null
+    }
+
+    fun listFlagCli(): List<Flag>? {
+        println("running")
+        try {
+            val processBuilder = ProcessBuilder(
+                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
+                "flag",
+                "list",
+                "--output-format=json",
+                "--user-agent=flagship-ext-jetbrain/v" + (PluginManagerCore.getPlugin(PluginId.getId("com.github.flagshipio.jetbrain"))?.version
+                    ?: "")
+            )
+            processBuilder.redirectErrorStream(true)
+            val process = processBuilder.start()
+
+            val output = process.inputStream.bufferedReader().use { it.readText() }
+            val exitCode = process.waitFor()
+
+            if (exitCode == 0) {
+                println("Command completed successfully.")
+                return gson.fromJson(output, Array<Flag>::class.java).toList()
+
+            } else {
+                println("Command failed with exit code $exitCode.")
+            }
+
+            Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+        } catch (exception: Exception) {
+            println(exception)
+            println("didn't work")
+        }
+
+        return null
+    }
+
 
     fun checkCli(): Boolean {
         val pluginPath = File("${cli.cliPath}${cli.cliVersion}")

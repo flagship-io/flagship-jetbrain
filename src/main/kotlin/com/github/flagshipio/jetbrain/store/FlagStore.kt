@@ -16,15 +16,41 @@ class FlagStore(project: Project) {
 
     fun refreshFlag(): List<Flag>? {
         val flags = cliCommand.listFlagCli()
-
         if (flags != null) {
             flagDataService.loadState(flags)
         }
         return flags
-
     }
 
-    fun getFlag(): List<Flag> {
+    fun saveFlag(flag: Flag): Flag? {
+        val cliResponse = cliCommand.addFlagCli(flag)
+        if (cliResponse != null) {
+            flagDataService.saveFlag(cliResponse)
+        }
+        return cliResponse
+    }
+
+    fun editFlag(flag: Flag, newFlag: Flag): String? {
+        val cliResponse = flag.id?.let { cliCommand.editFlagCli(it, newFlag) }
+        if (cliResponse != null) {
+            if (cliResponse.contains("edited successfully", true)) {
+                flagDataService.editFlag(flag, newFlag)
+            }
+        }
+        return cliResponse
+    }
+
+    fun deleteFlag(flag: Flag): String? {
+        val cliResponse = flag.id?.let { cliCommand.deleteFlagCli(it) }
+        if (cliResponse != null) {
+            if (cliResponse.contains("deleted successfully", true)) {
+                flagDataService.deleteFlag(flag)
+            }
+        }
+        return cliResponse
+    }
+
+    fun getFlags(): List<Flag> {
         return flagDataService.state
     }
 }

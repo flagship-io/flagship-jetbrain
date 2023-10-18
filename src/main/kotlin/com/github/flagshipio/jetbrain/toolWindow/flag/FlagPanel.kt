@@ -13,26 +13,25 @@ import javax.swing.border.Border
 
 
 class FlagPanel(project: Project) : JPanel() {
-    private val messageBus = project.service<DefaultMessageBusService>()
     private val splitter = OnePixelSplitter(true, "LDSplitterProportion", .25f)
     private val flagStore = FlagStore(project)
 
-    private val listFlagPanel = FlagListPanel(project, messageBus)
+    private val listFlagPanel = FlagListPanel(project)
     private val manageFlagPanel = ManageFlagPanel(project, flagStore, listFlagPanel)
 
     init {
+        val listFlagTitle = "List Feature flag"
+        val manageFlagBorder: Border = BorderFactory.createTitledBorder("Manage Feature flags")
+        val listFlagBorder: Border = BorderFactory.createTitledBorder(listFlagTitle)
 
-        val manageFlagTitle: Border = BorderFactory.createTitledBorder("Manage Feature flags")
-        val flagsTitle: Border = BorderFactory.createTitledBorder("List Feature flags")
+        manageFlagPanel.border = manageFlagBorder
+        listFlagPanel.border = listFlagBorder
 
-        manageFlagPanel.border = manageFlagTitle
-        listFlagPanel.border = flagsTitle
         layout = BorderLayout(0, 0)
         splitter.apply {
             setResizeEnabled(true)
             firstComponent = manageFlagPanel
             secondComponent = listFlagPanel
-
         }
         add(splitter, BorderLayout.CENTER)
     }
@@ -44,5 +43,4 @@ class FlagPanel(project: Project) : JPanel() {
     fun getManageFlagPanel(): ManageFlagPanel {
         return manageFlagPanel
     }
-
 }

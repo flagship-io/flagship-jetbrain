@@ -13,23 +13,15 @@ import javax.swing.border.Border
 
 
 class ConfigurationPanel(project: Project) : JPanel() {
-    private val messageBus = project.service<DefaultMessageBusService>()
-    private val splitter = OnePixelSplitter(true, "FSSplitterProportion", .25f)
+    private val splitter = OnePixelSplitter(true, "LDSplitterProportion", .25f)
     private val configurationStore = ConfigurationStore(project)
-    private val cliCommand = CliCommand()
 
     private val listConfigurationPanel = ConfigurationListPanel(project)
     private val manageConfigurationPanel = ManageConfigurationPanel(project, configurationStore, listConfigurationPanel)
 
     init {
-        val currentConfig = cliCommand.currentConfigurationCli()
-        var listConfigTitle = "List Configuration"
+        val listConfigTitle = "List Configuration"
         val manageConfigurationBorder: Border = BorderFactory.createTitledBorder("Manage Configuration")
-        if (currentConfig != null) {
-            if (currentConfig.name != ""){
-                listConfigTitle += " - Current Configuration: " + currentConfig.name
-            }
-        }
         val listConfigurationBorder: Border = BorderFactory.createTitledBorder(listConfigTitle)
 
         manageConfigurationPanel.border = manageConfigurationBorder

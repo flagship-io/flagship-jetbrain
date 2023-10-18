@@ -23,16 +23,22 @@
     </applicationListeners>
 
     <actions>
-        <action class="com.github.flagshipio.jetbrain.action.CopyKeyAction"
+        <action class="com.github.flagshipio.jetbrain.action.flag.CopyKeyAction"
                 id="com.github.flagshipio.jetbrain.action.CopyKeyAction" text="Copy Flag Key"
                 description="Copy flag key to clipboard" icon="AllIcons.Actions.Copy"/>
-        <action class="com.github.flagshipio.jetbrain.action.DeleteConfigurationAction"
+        <action class="com.github.flagshipio.jetbrain.action.flag.DeleteFlagAction"
+                id="com.github.flagshipio.jetbrain.action.DeleteFlagAction" text="Delete Flag"
+                description="Delete flag from your system" icon="AllIcons.Actions.GC"/>
+        <action class="com.github.flagshipio.jetbrain.action.flag.EditFlagAction"
+                id="com.github.flagshipio.jetbrain.action.EditFlagAction" text="Edit Flag"
+                description="Edit flag from your system" icon="AllIcons.Actions.Edit"/>
+        <action class="com.github.flagshipio.jetbrain.action.configuration.DeleteConfigurationAction"
                 id="com.github.flagshipio.jetbrain.action.DeleteConfigurationAction" text="Delete Configuration"
                 description="Delete Configuration from your system" icon="AllIcons.Actions.GC"/>
-        <action class="com.github.flagshipio.jetbrain.action.EditConfigurationAction"
+        <action class="com.github.flagshipio.jetbrain.action.configuration.EditConfigurationAction"
                 id="com.github.flagshipio.jetbrain.action.EditConfigurationAction" text="Edit Configuration"
                 description="Edit Configuration from your system" icon="AllIcons.Actions.Edit"/>
-        <action class="com.github.flagshipio.jetbrain.action.SelectConfigurationAction"
+        <action class="com.github.flagshipio.jetbrain.action.configuration.SelectConfigurationAction"
                 id="com.github.flagshipio.jetbrain.action.SelectConfigurationAction" text="Select This Configuration"
                 description="Select this configuration" icon="AllIcons.Actions.Forward"/>
         <!--<action class="com.github.flagshipio.jetbrain.action.CreateCredentialPanel"

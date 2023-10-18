@@ -13,10 +13,9 @@ import javax.swing.border.Border
 
 
 class GoalTargetingPanel(project: Project) : JPanel() {
-    private val messageBus = project.service<DefaultMessageBusService>()
     private val splitter = OnePixelSplitter(true, "LDSplitterProportion", .25f)
     private val linkPanel = LinkPanel(project)
-    private val flagPanel = FlagListPanel(project, messageBus)
+    private val flagPanel = FlagListPanel(project)
 
     init {
         val goalTitle: Border = BorderFactory.createTitledBorder("Goal")
