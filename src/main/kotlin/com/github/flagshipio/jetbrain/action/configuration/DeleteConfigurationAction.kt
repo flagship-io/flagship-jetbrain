@@ -33,7 +33,6 @@ class DeleteConfigurationAction : AnAction() {
                 }
                 configurationStore.deleteConfiguration(configurationNodeParent.configuration)
                 ActionHelpers.getListConfigurationPanel(project).updateNodeInfo()
-                Messages.showMessageDialog("Configuration deleted", "Status", Messages.getInformationIcon())
                 return
             }
             selectedNode = selectedNode.parent as? DefaultMutableTreeNode

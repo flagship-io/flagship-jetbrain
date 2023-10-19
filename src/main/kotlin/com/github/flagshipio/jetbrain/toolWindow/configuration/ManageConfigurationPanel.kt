@@ -118,12 +118,10 @@ class ManageConfigurationPanel(
             )
             if (editConfiguration != null) {
                 configurationStoreLocal.editConfiguration(editConfiguration, configuration)
-                Messages.showMessageDialog("Configuration edited", "Status", Messages.getInformationIcon())
-
             } else {
                 configurationStoreLocal.saveConfiguration(configuration)
-                Messages.showMessageDialog("Configuration saved", "Status", Messages.getInformationIcon())
             }
+
             listConfigPanelLocal.updateNodeInfo()
             updateContent(mainFrame())
         }

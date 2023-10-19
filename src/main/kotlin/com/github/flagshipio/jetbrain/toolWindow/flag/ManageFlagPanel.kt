@@ -46,17 +46,26 @@ class ManageFlagPanel(
 
         val flagLabel = JLabel("Add Feature Flag")
         val keyTextField = JTextField(20)
+        val typeLabel = JLabel("Type:")
         val typeComboBox = ComboBox(typeItem);
         val descriptionTextField = JTextField(20)
-        val descriptionLabel = JLabel("Description:")
+        val defaultValueLabel = JLabel("Default Value:")
         val defaultValueTextField = JTextField(20)
 
         if (editFlag != null) {
             flagLabel.text = "Edit Feature Flag"
             keyTextField.text = editFlag.name
-            typeComboBox.item = editFlag.type.toString()
+            typeComboBox.isEnabled = false
             descriptionTextField.text = editFlag.description
             defaultValueTextField.text = editFlag.defaultValue
+
+            if ( editFlag.type == "boolean"){
+                defaultValueLabel.isVisible = false
+                defaultValueTextField.isVisible = false
+            } else {
+                defaultValueLabel.isVisible = true
+                defaultValueTextField.isVisible = true
+            }
         }
 
         val fromCredPanel = JPanel();
@@ -76,19 +85,19 @@ class ManageFlagPanel(
 
         credFormPanel.add(JLabel("Key:"))
         credFormPanel.add(keyTextField)
-        credFormPanel.add(JLabel("Type:"))
+        credFormPanel.add(typeLabel)
         credFormPanel.add(typeComboBox)
-        credFormPanel.add(descriptionLabel)
+        credFormPanel.add(JLabel("Description:"))
         credFormPanel.add(descriptionTextField)
-        credFormPanel.add(JLabel("Default Value:"))
+        credFormPanel.add(defaultValueLabel)
         credFormPanel.add(defaultValueTextField)
         typeComboBox.addActionListener {
             if (typeComboBox.selectedItem == "boolean"){
-                descriptionLabel.isVisible = false
-                descriptionTextField.isVisible = false
+                defaultValueLabel.isVisible = false
+                defaultValueTextField.isVisible = false
             } else {
-                descriptionLabel.isVisible = true
-                descriptionTextField.isVisible = true
+                defaultValueLabel.isVisible = true
+                defaultValueTextField.isVisible = true
             }
         }
 
@@ -110,14 +119,12 @@ class ManageFlagPanel(
                 null,
                 defaultValueTextField.text
             )
-            if (editFlag != null){
-                //flagStoreLocal
-                Messages.showMessageDialog("Feature Flag edited", "Status", Messages.getInformationIcon())
-            }else {
-                //flagStoreLocal
+            if (editFlag != null) {
+                flagStoreLocal.editFlag(editFlag, featureFlag)
+            } else {
                 flagStoreLocal.saveFlag(featureFlag)
-                Messages.showMessageDialog("Feature Flag saved", "Status", Messages.getInformationIcon())
             }
+
             listFlagPanelLocal.updateNodeInfo()
             updateContent(mainFrame())
         }

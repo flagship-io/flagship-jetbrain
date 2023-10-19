@@ -392,7 +392,7 @@ class CliCommand {
         return null
     }
 
-    fun editFlagCli(flagID: String, newFlag: Flag): String? {
+    fun editFlagCli(flagID: String, newFlag: Flag): Flag? {
         println("running")
         try {
 
@@ -418,24 +418,16 @@ class CliCommand {
             val output = process.inputStream.bufferedReader().use { it.readText() }
             val exitCode = process.waitFor()
 
-            Notifications.Bus.notify(
-                Notification(
-                    Cli.FLAGSHIP_CLI_ID,
-                    "Flagship",
-                    output,
-                    NotificationType.INFORMATION
-                )
-            )
-
             if (exitCode == 0) {
                 println("Command completed successfully.")
-                return output
 
             } else {
                 println("Command failed with exit code $exitCode.")
             }
 
             Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+            return gson.fromJson(output, Flag::class.java)
+
         } catch (exception: Exception) {
             println(exception)
             println("didn't work")

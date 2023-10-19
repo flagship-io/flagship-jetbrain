@@ -4,6 +4,7 @@ import com.github.flagshipio.jetbrain.cli.CliCommand
 import com.github.flagshipio.jetbrain.dataClass.Configuration
 import com.github.flagshipio.jetbrain.services.ConfigurationDataService
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.ui.Messages
 
 class ConfigurationStore(project: Project) {
 
@@ -28,6 +29,7 @@ class ConfigurationStore(project: Project) {
         if (cliResponse != null) {
             if (cliResponse.contains("created successfully", true)) {
                 configurationDataService.saveConfiguration(configuration)
+                Messages.showMessageDialog("Feature Flag saved", "Status", Messages.getInformationIcon())
             }
         }
         return cliResponse
@@ -38,6 +40,7 @@ class ConfigurationStore(project: Project) {
         if (cliResponse != null) {
             if (cliResponse.contains("edited successfully", true)) {
                 configurationDataService.editConfiguration(configuration, newConfiguration)
+                Messages.showMessageDialog("Configuration edited", "Status", Messages.getInformationIcon())
             }
         }
         return cliResponse
@@ -48,6 +51,7 @@ class ConfigurationStore(project: Project) {
         if (cliResponse != null) {
             if (cliResponse.contains("deleted successfully", true)) {
                 configurationDataService.deleteConfiguration(configuration)
+                Messages.showMessageDialog("Configuration deleted", "Status", Messages.getInformationIcon())
             }
         }
         return cliResponse

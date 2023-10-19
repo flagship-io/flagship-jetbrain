@@ -30,9 +30,9 @@ class DeleteFlagAction : AnAction() {
                 if (resp == 2) {
                     return
                 }
+
                 flagStore.deleteFlag(flagNodeParent.flag)
                 ActionHelpers.getListFlagPanel(project).updateNodeInfo()
-                Messages.showMessageDialog("Flag deleted", "Status", Messages.getInformationIcon())
                 return
             }
             selectedNode = selectedNode.parent as? DefaultMutableTreeNode
