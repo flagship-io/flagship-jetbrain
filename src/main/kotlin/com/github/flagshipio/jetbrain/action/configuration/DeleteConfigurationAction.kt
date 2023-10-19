@@ -31,8 +31,11 @@ class DeleteConfigurationAction : AnAction() {
                 if (resp == 2) {
                     return
                 }
+
                 configurationStore.deleteConfiguration(configurationNodeParent.configuration)
                 ActionHelpers.getListConfigurationPanel(project).updateNodeInfo()
+                ActionHelpers.getConfigurationPanel(project).updateListConfigurationBorder()
+
                 return
             }
             selectedNode = selectedNode.parent as? DefaultMutableTreeNode

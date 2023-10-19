@@ -2,8 +2,10 @@ package com.github.flagshipio.jetbrain.action
 
 import com.github.flagshipio.jetbrain.toolWindow.ApplicationToolWindow
 import com.github.flagshipio.jetbrain.toolWindow.configuration.ConfigurationListPanel
+import com.github.flagshipio.jetbrain.toolWindow.configuration.ConfigurationPanel
 import com.github.flagshipio.jetbrain.toolWindow.configuration.ManageConfigurationPanel
 import com.github.flagshipio.jetbrain.toolWindow.flag.FlagListPanel
+import com.github.flagshipio.jetbrain.toolWindow.flag.FlagPanel
 import com.github.flagshipio.jetbrain.toolWindow.flag.ManageFlagPanel
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
@@ -34,6 +36,14 @@ object ActionHelpers {
 
     fun getManageFlagPanel(project: Project): ManageFlagPanel {
         return project.service<ApplicationToolWindow>().getFlagPanel().getManageFlagPanel()
+    }
+
+    fun getConfigurationPanel(project: Project): ConfigurationPanel {
+        return project.service<ApplicationToolWindow>().getConfigurationPanel()
+    }
+
+    fun getFlagPanel(project: Project): FlagPanel {
+        return project.service<ApplicationToolWindow>().getFlagPanel()
     }
 
 }

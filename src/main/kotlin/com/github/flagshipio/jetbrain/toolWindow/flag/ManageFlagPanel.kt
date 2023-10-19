@@ -1,5 +1,6 @@
 package com.github.flagshipio.jetbrain.toolWindow.flag
 
+import com.github.flagshipio.jetbrain.action.ActionHelpers
 import com.github.flagshipio.jetbrain.dataClass.Flag
 import com.github.flagshipio.jetbrain.store.FlagStore
 import com.intellij.openapi.Disposable
@@ -13,11 +14,10 @@ import javax.swing.*
 class ManageFlagPanel(
     project: Project,
     flagStore: FlagStore,
-    listFlagPanel: FlagListPanel
 ) :
     SimpleToolWindowPanel(false, false), Disposable {
     private val flagStoreLocal: FlagStore = flagStore
-    private val listFlagPanelLocal: FlagListPanel = listFlagPanel
+    private val projectLocal: Project = project
 
     private fun mainFrame(): JPanel {
         val mainPanel = JPanel();
@@ -124,7 +124,8 @@ class ManageFlagPanel(
                 flagStoreLocal.saveFlag(featureFlag)
             }
 
-            listFlagPanelLocal.updateNodeInfo()
+            ActionHelpers.getFlagPanel(projectLocal).updateListFlagBorder()
+            ActionHelpers.getListFlagPanel(projectLocal).updateNodeInfo()
             updateContent(mainFrame())
         }
         fromCredSubPanel.add(saveBtn)

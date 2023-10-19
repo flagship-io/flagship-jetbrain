@@ -32,6 +32,7 @@ class DeleteFlagAction : AnAction() {
                 }
 
                 flagStore.deleteFlag(flagNodeParent.flag)
+                ActionHelpers.getFlagPanel(project).updateListFlagBorder()
                 ActionHelpers.getListFlagPanel(project).updateNodeInfo()
                 return
             }

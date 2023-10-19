@@ -35,20 +35,6 @@ class Flags {
 
     var items: MutableList<Flag>? = null
 
-    /**
-     * Get totalCount
-     * @return totalCount
-     */
-
-
-    var totalCount: BigDecimal? = null
-
-
-    fun items(items: MutableList<Flag>?): Flags {
-        this.items = items
-        return this
-    }
-
     fun addItemsItem(itemsItem: Flag): Flags {
         if (items == null) {
             items = ArrayList()
@@ -56,18 +42,6 @@ class Flags {
         items!!.add(itemsItem)
         return this
     }
-
-    /**
-     * Get items
-     * @return items
-     */
-
-
-    fun totalCount(totalCount: BigDecimal?): Flags {
-        this.totalCount = totalCount
-        return this
-    }
-
 }
 
 class RootNode(private val intProject: Project) :
@@ -75,10 +49,10 @@ class RootNode(private val intProject: Project) :
     private var myChildren: MutableList<SimpleNode> = ArrayList()
 
     override fun getChildren(): Array<SimpleNode> {
-        val flags_ = FlagStore(intProject).getFlags()
+        val flagsLocal = FlagStore(intProject).getFlags()
 
         val flags = Flags()
-        flags_.map { flags.addItemsItem(it) }
+        flagsLocal.map { flags.addItemsItem(it) }
 
         when {
             myChildren.isEmpty() && flags.items != null -> {

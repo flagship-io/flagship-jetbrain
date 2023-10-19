@@ -1,5 +1,6 @@
 package com.github.flagshipio.jetbrain.toolWindow.configuration
 
+import com.github.flagshipio.jetbrain.action.ActionHelpers
 import com.github.flagshipio.jetbrain.dataClass.Configuration
 import com.github.flagshipio.jetbrain.store.ConfigurationStore
 import com.intellij.openapi.Disposable
@@ -23,12 +24,11 @@ import javax.swing.border.LineBorder
 class ManageConfigurationPanel(
     project: Project,
     configurationStore: ConfigurationStore,
-    listConfigPanel: ConfigurationListPanel
 ) :
     SimpleToolWindowPanel(false, false), Disposable {
     private val configurationStoreLocal: ConfigurationStore = configurationStore
-    private val listConfigPanelLocal: ConfigurationListPanel = listConfigPanel
     private val projectLocal: Project = project
+
     private fun mainFrame(): JPanel {
         val mainPanel = JPanel();
 
@@ -122,7 +122,8 @@ class ManageConfigurationPanel(
                 configurationStoreLocal.saveConfiguration(configuration)
             }
 
-            listConfigPanelLocal.updateNodeInfo()
+            ActionHelpers.getConfigurationPanel(projectLocal).updateListConfigurationBorder()
+            ActionHelpers.getListConfigurationPanel(projectLocal).updateNodeInfo()
             updateContent(mainFrame())
         }
         fromCredSubPanel.add(saveBtn)
@@ -183,7 +184,7 @@ class ManageConfigurationPanel(
         fromFileSaveBtn.addActionListener {
             if (fileChosenPath != "") {
                 val cliResponse = configurationStoreLocal.saveConfigurationFromFile(fileChosenPath)
-                listConfigPanelLocal.updateNodeInfo()
+                ActionHelpers.getListConfigurationPanel(projectLocal).updateNodeInfo()
                 updateContent(mainFrame())
                 Messages.showInfoMessage(cliResponse, "Information")
             }

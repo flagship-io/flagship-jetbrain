@@ -35,20 +35,6 @@ class Configurations {
 
     var items: MutableList<Configuration>? = null
 
-    /**
-     * Get totalCount
-     * @return totalCount
-     */
-
-
-    var totalCount: BigDecimal? = null
-
-
-    fun items(items: MutableList<Configuration>?): Configurations {
-        this.items = items
-        return this
-    }
-
     fun addItemsItem(itemsItem: Configuration): Configurations {
         if (items == null) {
             items = ArrayList()
@@ -56,18 +42,6 @@ class Configurations {
         items!!.add(itemsItem)
         return this
     }
-
-    /**
-     * Get items
-     * @return items
-     */
-
-
-    fun totalCount(totalCount: BigDecimal?): Configurations {
-        this.totalCount = totalCount
-        return this
-    }
-
 }
 
 
@@ -76,10 +50,10 @@ class ConfigurationRootNode(private val intProject: Project) :
     private var myChildren: MutableList<SimpleNode> = ArrayList()
 
     override fun getChildren(): Array<SimpleNode> {
-        val configurations_ = ConfigurationStore(intProject).getConfigurations()
+        val configurationsLocal = ConfigurationStore(intProject).getConfigurations()
 
         val configurations = Configurations()
-        configurations_.map { configurations.addItemsItem(it) }
+        configurationsLocal.map { configurations.addItemsItem(it) }
 
         when {
             myChildren.isEmpty() && configurations.items != null -> {

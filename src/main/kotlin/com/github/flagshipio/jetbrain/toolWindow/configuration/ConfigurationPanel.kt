@@ -11,14 +11,15 @@ import javax.swing.border.Border
 class ConfigurationPanel(project: Project) : JPanel() {
     private val splitter = OnePixelSplitter(true, "ConfigurationSplitter", .05f)
     private val configurationStore = ConfigurationStore(project)
+    private val listConfigTitle = "List Configuration"
 
     private val listConfigurationPanel = ConfigurationListPanel(project)
-    private val manageConfigurationPanel = ManageConfigurationPanel(project, configurationStore, listConfigurationPanel)
+    private val manageConfigurationPanel = ManageConfigurationPanel(project, configurationStore)
+
 
     init {
-        val listConfigTitle = "List Configuration"
         val manageConfigurationBorder: Border = BorderFactory.createTitledBorder("Manage Configuration")
-        val listConfigurationBorder: Border = BorderFactory.createTitledBorder(listConfigTitle)
+        val listConfigurationBorder: Border = BorderFactory.createTitledBorder(listConfigTitle + " ("+ configurationStore.getConfigurations().count() +" Configurations)")
 
         manageConfigurationPanel.border = manageConfigurationBorder
         listConfigurationPanel.border = listConfigurationBorder
@@ -30,6 +31,10 @@ class ConfigurationPanel(project: Project) : JPanel() {
             secondComponent = listConfigurationPanel
         }
         add(splitter, BorderLayout.CENTER)
+    }
+
+    fun updateListConfigurationBorder() {
+        this.listConfigurationPanel.border = BorderFactory.createTitledBorder(listConfigTitle + " ("+ configurationStore.getConfigurations().count() +" Configurations)")
     }
 
     fun getListConfigurationPanel(): ConfigurationListPanel {
