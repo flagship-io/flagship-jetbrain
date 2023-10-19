@@ -5,7 +5,6 @@ import com.github.flagshipio.jetbrain.store.FlagStore
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
-import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.util.ui.JBUI
 import java.awt.BorderLayout
@@ -59,7 +58,7 @@ class ManageFlagPanel(
             descriptionTextField.text = editFlag.description
             defaultValueTextField.text = editFlag.defaultValue
 
-            if ( editFlag.type == "boolean"){
+            if (editFlag.type == "boolean") {
                 defaultValueLabel.isVisible = false
                 defaultValueTextField.isVisible = false
             } else {
@@ -92,7 +91,7 @@ class ManageFlagPanel(
         credFormPanel.add(defaultValueLabel)
         credFormPanel.add(defaultValueTextField)
         typeComboBox.addActionListener {
-            if (typeComboBox.selectedItem == "boolean"){
+            if (typeComboBox.selectedItem == "boolean") {
                 defaultValueLabel.isVisible = false
                 defaultValueTextField.isVisible = false
             } else {

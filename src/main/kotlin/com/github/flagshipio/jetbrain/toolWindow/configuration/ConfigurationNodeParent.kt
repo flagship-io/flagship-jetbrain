@@ -36,7 +36,7 @@ class ConfigurationNodeParent(private var viewModel: ConfigurationNodeViewModel)
         data.tooltip = "Right-Click to display the actions"
         val currentConfig = cliCommand.currentConfigurationCli()
         if (currentConfig != null) {
-            if (currentConfig.name == data.presentableText){
+            if (currentConfig.name == data.presentableText) {
                 data.setIcon(AllIcons.Actions.Commit)
             }
         }
