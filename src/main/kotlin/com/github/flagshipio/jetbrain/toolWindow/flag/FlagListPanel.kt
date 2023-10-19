@@ -4,15 +4,11 @@ import com.github.flagshipio.jetbrain.action.flag.CopyKeyAction
 import com.github.flagshipio.jetbrain.action.flag.DeleteFlagAction
 import com.github.flagshipio.jetbrain.action.flag.EditFlagAction
 import com.github.flagshipio.jetbrain.dataClass.Flag
-import com.github.flagshipio.jetbrain.messaging.FlagNotifier
-import com.github.flagshipio.jetbrain.messaging.MessageBusService
 import com.github.flagshipio.jetbrain.store.FlagStore
 import com.github.flagshipio.jetbrain.toolWindow.NodeBase
 import com.github.flagshipio.jetbrain.toolWindow.NodeTreeSearch
 import com.github.flagshipio.jetbrain.toolWindow.NodeTreeStructure
 import com.intellij.ide.projectView.PresentationData
-import com.intellij.notification.Notification
-import com.intellij.notification.NotificationType
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.actionSystem.ActionPlaces
@@ -29,19 +25,11 @@ import com.intellij.ui.tree.StructureTreeModel
 import com.intellij.ui.treeStructure.SimpleNode
 import com.intellij.ui.treeStructure.SimpleTreeStructure
 import com.intellij.ui.treeStructure.Tree
-import com.intellij.util.ui.UIUtil.invokeLaterIfNeeded
 import com.intellij.util.ui.tree.TreeUtil
 import java.awt.CardLayout
 import java.math.BigDecimal
 import javax.swing.JPanel
 import javax.swing.tree.TreeSelectionModel
-
-/*
- * FlagPanel renders the ToolWindow Flag Treeview and associated action buttons.
- */
-
-private const val SPLITTER_PROPERTY = "BuildAttribution.Splitter.Proportion"
-
 
 class Flags {
 
@@ -81,7 +69,6 @@ class Flags {
     }
 
 }
-
 
 class RootNode(private val intProject: Project) :
     SimpleNode() {
@@ -147,13 +134,13 @@ class FlagListPanel(private val myProject: Project) :
     private fun start(): Tree {
         val reviewTreeBuilder = AsyncTreeModel(treeModel, this)
         tree = initTree(reviewTreeBuilder)
-
-        val componentsSplitter = OnePixelSplitter(SPLITTER_PROPERTY, 0.33f)
+        val componentsSplitter = OnePixelSplitter("FlagListSplitter", 0.33f)
         componentsSplitter.setHonorComponentsMinimumSize(true)
         componentsSplitter.firstComponent = JPanel(CardLayout()).apply {
             add(ScrollPaneFactory.createScrollPane(tree, SideBorder.NONE), "Tree")
         }
         setContent(componentsSplitter)
+
         return tree
     }
 

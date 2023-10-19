@@ -31,12 +31,6 @@ import java.math.BigDecimal
 import javax.swing.JPanel
 import javax.swing.tree.TreeSelectionModel
 
-/*
- * FlagPanel renders the ToolWindow Flag Treeview and associated action buttons.
- */
-
-private const val SPLITTER_PROPERTY = "BuildAttribution.Splitter.Proportion"
-
 class Configurations {
 
     var items: MutableList<Configuration>? = null
@@ -142,7 +136,7 @@ class ConfigurationListPanel(private val myProject: Project) :
         val reviewTreeBuilder = AsyncTreeModel(treeModel, this)
         tree = initTree(reviewTreeBuilder)
 
-        val componentsSplitter = OnePixelSplitter(SPLITTER_PROPERTY, 0.33f)
+        val componentsSplitter = OnePixelSplitter("ConfigurationListSplitter", 0.33f)
         componentsSplitter.setHonorComponentsMinimumSize(true)
         componentsSplitter.firstComponent = JPanel(CardLayout()).apply {
             add(ScrollPaneFactory.createScrollPane(tree, SideBorder.NONE), "Tree")

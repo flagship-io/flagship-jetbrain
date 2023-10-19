@@ -10,5 +10,4 @@ class FlagNodeViewModel(
     val flagId = flag.id
     val defaultValue = flag.defaultValue
     val flagType = flag.type
-    val flagSource = flag.source
 }

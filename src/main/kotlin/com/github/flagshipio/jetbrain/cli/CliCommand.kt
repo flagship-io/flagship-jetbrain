@@ -357,8 +357,6 @@ class CliCommand {
                 "-d={\"name\":\"${flag.name}\",\"type\":\"${flag.type}\",\"source\":\"cli\",\"description\":\"${flag.description}\",\"default_value\":\"${flag.defaultValue}\"}"
             }
 
-            println(flagDataRaw)
-
             val processBuilder = ProcessBuilder(
                 PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
                 "flag",

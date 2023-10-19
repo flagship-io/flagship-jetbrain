@@ -1,9 +1,6 @@
 package com.github.flagshipio.jetbrain.toolWindow.configuration
 
-import com.github.flagshipio.jetbrain.cli.CliCommand
-import com.github.flagshipio.jetbrain.messaging.DefaultMessageBusService
 import com.github.flagshipio.jetbrain.store.ConfigurationStore
-import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
 import java.awt.BorderLayout
@@ -11,9 +8,8 @@ import javax.swing.BorderFactory
 import javax.swing.JPanel
 import javax.swing.border.Border
 
-
 class ConfigurationPanel(project: Project) : JPanel() {
-    private val splitter = OnePixelSplitter(true, "LDSplitterProportion", .25f)
+    private val splitter = OnePixelSplitter(true, "ConfigurationSplitter", .05f)
     private val configurationStore = ConfigurationStore(project)
 
     private val listConfigurationPanel = ConfigurationListPanel(project)

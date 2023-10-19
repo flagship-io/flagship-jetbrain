@@ -1,9 +1,6 @@
 package com.github.flagshipio.jetbrain.toolWindow.flag
 
-import com.github.flagshipio.jetbrain.messaging.DefaultMessageBusService
 import com.github.flagshipio.jetbrain.store.FlagStore
-import com.github.flagshipio.jetbrain.toolWindow.quickLink.LinkPanel
-import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
 import java.awt.BorderLayout
@@ -13,7 +10,7 @@ import javax.swing.border.Border
 
 
 class FlagPanel(project: Project) : JPanel() {
-    private val splitter = OnePixelSplitter(true, "LDSplitterProportion", .25f)
+    private val splitter = OnePixelSplitter(true, "FlagSplitter", .05f)
     private val flagStore = FlagStore(project)
 
     private val listFlagPanel = FlagListPanel(project)

@@ -32,8 +32,9 @@ class FlagNodeParent(private var viewModel: FlagNodeViewModel) : SimpleNode() {
         children.add(NodeBase("$KEY_PREFIX ${viewModel.flagLabel}", Debugger.Db_muted_breakpoint))
         children.add(NodeBase("Type: ${viewModel.flagType}", Debugger.Db_muted_breakpoint))
         children.add(NodeBase("Description: ${viewModel.flagDescription}", Debugger.Db_muted_breakpoint))
-        children.add(NodeBase("Default value: ${viewModel.defaultValue}", Debugger.Db_muted_breakpoint))
-        children.add(NodeBase("Source: ${viewModel.flagSource}", Debugger.Db_muted_breakpoint))
+        if (viewModel.flagType != "boolean") {
+            children.add(NodeBase("Default value: ${viewModel.defaultValue}", Debugger.Db_muted_breakpoint))
+        }
     }
 
     override fun update(data: PresentationData) {

@@ -35,8 +35,8 @@ class FlagStore(project: Project) {
     fun editFlag(flag: Flag, newFlag: Flag): Flag? {
         val cliResponse = flag.id?.let { cliCommand.editFlagCli(it, newFlag) }
         if (cliResponse != null) {
-                flagDataService.editFlag(flag, cliResponse)
-                Messages.showMessageDialog("Feature Flag edited", "Status", Messages.getInformationIcon())
+            flagDataService.editFlag(flag, cliResponse)
+            Messages.showMessageDialog("Feature Flag edited", "Status", Messages.getInformationIcon())
         }
         return cliResponse
     }
