@@ -1,6 +1,6 @@
 package com.github.flagshipio.jetbrain.toolWindow.flag
 
-import com.github.flagshipio.jetbrain.toolWindow.NodeBase
+import com.github.flagshipio.jetbrain.toolWindow.RootNode
 import com.intellij.icons.AllIcons.Debugger
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.ui.treeStructure.SimpleNode
@@ -28,12 +28,12 @@ class FlagNodeParent(private var viewModel: FlagNodeViewModel) : SimpleNode() {
     }
 
     private fun buildChildren() {
-        children.add(NodeBase("Id: ${viewModel.flagId}", Debugger.Db_muted_breakpoint))
-        children.add(NodeBase("$KEY_PREFIX ${viewModel.flagLabel}", Debugger.Db_muted_breakpoint))
-        children.add(NodeBase("Type: ${viewModel.flagType}", Debugger.Db_muted_breakpoint))
-        children.add(NodeBase("Description: ${viewModel.flagDescription}", Debugger.Db_muted_breakpoint))
+        children.add(RootNode("Id: ${viewModel.flagId}", Debugger.Db_muted_breakpoint))
+        children.add(RootNode("$KEY_PREFIX ${viewModel.flagLabel}", Debugger.Db_muted_breakpoint))
+        children.add(RootNode("Type: ${viewModel.flagType}", Debugger.Db_muted_breakpoint))
+        children.add(RootNode("Description: ${viewModel.flagDescription}", Debugger.Db_muted_breakpoint))
         if (viewModel.flagType != "boolean") {
-            children.add(NodeBase("Default value: ${viewModel.defaultValue}", Debugger.Db_muted_breakpoint))
+            children.add(RootNode("Default value: ${viewModel.defaultValue}", Debugger.Db_muted_breakpoint))
         }
     }
 

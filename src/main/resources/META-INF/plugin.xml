@@ -17,11 +17,6 @@
 
     </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.flagshipio.jetbrain.listeners.MyApplicationActivationListener"
-                  topic="com.intellij.openapi.application.ApplicationActivationListener"/>
-    </applicationListeners>
-
     <actions>
         <action class="com.github.flagshipio.jetbrain.action.flag.CopyKeyAction"
                 id="com.github.flagshipio.jetbrain.action.CopyKeyAction" text="Copy Flag Key"

@@ -7,8 +7,4 @@ class NodeTreeStructure(private val myRootElement: SimpleNode) : SimpleTreeStruc
     override fun getRootElement(): SimpleNode {
         return myRootElement
     }
-
-    override fun isToBuildChildrenInBackground(element: Any): Boolean {
-        return true
-    }
 }

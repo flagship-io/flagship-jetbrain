@@ -5,10 +5,8 @@ import com.github.flagshipio.jetbrain.action.configuration.EditConfigurationActi
 import com.github.flagshipio.jetbrain.action.configuration.SelectConfigurationAction
 import com.github.flagshipio.jetbrain.dataClass.Configuration
 import com.github.flagshipio.jetbrain.store.ConfigurationStore
-import com.github.flagshipio.jetbrain.toolWindow.NodeBase
-import com.github.flagshipio.jetbrain.toolWindow.NodeTreeSearch
 import com.github.flagshipio.jetbrain.toolWindow.NodeTreeStructure
-import com.intellij.ide.projectView.PresentationData
+import com.github.flagshipio.jetbrain.toolWindow.RootNode
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.actionSystem.ActionPlaces
@@ -20,6 +18,7 @@ import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.PopupHandler
 import com.intellij.ui.ScrollPaneFactory
 import com.intellij.ui.SideBorder
+import com.intellij.ui.TreeUIHelper
 import com.intellij.ui.tree.AsyncTreeModel
 import com.intellij.ui.tree.StructureTreeModel
 import com.intellij.ui.treeStructure.SimpleNode
@@ -27,7 +26,6 @@ import com.intellij.ui.treeStructure.SimpleTreeStructure
 import com.intellij.ui.treeStructure.Tree
 import com.intellij.util.ui.tree.TreeUtil
 import java.awt.CardLayout
-import java.math.BigDecimal
 import javax.swing.JPanel
 import javax.swing.tree.TreeSelectionModel
 
@@ -45,9 +43,9 @@ class Configurations {
 }
 
 
-class ConfigurationRootNode(private val intProject: Project) :
+class ConfigurationNode(private val intProject: Project) :
     SimpleNode() {
-    private var myChildren: MutableList<SimpleNode> = ArrayList()
+    private var configurationNodeChildren: MutableList<SimpleNode> = ArrayList()
 
     override fun getChildren(): Array<SimpleNode> {
         val configurationsLocal = ConfigurationStore(intProject).getConfigurations()
@@ -56,34 +54,29 @@ class ConfigurationRootNode(private val intProject: Project) :
         configurationsLocal.map { configurations.addItemsItem(it) }
 
         when {
-            myChildren.isEmpty() && configurations.items != null -> {
+            configurationNodeChildren.isEmpty() && configurations.items != null -> {
                 for (configuration in configurations.items!!) {
                     val configViewModel = ConfigurationNodeViewModel(configuration)
-                    myChildren.add(ConfigurationNodeParent(configViewModel))
+                    configurationNodeChildren.add(ConfigurationNodeParent(configViewModel))
                 }
             }
 
-            configurations.items == null -> myChildren.add(NodeBase("Flagship is not configured."))
+            configurations.items == null -> configurationNodeChildren.add(RootNode("Flagship is not configured."))
         }
 
-        return myChildren.toTypedArray()
-    }
-
-    override fun update(data: PresentationData) {
-        super.update(data)
-        data.presentableText = "root"
+        return configurationNodeChildren.toTypedArray()
     }
 }
 
 class ConfigurationListPanel(private val myProject: Project) :
     SimpleToolWindowPanel(false, false), Disposable {
-    private var root = ConfigurationRootNode(myProject)
+    private var node = ConfigurationNode(myProject)
     private var treeStructure = createTreeStructure()
     private var treeModel = StructureTreeModel(treeStructure, this)
-    lateinit var tree: Tree
+    var tree: Tree
 
     private fun createTreeStructure(): SimpleTreeStructure {
-        return NodeTreeStructure(root)
+        return NodeTreeStructure(node)
     }
 
     override fun dispose() {}
@@ -91,7 +84,7 @@ class ConfigurationListPanel(private val myProject: Project) :
     private fun initTree(model: AsyncTreeModel): Tree {
         tree = Tree(model)
         tree.isRootVisible = false
-        NodeTreeSearch(tree)
+        TreeUIHelper.getInstance().installTreeSpeedSearch(tree)
         TreeUtil.installActions(tree)
         tree.selectionModel.selectionMode = TreeSelectionModel.SINGLE_TREE_SELECTION
 
@@ -99,16 +92,16 @@ class ConfigurationListPanel(private val myProject: Project) :
     }
 
     fun updateNodeInfo() {
-        root = ConfigurationRootNode(myProject)
+        node = ConfigurationNode(myProject)
         treeStructure = createTreeStructure()
         treeModel = StructureTreeModel(treeStructure, this)
-        val reviewTreeBuilder = AsyncTreeModel(treeModel, this)
-        tree.model = reviewTreeBuilder
+        val asyncTreeModel = AsyncTreeModel(treeModel, this)
+        tree.model = asyncTreeModel
     }
 
-    fun start(): Tree {
-        val reviewTreeBuilder = AsyncTreeModel(treeModel, this)
-        tree = initTree(reviewTreeBuilder)
+    private fun start(): Tree {
+        val asyncTreeModel = AsyncTreeModel(treeModel, this)
+        tree = initTree(asyncTreeModel)
 
         val componentsSplitter = OnePixelSplitter("ConfigurationListSplitter", 0.33f)
         componentsSplitter.setHonorComponentsMinimumSize(true)

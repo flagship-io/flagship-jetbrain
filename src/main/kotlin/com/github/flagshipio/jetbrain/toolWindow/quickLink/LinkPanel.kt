@@ -1,6 +1,5 @@
 package com.github.flagshipio.jetbrain.toolWindow.quickLink
 
-import com.github.flagshipio.jetbrain.toolWindow.NodeTreeSearch
 import com.github.flagshipio.jetbrain.toolWindow.NodeTreeStructure
 import com.intellij.ide.browsers.BrowserLauncher
 import com.intellij.openapi.Disposable
@@ -9,6 +8,7 @@ import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.ScrollPaneFactory
 import com.intellij.ui.SideBorder
+import com.intellij.ui.TreeUIHelper
 import com.intellij.ui.tree.AsyncTreeModel
 import com.intellij.ui.tree.StructureTreeModel
 import com.intellij.ui.treeStructure.SimpleTreeStructure
@@ -43,14 +43,14 @@ class LinkPanel(private val myProject: Project) :
     private fun initTree(model: AsyncTreeModel): Tree {
         tree = Tree(model)
         tree.isRootVisible = false
-        NodeTreeSearch(tree)
+        TreeUIHelper.getInstance().installTreeSpeedSearch(tree)
         TreeUtil.installActions(tree)
         tree.selectionModel.selectionMode = TreeSelectionModel.SINGLE_TREE_SELECTION
 
         return tree
     }
 
-    fun start(): Tree {
+    private fun start(): Tree {
         var reviewTreeBuilder = AsyncTreeModel(treeModel, this)
         tree = initTree(reviewTreeBuilder)
 

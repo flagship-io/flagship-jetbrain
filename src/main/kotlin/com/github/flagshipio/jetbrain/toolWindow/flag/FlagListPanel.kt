@@ -5,10 +5,7 @@ import com.github.flagshipio.jetbrain.action.flag.DeleteFlagAction
 import com.github.flagshipio.jetbrain.action.flag.EditFlagAction
 import com.github.flagshipio.jetbrain.dataClass.Flag
 import com.github.flagshipio.jetbrain.store.FlagStore
-import com.github.flagshipio.jetbrain.toolWindow.NodeBase
-import com.github.flagshipio.jetbrain.toolWindow.NodeTreeSearch
 import com.github.flagshipio.jetbrain.toolWindow.NodeTreeStructure
-import com.intellij.ide.projectView.PresentationData
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.actionSystem.ActionPlaces
@@ -20,6 +17,7 @@ import com.intellij.ui.OnePixelSplitter
 import com.intellij.ui.PopupHandler
 import com.intellij.ui.ScrollPaneFactory
 import com.intellij.ui.SideBorder
+import com.intellij.ui.TreeUIHelper
 import com.intellij.ui.tree.AsyncTreeModel
 import com.intellij.ui.tree.StructureTreeModel
 import com.intellij.ui.treeStructure.SimpleNode
@@ -27,7 +25,6 @@ import com.intellij.ui.treeStructure.SimpleTreeStructure
 import com.intellij.ui.treeStructure.Tree
 import com.intellij.util.ui.tree.TreeUtil
 import java.awt.CardLayout
-import java.math.BigDecimal
 import javax.swing.JPanel
 import javax.swing.tree.TreeSelectionModel
 
@@ -44,9 +41,9 @@ class Flags {
     }
 }
 
-class RootNode(private val intProject: Project) :
+class FlagNode(private val intProject: Project) :
     SimpleNode() {
-    private var myChildren: MutableList<SimpleNode> = ArrayList()
+    private var flagNodeChildren: MutableList<SimpleNode> = ArrayList()
 
     override fun getChildren(): Array<SimpleNode> {
         val flagsLocal = FlagStore(intProject).getFlags()
@@ -55,34 +52,29 @@ class RootNode(private val intProject: Project) :
         flagsLocal.map { flags.addItemsItem(it) }
 
         when {
-            myChildren.isEmpty() && flags.items != null -> {
+            flagNodeChildren.isEmpty() && flags.items != null -> {
                 for (flag in flags.items!!) {
                     val flagViewModel = FlagNodeViewModel(flag)
-                    myChildren.add(FlagNodeParent(flagViewModel))
+                    flagNodeChildren.add(FlagNodeParent(flagViewModel))
                 }
             }
 
-            flags.items == null -> myChildren.add(NodeBase("Flagship is not configured."))
+            flags.items == null -> flagNodeChildren.add(com.github.flagshipio.jetbrain.toolWindow.RootNode("Flagship is not configured."))
         }
 
-        return myChildren.toTypedArray()
-    }
-
-    override fun update(data: PresentationData) {
-        super.update(data)
-        data.presentableText = "root"
+        return flagNodeChildren.toTypedArray()
     }
 }
 
 class FlagListPanel(private val myProject: Project) :
     SimpleToolWindowPanel(false, false), Disposable {
-    private var root = RootNode(myProject)
+    private var node = FlagNode(myProject)
     private var treeStructure = createTreeStructure()
     private var treeModel = StructureTreeModel(treeStructure, this)
-    lateinit var tree: Tree
+    var tree: Tree
 
     private fun createTreeStructure(): SimpleTreeStructure {
-        return NodeTreeStructure(root)
+        return NodeTreeStructure(node)
     }
 
     override fun dispose() {}
@@ -90,7 +82,7 @@ class FlagListPanel(private val myProject: Project) :
     private fun initTree(model: AsyncTreeModel): Tree {
         tree = Tree(model)
         tree.isRootVisible = false
-        NodeTreeSearch(tree)
+        TreeUIHelper.getInstance().installTreeSpeedSearch(tree)
         TreeUtil.installActions(tree)
         tree.selectionModel.selectionMode = TreeSelectionModel.SINGLE_TREE_SELECTION
 
@@ -98,16 +90,16 @@ class FlagListPanel(private val myProject: Project) :
     }
 
     fun updateNodeInfo() {
-        root = RootNode(myProject)
+        node = FlagNode(myProject)
         treeStructure = createTreeStructure()
         treeModel = StructureTreeModel(treeStructure, this)
-        val reviewTreeBuilder = AsyncTreeModel(treeModel, this)
-        tree.model = reviewTreeBuilder
+        val asyncTreeModel = AsyncTreeModel(treeModel, this)
+        tree.model = asyncTreeModel
     }
 
     private fun start(): Tree {
-        val reviewTreeBuilder = AsyncTreeModel(treeModel, this)
-        tree = initTree(reviewTreeBuilder)
+        val asyncTreeModel = AsyncTreeModel(treeModel, this)
+        tree = initTree(asyncTreeModel)
         val componentsSplitter = OnePixelSplitter("FlagListSplitter", 0.33f)
         componentsSplitter.setHonorComponentsMinimumSize(true)
         componentsSplitter.firstComponent = JPanel(CardLayout()).apply {
@@ -127,6 +119,7 @@ class FlagListPanel(private val myProject: Project) :
         val copyKeyAction = actionManager.getAction(CopyKeyAction.ID)
         val editFlagAction = actionManager.getAction(EditFlagAction.ID)
         val deleteFlagAction = actionManager.getAction(DeleteFlagAction.ID)
+
         actionToolbar.targetComponent = this
         PopupHandler.installPopupMenu(
             tree,

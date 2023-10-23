@@ -8,7 +8,6 @@ import javax.swing.BorderFactory
 import javax.swing.JPanel
 import javax.swing.border.Border
 
-
 class FlagPanel(project: Project) : JPanel() {
     private val splitter = OnePixelSplitter(true, "FlagSplitter", .05f)
     private val flagStore = FlagStore(project)
