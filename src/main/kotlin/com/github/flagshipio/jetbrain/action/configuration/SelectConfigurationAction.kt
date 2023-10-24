@@ -3,11 +3,12 @@ package com.github.flagshipio.jetbrain.action.configuration
 import com.github.flagshipio.jetbrain.action.ActionHelpers
 import com.github.flagshipio.jetbrain.store.ConfigurationStore
 import com.github.flagshipio.jetbrain.toolWindow.configuration.ConfigurationNodeParent
-import com.github.flagshipio.jetbrain.toolWindow.configuration.NAME_PREFIX
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.ui.Messages
 import javax.swing.tree.DefaultMutableTreeNode
+
+const val NAME_PREFIX = "Name:"
 
 class SelectConfigurationAction : AnAction() {
     companion object {
@@ -25,7 +26,12 @@ class SelectConfigurationAction : AnAction() {
                 if (isChangedConfiguration) {
                     ActionHelpers.getFlagPanel(project).updateListFlagBorder()
                     ActionHelpers.getListFlagPanel(project).updateNodeInfo()
+
+                    ActionHelpers.getGoalPanel(project).updateListGoalBorder()
+                    ActionHelpers.getListGoalPanel(project).updateNodeInfo()
+
                     ActionHelpers.getListConfigurationPanel(project).updateNodeInfo()
+
                     Messages.showMessageDialog("Configuration selected", "Status", Messages.getInformationIcon())
                 }
                 return

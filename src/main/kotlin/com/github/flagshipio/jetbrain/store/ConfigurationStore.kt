@@ -11,6 +11,7 @@ class ConfigurationStore(project: Project) {
     private var configurationDataService: ConfigurationDataService
     private val cliCommand = CliCommand()
     private val flagStore = FlagStore(project)
+    private val goalStore = GoalStore(project)
 
     init {
         configurationDataService = project.getService(ConfigurationDataService::class.java)
@@ -62,6 +63,7 @@ class ConfigurationStore(project: Project) {
         if (cliResponse != null) {
             if (cliResponse.contains("selected successfully", true)) {
                 flagStore.refreshFlag()
+                goalStore.refreshGoal()
                 return true
             }
         }

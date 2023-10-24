@@ -2,6 +2,7 @@ package com.github.flagshipio.jetbrain.cli
 
 import com.github.flagshipio.jetbrain.dataClass.Configuration
 import com.github.flagshipio.jetbrain.dataClass.Flag
+import com.github.flagshipio.jetbrain.dataClass.Goal
 import com.google.gson.Gson
 import com.intellij.ide.plugins.PluginManagerCore
 import com.intellij.notification.Notification
@@ -497,6 +498,173 @@ class CliCommand {
             if (exitCode == 0) {
                 println("Command completed successfully.")
                 return gson.fromJson(output, Array<Flag>::class.java).toList()
+
+            } else {
+                println("Command failed with exit code $exitCode.")
+            }
+
+            Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+        } catch (exception: Exception) {
+            println(exception)
+            println("didn't work")
+        }
+
+        return null
+    }
+
+    fun addGoalCli(goal: Goal): Goal? {
+        println("running")
+        try {
+
+            val goalDataRaw = if ((goal.type == "transaction") || (goal.type == "event")) {
+                "-d={\"label\":\"${goal.label}\",\"type\":\"${goal.type}\"}"
+            } else {
+                "-d={\"label\":\"${goal.label}\",\"type\":\"${goal.type}\",\"operator\":\"${goal.operator}\",\"value\":\"${goal.value}\"}"
+            }
+
+            val processBuilder = ProcessBuilder(
+                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
+                "goal",
+                "create",
+                goalDataRaw,
+                "--user-agent=flagship-ext-jetbrain/v" + (PluginManagerCore.getPlugin(PluginId.getId("com.github.flagshipio.jetbrain"))?.version
+                    ?: "")
+            )
+            processBuilder.redirectErrorStream(true)
+            processBuilder.command()
+            val process = processBuilder.start()
+
+            val output = process.inputStream.bufferedReader().use { it.readText() }
+            val exitCode = process.waitFor()
+
+            if (exitCode == 0) {
+                println("Command completed successfully.")
+
+            } else {
+                println("Command failed with exit code $exitCode.")
+            }
+
+            Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+            return gson.fromJson(output, Goal::class.java)
+
+        } catch (exception: Exception) {
+            println(exception)
+            println("didn't work")
+        }
+
+        return null
+    }
+
+    fun editGoalCli(goalID: String, newGoal: Goal): Goal? {
+        println("running")
+        try {
+            println(goalID)
+            println(newGoal)
+            val goalDataRaw = if ((newGoal.type == "transaction") || (newGoal.type == "event")) {
+                "-d={\"label\":\"${newGoal.label}\"}"
+            } else {
+                "-d={\"label\":\"${newGoal.label}\",\"operator\":\"${newGoal.operator}\",\"value\":\"${newGoal.value}\"}"
+            }
+
+            val processBuilder = ProcessBuilder(
+                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
+                "goal",
+                "edit",
+                "-i=$goalID",
+                goalDataRaw,
+                "--user-agent=flagship-ext-jetbrain/v" + (PluginManagerCore.getPlugin(PluginId.getId("com.github.flagshipio.jetbrain"))?.version
+                    ?: "")
+            )
+            processBuilder.redirectErrorStream(true)
+            processBuilder.command()
+            val process = processBuilder.start()
+
+            val output = process.inputStream.bufferedReader().use { it.readText() }
+            val exitCode = process.waitFor()
+
+            if (exitCode == 0) {
+                println("Command completed successfully.")
+
+            } else {
+                println("Command failed with exit code $exitCode.")
+            }
+
+            println(output)
+
+            Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+            return gson.fromJson(output, Goal::class.java)
+
+        } catch (exception: Exception) {
+            println(exception)
+            println("didn't work")
+        }
+
+        return null
+    }
+
+    fun deleteGoalCli(goalID: String): String? {
+        println("running")
+        try {
+            val processBuilder = ProcessBuilder(
+                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
+                "goal",
+                "delete",
+                "-i=$goalID",
+                "--user-agent=flagship-ext-jetbrain/v" + (PluginManagerCore.getPlugin(PluginId.getId("com.github.flagshipio.jetbrain"))?.version
+                    ?: "")
+            )
+            processBuilder.redirectErrorStream(true)
+            val process = processBuilder.start()
+
+            val output = process.inputStream.bufferedReader().use { it.readText() }
+            val exitCode = process.waitFor()
+
+            Notifications.Bus.notify(
+                Notification(
+                    Cli.FLAGSHIP_CLI_ID,
+                    "Flagship",
+                    output,
+                    NotificationType.INFORMATION
+                )
+            )
+
+            if (exitCode == 0) {
+                println("Command completed successfully.")
+                return output
+
+            } else {
+                println("Command failed with exit code $exitCode.")
+            }
+
+            Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+        } catch (exception: Exception) {
+            println(exception)
+            println("didn't work")
+        }
+
+        return null
+    }
+
+    fun listGoalCli(): List<Goal>? {
+        println("running")
+        try {
+            val processBuilder = ProcessBuilder(
+                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
+                "goal",
+                "list",
+                "--output-format=json",
+                "--user-agent=flagship-ext-jetbrain/v" + (PluginManagerCore.getPlugin(PluginId.getId("com.github.flagshipio.jetbrain"))?.version
+                    ?: "")
+            )
+            processBuilder.redirectErrorStream(true)
+            val process = processBuilder.start()
+
+            val output = process.inputStream.bufferedReader().use { it.readText() }
+            val exitCode = process.waitFor()
+
+            if (exitCode == 0) {
+                println("Command completed successfully.")
+                return gson.fromJson(output, Array<Goal>::class.java).toList()
 
             } else {
                 println("Command failed with exit code $exitCode.")

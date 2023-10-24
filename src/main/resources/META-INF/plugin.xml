@@ -27,6 +27,7 @@
         <action class="com.github.flagshipio.jetbrain.action.flag.EditFlagAction"
                 id="com.github.flagshipio.jetbrain.action.EditFlagAction" text="Edit Flag"
                 description="Edit flag from your system" icon="AllIcons.Actions.Edit"/>
+
         <action class="com.github.flagshipio.jetbrain.action.configuration.DeleteConfigurationAction"
                 id="com.github.flagshipio.jetbrain.action.DeleteConfigurationAction" text="Delete Configuration"
                 description="Delete Configuration from your system" icon="AllIcons.Actions.GC"/>
@@ -36,6 +37,17 @@
         <action class="com.github.flagshipio.jetbrain.action.configuration.SelectConfigurationAction"
                 id="com.github.flagshipio.jetbrain.action.SelectConfigurationAction" text="Select This Configuration"
                 description="Select this configuration" icon="AllIcons.Actions.Forward"/>
+
+        <action class="com.github.flagshipio.jetbrain.action.goal.CopyLabelAction"
+                id="com.github.flagshipio.jetbrain.action.CopyLabelAction" text="Copy Goal Label"
+                description="Copy goal label to clipboard" icon="AllIcons.Actions.Copy"/>
+        <action class="com.github.flagshipio.jetbrain.action.goal.DeleteGoalAction"
+                id="com.github.flagshipio.jetbrain.action.DeleteGoalAction" text="Delete Goal"
+                description="Delete goal from your system" icon="AllIcons.Actions.GC"/>
+        <action class="com.github.flagshipio.jetbrain.action.goal.EditGoalAction"
+                id="com.github.flagshipio.jetbrain.action.EditGoalAction" text="Edit Goal"
+                description="Edit goal from your system" icon="AllIcons.Actions.Edit"/>
+
         <!--<action class="com.github.flagshipio.jetbrain.action.CreateCredentialPanel"
                 id="com.github.flagshipio.jetbrain.action.CreateCredentialPanel" text="Create Configuration"
                 icon="/icons/logo.svg">

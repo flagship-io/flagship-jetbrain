@@ -54,6 +54,7 @@ class ManageFlagPanel(
         if (editFlag != null) {
             flagLabel.text = "Edit Feature Flag"
             keyTextField.text = editFlag.name
+            typeComboBox.selectedItem = editFlag.type
             typeComboBox.isEnabled = false
             descriptionTextField.text = editFlag.description
             defaultValueTextField.text = editFlag.defaultValue

@@ -3,6 +3,7 @@ package com.github.flagshipio.jetbrain.toolWindow
 import com.github.flagshipio.jetbrain.cli.Cli
 import com.github.flagshipio.jetbrain.store.ConfigurationStore
 import com.github.flagshipio.jetbrain.store.FlagStore
+import com.github.flagshipio.jetbrain.store.GoalStore
 import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.ToolWindow
@@ -21,14 +22,17 @@ class MyToolWindowFactory : ToolWindowFactory {
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
         val flagStore = FlagStore(project)
         val configurationStore = ConfigurationStore(project)
+        val goalStore = GoalStore(project)
 
-        flagStore.refreshFlag()
         configurationStore.refreshConfiguration()
+        flagStore.refreshFlag()
+        goalStore.refreshGoal()
 
         val applicationToolWindow = ApplicationToolWindow.getInstance(project)
+
         applicationToolWindow.initializeConfigurationPanel(toolWindow)
-        applicationToolWindow.initializeBasePanel(toolWindow)
-        applicationToolWindow.initializeGoalTargetingPanel(toolWindow)
+        applicationToolWindow.initializeFlagPanel(toolWindow)
+        applicationToolWindow.initializeGoalPanel(toolWindow)
     }
 
     override fun shouldBeAvailable(project: Project) = true
