@@ -10,6 +10,9 @@ import com.github.flagshipio.jetbrain.toolWindow.flag.ManageFlagPanel
 import com.github.flagshipio.jetbrain.toolWindow.goal.GoalListPanel
 import com.github.flagshipio.jetbrain.toolWindow.goal.GoalPanel
 import com.github.flagshipio.jetbrain.toolWindow.goal.ManageGoalPanel
+import com.github.flagshipio.jetbrain.toolWindow.targetingKey.ManageTargetingKeyPanel
+import com.github.flagshipio.jetbrain.toolWindow.targetingKey.TargetingKeyListPanel
+import com.github.flagshipio.jetbrain.toolWindow.targetingKey.TargetingKeyPanel
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import javax.swing.tree.DefaultMutableTreeNode
@@ -24,6 +27,11 @@ object ActionHelpers {
     fun getLastSelectedDefaultMutableListFlagTreeNode(project: Project): DefaultMutableTreeNode? {
         return project.service<ApplicationToolWindow>().getFlagPanel()
             .getFlagListPanel().tree.lastSelectedPathComponent as? DefaultMutableTreeNode
+    }
+
+    fun getLastSelectedDefaultMutableListTargetingKeyTreeNode(project: Project): DefaultMutableTreeNode? {
+        return project.service<ApplicationToolWindow>().getTargetingKeyPanel()
+            .getTargetingKeyListPanel().tree.lastSelectedPathComponent as? DefaultMutableTreeNode
     }
 
     fun getLastSelectedDefaultMutableListGoalTreeNode(project: Project): DefaultMutableTreeNode? {
@@ -65,6 +73,18 @@ object ActionHelpers {
 
     fun getGoalPanel(project: Project): GoalPanel {
         return project.service<ApplicationToolWindow>().getGoalPanel()
+    }
+
+    fun getListTargetingKeyPanel(project: Project): TargetingKeyListPanel {
+        return project.service<ApplicationToolWindow>().getTargetingKeyPanel().getTargetingKeyListPanel()
+    }
+
+    fun getManageTargetingKeyPanel(project: Project): ManageTargetingKeyPanel {
+        return project.service<ApplicationToolWindow>().getTargetingKeyPanel().getManageTargetingKeyPanel()
+    }
+
+    fun getTargetingKeyPanel(project: Project): TargetingKeyPanel {
+        return project.service<ApplicationToolWindow>().getTargetingKeyPanel()
     }
 
 }

@@ -27,6 +27,9 @@ class SelectConfigurationAction : AnAction() {
                     ActionHelpers.getFlagPanel(project).updateListFlagBorder()
                     ActionHelpers.getListFlagPanel(project).updateNodeInfo()
 
+                    ActionHelpers.getTargetingKeyPanel(project).updateListTargetingKeyBorder()
+                    ActionHelpers.getListTargetingKeyPanel(project).updateNodeInfo()
+
                     ActionHelpers.getGoalPanel(project).updateListGoalBorder()
                     ActionHelpers.getListGoalPanel(project).updateNodeInfo()
 

@@ -48,6 +48,16 @@
                 id="com.github.flagshipio.jetbrain.action.EditGoalAction" text="Edit Goal"
                 description="Edit goal from your system" icon="AllIcons.Actions.Edit"/>
 
+        <action class="com.github.flagshipio.jetbrain.action.targetingKey.CopyTargetingKeyNameAction"
+                id="com.github.flagshipio.jetbrain.action.CopyTargetingKeyNameAction" text="Copy Targeting Key Name"
+                description="Copy targeting key name to clipboard" icon="AllIcons.Actions.Copy"/>
+        <action class="com.github.flagshipio.jetbrain.action.targetingKey.DeleteTargetingKeyAction"
+                id="com.github.flagshipio.jetbrain.action.DeleteTargetingKeyAction" text="Delete Targeting Key"
+                description="Delete targeting key from your system" icon="AllIcons.Actions.GC"/>
+        <action class="com.github.flagshipio.jetbrain.action.targetingKey.EditTargetingKeyAction"
+                id="com.github.flagshipio.jetbrain.action.EditTargetingKeyAction" text="Edit Targeting Key"
+                description="Edit targeting key from your system" icon="AllIcons.Actions.Edit"/>
+
         <!--<action class="com.github.flagshipio.jetbrain.action.CreateCredentialPanel"
                 id="com.github.flagshipio.jetbrain.action.CreateCredentialPanel" text="Create Configuration"
                 icon="/icons/logo.svg">

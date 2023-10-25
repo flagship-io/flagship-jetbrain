@@ -3,6 +3,7 @@ package com.github.flagshipio.jetbrain.toolWindow
 import com.github.flagshipio.jetbrain.toolWindow.configuration.ConfigurationPanel
 import com.github.flagshipio.jetbrain.toolWindow.flag.FlagPanel
 import com.github.flagshipio.jetbrain.toolWindow.goal.GoalPanel
+import com.github.flagshipio.jetbrain.toolWindow.targetingKey.TargetingKeyPanel
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.project.DumbAware
@@ -15,6 +16,7 @@ import com.intellij.ui.content.ContentFactory
 class ApplicationToolWindow(project: Project) : DumbAware, Disposable {
     private val configurationPanel: ConfigurationPanel = ConfigurationPanel(project)
     private val flagPanel: FlagPanel = FlagPanel(project)
+    private val targetingKeyPanel: TargetingKeyPanel = TargetingKeyPanel(project)
     private val goalPanel: GoalPanel = GoalPanel(project)
 
     fun initializeFlagPanel(toolWindow: ToolWindow) {
@@ -44,6 +46,15 @@ class ApplicationToolWindow(project: Project) : DumbAware, Disposable {
         toolWindow.contentManager.addContent(contentConfiguration)
     }
 
+    fun initializeTargetingKeyPanel(toolWindow: ToolWindow) {
+        val contentFactory = ContentFactory.getInstance()
+
+        val contentGoal: Content = contentFactory.createContent(null, "Targeting Key", false)
+        contentGoal.component = targetingKeyPanel
+
+        toolWindow.contentManager.addContent(contentGoal)
+    }
+
     fun getFlagPanel(): FlagPanel {
         return flagPanel
     }
@@ -54,6 +65,10 @@ class ApplicationToolWindow(project: Project) : DumbAware, Disposable {
 
     fun getGoalPanel(): GoalPanel {
         return goalPanel
+    }
+
+    fun getTargetingKeyPanel(): TargetingKeyPanel {
+        return targetingKeyPanel
     }
 
     companion object {

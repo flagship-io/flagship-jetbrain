@@ -18,11 +18,11 @@ class GoalPanel(project: Project) : JPanel() {
 
     init {
 
-        val manageFlagBorder: Border = BorderFactory.createTitledBorder("Manage Goal")
-        val listFlagBorder: Border = BorderFactory.createTitledBorder(listGoalTitle + " ("+ goalStore.getGoals().count() +" Goals)")
+        val manageGoalBorder: Border = BorderFactory.createTitledBorder("Manage Goal")
+        val listGoalBorder: Border = BorderFactory.createTitledBorder(listGoalTitle + " ("+ goalStore.getGoals().count() +" Goals)")
 
-        manageGoalPanel.border = manageFlagBorder
-        listGoalPanel.border = listFlagBorder
+        manageGoalPanel.border = manageGoalBorder
+        listGoalPanel.border = listGoalBorder
 
         layout = BorderLayout(0, 0)
         splitter.apply {
