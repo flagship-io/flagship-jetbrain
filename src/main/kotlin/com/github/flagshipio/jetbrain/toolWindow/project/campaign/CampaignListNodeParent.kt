@@ -1,11 +1,15 @@
-package com.github.flagshipio.jetbrain.toolWindow.project
+package com.github.flagshipio.jetbrain.toolWindow.project.campaign
 
 import com.github.flagshipio.jetbrain.toolWindow.RootNode
+import com.github.flagshipio.jetbrain.toolWindow.project.NAME_PREFIX
+import com.github.flagshipio.jetbrain.toolWindow.project.campaign.scheduler.SchedulerNodeParent
+import com.github.flagshipio.jetbrain.toolWindow.project.campaign.scheduler.SchedulerNodeViewModel
+import com.github.flagshipio.jetbrain.toolWindow.project.campaign.variationGroup.VariationGroupNodeParent
 import com.intellij.icons.AllIcons.Debugger
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.ui.treeStructure.SimpleNode
 
-class CampaignNodeParent(private var viewModel: CampaignNodeViewModel) : SimpleNode() {
+class CampaignListNodeParent(private var viewModel: CampaignNodeViewModel) : SimpleNode() {
     private var children: MutableList<SimpleNode> = ArrayList()
     val name_: String? get() = viewModel.campaign.name
 
@@ -27,18 +31,14 @@ class CampaignNodeParent(private var viewModel: CampaignNodeViewModel) : SimpleN
         children.add(RootNode("Type: ${viewModel.campaignType}", Debugger.Db_muted_breakpoint))
         children.add(RootNode("Description: ${viewModel.campaignDescription}", Debugger.Db_muted_breakpoint))
         children.add(RootNode("Status: ${viewModel.campaignStatus}", Debugger.Db_muted_breakpoint))
-        campaign.variationGroups.forEach{
-            val vgViewModel = VariationGroupNodeViewModel(it)
-            children.add(VariationGroupNodeParent(vgViewModel))
-        }
+        children.add(VariationGroupNodeParent(campaign.variationGroups))
         val schedulerViewModel = SchedulerNodeViewModel(viewModel.campaignScheduler!!)
         children.add(SchedulerNodeParent(schedulerViewModel))
-
     }
 
     override fun update(data: PresentationData) {
         super.update(data)
 
-        data.presentableText = "Campaign: "+ viewModel.campaignName
+        data.presentableText = viewModel.campaignName
     }
 }

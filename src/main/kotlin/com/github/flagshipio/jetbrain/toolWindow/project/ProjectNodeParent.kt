@@ -1,7 +1,7 @@
 package com.github.flagshipio.jetbrain.toolWindow.project
 
-import com.github.flagshipio.jetbrain.dataClass.Campaign
 import com.github.flagshipio.jetbrain.toolWindow.RootNode
+import com.github.flagshipio.jetbrain.toolWindow.project.campaign.CampaignNodeParent
 import com.intellij.icons.AllIcons.Debugger
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.ui.treeStructure.SimpleNode
@@ -25,10 +25,9 @@ class ProjectNodeParent(private var viewModel: ProjectNodeViewModel) : SimpleNod
     }
 
     private fun buildChildren() {
-        project.campaign?.forEach {
-                val campaignViewModel = CampaignNodeViewModel(it)
-                children.add(CampaignNodeParent(campaignViewModel))
-        }
+        children.add(RootNode("Id: ${viewModel.projectId}", Debugger.Db_muted_breakpoint))
+        children.add(RootNode("$NAME_PREFIX ${viewModel.projectName}", Debugger.Db_muted_breakpoint))
+        children.add(CampaignNodeParent(project.campaign))
     }
 
     override fun update(data: PresentationData) {

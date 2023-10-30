@@ -1,13 +1,16 @@
-package com.github.flagshipio.jetbrain.toolWindow.project
+package com.github.flagshipio.jetbrain.toolWindow.project.campaign.variationGroup.variation
 
 import com.github.flagshipio.jetbrain.toolWindow.RootNode
+import com.github.flagshipio.jetbrain.toolWindow.project.campaign.variationGroup.variation.modification.ModificationListNodeParent
+import com.github.flagshipio.jetbrain.toolWindow.project.campaign.variationGroup.variation.modification.ModificationNodeViewModel
+import com.github.flagshipio.jetbrain.toolWindow.project.NAME_PREFIX
 import com.intellij.icons.AllIcons.Debugger
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.ui.treeStructure.SimpleNode
 
-class VariationNodeParent(private var viewModel: VariationNodeViewModel) : SimpleNode() {
+class VariationListNodeParent(private var viewModel: VariationNodeViewModel) : SimpleNode() {
     private var children: MutableList<SimpleNode> = ArrayList()
-    val name_: String? get() = viewModel.variation.name
+    val name_: String get() = viewModel.variation.name
 
     val variation get() = viewModel.variation
 
@@ -26,12 +29,13 @@ class VariationNodeParent(private var viewModel: VariationNodeViewModel) : Simpl
         children.add(RootNode("$NAME_PREFIX ${viewModel.variationName}", Debugger.Db_muted_breakpoint))
         children.add(RootNode("Reference: ${viewModel.variationReference}", Debugger.Db_muted_breakpoint))
         children.add(RootNode("allocation: ${viewModel.variationAllocation}", Debugger.Db_muted_breakpoint))
-        children.add(RootNode("Modification: ${viewModel.variationModification}", Debugger.Db_muted_breakpoint))
+        val modificationNodeViewModel = ModificationNodeViewModel(viewModel.variationModification)
+        children.add(ModificationListNodeParent(modificationNodeViewModel))
     }
 
     override fun update(data: PresentationData) {
         super.update(data)
 
-        data.presentableText = "Variation: " +viewModel.variationName
+        data.presentableText = viewModel.variationName
     }
 }

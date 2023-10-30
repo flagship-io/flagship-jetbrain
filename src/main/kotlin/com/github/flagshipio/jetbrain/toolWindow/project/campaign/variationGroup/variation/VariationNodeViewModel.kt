@@ -1,4 +1,4 @@
-package com.github.flagshipio.jetbrain.toolWindow.project
+package com.github.flagshipio.jetbrain.toolWindow.project.campaign.variationGroup.variation
 
 import com.github.flagshipio.jetbrain.dataClass.Variation
 
