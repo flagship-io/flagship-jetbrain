@@ -10,6 +10,9 @@ import com.github.flagshipio.jetbrain.toolWindow.flag.ManageFlagPanel
 import com.github.flagshipio.jetbrain.toolWindow.goal.GoalListPanel
 import com.github.flagshipio.jetbrain.toolWindow.goal.GoalPanel
 import com.github.flagshipio.jetbrain.toolWindow.goal.ManageGoalPanel
+import com.github.flagshipio.jetbrain.toolWindow.project.ManageProjectPanel
+import com.github.flagshipio.jetbrain.toolWindow.project.ProjectListPanel
+import com.github.flagshipio.jetbrain.toolWindow.project.ProjectPanel
 import com.github.flagshipio.jetbrain.toolWindow.targetingKey.ManageTargetingKeyPanel
 import com.github.flagshipio.jetbrain.toolWindow.targetingKey.TargetingKeyListPanel
 import com.github.flagshipio.jetbrain.toolWindow.targetingKey.TargetingKeyPanel
@@ -37,6 +40,11 @@ object ActionHelpers {
     fun getLastSelectedDefaultMutableListGoalTreeNode(project: Project): DefaultMutableTreeNode? {
         return project.service<ApplicationToolWindow>().getGoalPanel()
             .getGoalListPanel().tree.lastSelectedPathComponent as? DefaultMutableTreeNode
+    }
+
+    fun getLastSelectedDefaultMutableListProjectTreeNode(project: Project): DefaultMutableTreeNode? {
+        return project.service<ApplicationToolWindow>().getProjectPanel()
+            .getProjectListPanel().tree.lastSelectedPathComponent as? DefaultMutableTreeNode
     }
 
     fun getListConfigurationPanel(project: Project): ConfigurationListPanel {
@@ -85,6 +93,18 @@ object ActionHelpers {
 
     fun getTargetingKeyPanel(project: Project): TargetingKeyPanel {
         return project.service<ApplicationToolWindow>().getTargetingKeyPanel()
+    }
+
+    fun getListProjectPanel(project: Project): ProjectListPanel {
+        return project.service<ApplicationToolWindow>().getProjectPanel().getProjectListPanel()
+    }
+
+    fun getManageProjectPanel(project: Project): ManageProjectPanel {
+        return project.service<ApplicationToolWindow>().getProjectPanel().getManageProjectPanel()
+    }
+
+    fun getProjectPanel(project: Project): ProjectPanel {
+        return project.service<ApplicationToolWindow>().getProjectPanel()
     }
 
 }

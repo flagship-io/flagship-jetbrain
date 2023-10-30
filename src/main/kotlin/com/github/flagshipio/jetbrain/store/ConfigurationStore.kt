@@ -11,6 +11,7 @@ class ConfigurationStore(project: Project) {
     private var configurationDataService: ConfigurationDataService
     private val cliCommand = CliCommand()
     private val flagStore = FlagStore(project)
+    private val projectStore = ProjectStore(project)
     private val targetingKeyStore = TargetingKeyStore(project)
     private val goalStore = GoalStore(project)
 
@@ -63,6 +64,7 @@ class ConfigurationStore(project: Project) {
         val cliResponse = configuration.name?.let { cliCommand.useConfigurationCli(it) }
         if (cliResponse != null) {
             if (cliResponse.contains("selected successfully", true)) {
+                projectStore.refreshProject()
                 flagStore.refreshFlag()
                 targetingKeyStore.refreshTargetingKey()
                 goalStore.refreshGoal()

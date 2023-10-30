@@ -1,7 +1,8 @@
-package com.github.flagshipio.jetbrain.toolWindow.targetingKey
+package com.github.flagshipio.jetbrain.toolWindow.project
 
 import com.github.flagshipio.jetbrain.action.ActionHelpers
 import com.github.flagshipio.jetbrain.dataClass.TargetingKey
+import com.github.flagshipio.jetbrain.store.ProjectStore
 import com.github.flagshipio.jetbrain.store.TargetingKeyStore
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.project.Project
@@ -11,24 +12,24 @@ import com.intellij.util.ui.JBUI
 import java.awt.BorderLayout
 import javax.swing.*
 
-class ManageTargetingKeyPanel(
+class ManageProjectPanel(
     project: Project,
-    targetingKeyStore: TargetingKeyStore,
+    projectStore: ProjectStore,
 ) :
     SimpleToolWindowPanel(false, false), Disposable {
-    private val targetingKeyStoreLocal: TargetingKeyStore = targetingKeyStore
+    private val projectStoreLocal: ProjectStore = projectStore
     private val projectLocal: Project = project
 
     private fun mainFrame(): JPanel {
         val mainPanel = JPanel();
 
-        val addTargetingKeyLabel = JLabel("Add Targeting Key");
-        addTargetingKeyLabel.border = JBUI.Borders.empty(0, 10, 0, 20)
-        mainPanel.add(addTargetingKeyLabel);
+        val addProjectLabel = JLabel("Add Project");
+        addProjectLabel.border = JBUI.Borders.empty(0, 10, 0, 20)
+        mainPanel.add(addProjectLabel);
 
         val fromCredBtn = JButton("Enter Inputs");
         fromCredBtn.addActionListener {
-            updateContent(targetingKeyFrame(null))
+            updateContent(projectFrame(null))
         }
 
         mainPanel.setLayout(
@@ -40,23 +41,14 @@ class ManageTargetingKeyPanel(
         return mainPanel
     }
 
-    fun targetingKeyFrame(editTargetingKey: TargetingKey?): JPanel {
-        val typeItem = arrayOf("string", "boolean", "number")
+    fun projectFrame(editProject: com.github.flagshipio.jetbrain.dataClass.Project?): JPanel {
 
-        val targetingKeyLabel = JLabel("Add Targeting Key")
+        val projectLabel = JLabel("Add Project")
         val nameTextField = JTextField(20)
-        val typeLabel = JLabel("Type:")
-        val typeComboBox = ComboBox(typeItem);
-        val descriptionLabel = JLabel("Description:")
-        val descriptionTextField = JTextField(20)
 
-
-        if (editTargetingKey != null) {
-            targetingKeyLabel.text = "Edit Targeting Key"
-            nameTextField.text = editTargetingKey.name
-            typeComboBox.selectedItem = editTargetingKey.type
-            typeComboBox.isEnabled = false
-            descriptionTextField.text = editTargetingKey.description
+        if (editProject != null) {
+            projectLabel.text = "Edit Project"
+            nameTextField.text = editProject.name
         }
 
         val fromCredPanel = JPanel();
@@ -66,8 +58,8 @@ class ManageTargetingKeyPanel(
         fromCredPanel.add(fromCredSubPanel, BorderLayout.SOUTH)
 
 
-        targetingKeyLabel.setBorder(JBUI.Borders.empty(10, 10, 0, 0))
-        fromCredPanel.add(targetingKeyLabel, BorderLayout.NORTH)
+        projectLabel.setBorder(JBUI.Borders.empty(10, 10, 0, 0))
+        fromCredPanel.add(projectLabel, BorderLayout.NORTH)
 
         val credFormPanel = JPanel()
         credFormPanel.setLayout(BoxLayout(credFormPanel, BoxLayout.Y_AXIS))
@@ -76,10 +68,6 @@ class ManageTargetingKeyPanel(
 
         credFormPanel.add(JLabel("Name:"))
         credFormPanel.add(nameTextField)
-        credFormPanel.add(typeLabel)
-        credFormPanel.add(typeComboBox)
-        credFormPanel.add(descriptionLabel)
-        credFormPanel.add(descriptionTextField)
 
         fromCredPanel.add(credFormPanel, BorderLayout.CENTER)
 
@@ -91,21 +79,19 @@ class ManageTargetingKeyPanel(
 
         val saveBtn = JButton("Save")
         saveBtn.addActionListener {
-            val targetingKey = TargetingKey(
+            val project = com.github.flagshipio.jetbrain.dataClass.Project(
                 null,
                 nameTextField.text,
-                typeComboBox.item.toString(),
-                descriptionTextField.text,
+                null,
             )
-            if (editTargetingKey != null) {
-                targetingKeyStoreLocal.editTargetingKey(editTargetingKey, targetingKey)
+            if (editProject != null) {
+                projectStoreLocal.editProject(editProject, project)
             } else {
-                targetingKeyStoreLocal.saveTargetingKey(targetingKey)
+                projectStoreLocal.saveProject(project)
             }
 
-
-            ActionHelpers.getTargetingKeyPanel(projectLocal).updateListTargetingKeyBorder()
-            ActionHelpers.getListTargetingKeyPanel(projectLocal).updateNodeInfo()
+            ActionHelpers.getProjectPanel(projectLocal).updateListProjectBorder()
+            ActionHelpers.getListProjectPanel(projectLocal).updateNodeInfo()
             updateContent(mainFrame())
         }
         fromCredSubPanel.add(saveBtn)

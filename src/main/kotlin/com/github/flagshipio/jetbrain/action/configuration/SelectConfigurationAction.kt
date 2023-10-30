@@ -24,6 +24,9 @@ class SelectConfigurationAction : AnAction() {
                 val configurationNodeParent = selectedNode.userObject as ConfigurationNodeParent
                 val isChangedConfiguration = configurationStore.useConfiguration(configurationNodeParent.configuration)
                 if (isChangedConfiguration) {
+                    ActionHelpers.getProjectPanel(project).updateListProjectBorder()
+                    ActionHelpers.getListProjectPanel(project).updateNodeInfo()
+
                     ActionHelpers.getFlagPanel(project).updateListFlagBorder()
                     ActionHelpers.getListFlagPanel(project).updateNodeInfo()
 

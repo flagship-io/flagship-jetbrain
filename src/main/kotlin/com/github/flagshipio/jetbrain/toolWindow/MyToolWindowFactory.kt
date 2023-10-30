@@ -1,10 +1,7 @@
 package com.github.flagshipio.jetbrain.toolWindow
 
 import com.github.flagshipio.jetbrain.cli.Cli
-import com.github.flagshipio.jetbrain.store.ConfigurationStore
-import com.github.flagshipio.jetbrain.store.FlagStore
-import com.github.flagshipio.jetbrain.store.GoalStore
-import com.github.flagshipio.jetbrain.store.TargetingKeyStore
+import com.github.flagshipio.jetbrain.store.*
 import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.ToolWindow
@@ -25,8 +22,10 @@ class MyToolWindowFactory : ToolWindowFactory {
         val configurationStore = ConfigurationStore(project)
         val goalStore = GoalStore(project)
         val targetingKeyStore = TargetingKeyStore(project)
+        val projectStore = ProjectStore(project)
 
         configurationStore.refreshConfiguration()
+        projectStore.refreshProject()
         flagStore.refreshFlag()
         goalStore.refreshGoal()
         targetingKeyStore.refreshTargetingKey()
@@ -34,6 +33,7 @@ class MyToolWindowFactory : ToolWindowFactory {
         val applicationToolWindow = ApplicationToolWindow.getInstance(project)
 
         applicationToolWindow.initializeConfigurationPanel(toolWindow)
+        applicationToolWindow.initializeProjectPanel(toolWindow)
         applicationToolWindow.initializeFlagPanel(toolWindow)
         applicationToolWindow.initializeTargetingKeyPanel(toolWindow)
         applicationToolWindow.initializeGoalPanel(toolWindow)

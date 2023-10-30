@@ -58,6 +58,19 @@
                 id="com.github.flagshipio.jetbrain.action.EditTargetingKeyAction" text="Edit Targeting Key"
                 description="Edit targeting key from your system" icon="AllIcons.Actions.Edit"/>
 
+        <action class="com.github.flagshipio.jetbrain.action.project.CopyProjectNameAction"
+                id="com.github.flagshipio.jetbrain.action.CopyProjectNameAction" text="Copy Project Name"
+                description="Copy project name to clipboard" icon="AllIcons.Actions.Copy"/>
+        <action class="com.github.flagshipio.jetbrain.action.project.DeleteProjectAction"
+                id="com.github.flagshipio.jetbrain.action.DeleteProjectAction" text="Delete Project"
+                description="Delete project from your system" icon="AllIcons.Actions.GC"/>
+        <action class="com.github.flagshipio.jetbrain.action.project.EditProjectAction"
+                id="com.github.flagshipio.jetbrain.action.EditProjectAction" text="Edit Project"
+                description="Edit project from your system" icon="AllIcons.Actions.Edit"/>
+        <action class="com.github.flagshipio.jetbrain.action.project.SwitchProjectAction"
+                id="com.github.flagshipio.jetbrain.action.SwitchProjectAction" text="Switch Project State"
+                description="Switch project state in the platform" icon="AllIcons.Actions.GC"/>
+
         <!--<action class="com.github.flagshipio.jetbrain.action.CreateCredentialPanel"
                 id="com.github.flagshipio.jetbrain.action.CreateCredentialPanel" text="Create Configuration"
                 icon="/icons/logo.svg">
