@@ -1,7 +1,5 @@
 package com.github.flagshipio.jetbrain.toolWindow.project.campaign.variationGroup.targetingGroup.targeting
 
-import com.github.flagshipio.jetbrain.dataClass.Targeting
-import com.github.flagshipio.jetbrain.dataClass.TargetingGroup
 import com.github.flagshipio.jetbrain.dataClass.Targetings
 import com.github.flagshipio.jetbrain.toolWindow.RootNode
 import com.intellij.ide.projectView.PresentationData
@@ -21,7 +19,7 @@ class TargetingNodeParent(private var targetings: ArrayList<Targetings>?) : Simp
     }
 
     private fun buildChildren() {
-        if (targetings == null || targetings!!.size == 0){
+        if (targetings == null || targetings!!.size == 0) {
             children.add(RootNode("No Targeting"))
             return
         }

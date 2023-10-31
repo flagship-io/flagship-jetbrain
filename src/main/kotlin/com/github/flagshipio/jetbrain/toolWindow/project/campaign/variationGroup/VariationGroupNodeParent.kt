@@ -2,7 +2,6 @@ package com.github.flagshipio.jetbrain.toolWindow.project.campaign.variationGrou
 
 import com.github.flagshipio.jetbrain.dataClass.VariationGroup
 import com.github.flagshipio.jetbrain.toolWindow.RootNode
-import com.github.flagshipio.jetbrain.toolWindow.project.campaign.variationGroup.targetingGroup.TargetingGroupNodeParent
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.ui.treeStructure.SimpleNode
 
@@ -20,7 +19,7 @@ class VariationGroupNodeParent(private var variationGroups: ArrayList<VariationG
     }
 
     private fun buildChildren() {
-        if (variationGroups == null || variationGroups!!.size == 0){
+        if (variationGroups == null || variationGroups!!.size == 0) {
             children.add(RootNode("No Variation Groups"))
             return
         }

@@ -1,7 +1,6 @@
 package com.github.flagshipio.jetbrain.toolWindow.project
 
 import com.github.flagshipio.jetbrain.store.ProjectStore
-import com.github.flagshipio.jetbrain.store.TargetingKeyStore
 import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
 import java.awt.BorderLayout
@@ -20,7 +19,9 @@ class ProjectPanel(project: Project) : JPanel() {
     init {
 
         val manageProjectBorder: Border = BorderFactory.createTitledBorder("Manage Project")
-        val listProjectBorder: Border = BorderFactory.createTitledBorder(listProjectTitle + " ("+ projectStore.getProjects().count() +" Projects)")
+        val listProjectBorder: Border = BorderFactory.createTitledBorder(
+            listProjectTitle + " (" + projectStore.getProjects().count() + " Projects)"
+        )
 
         manageProjectPanel.border = manageProjectBorder
         listProjectPanel.border = listProjectBorder
@@ -35,7 +36,9 @@ class ProjectPanel(project: Project) : JPanel() {
     }
 
     fun updateListProjectBorder() {
-        this.listProjectPanel.border = BorderFactory.createTitledBorder(listProjectTitle + " ("+ projectStore.getProjects().count() +" Projects)")
+        this.listProjectPanel.border = BorderFactory.createTitledBorder(
+            listProjectTitle + " (" + projectStore.getProjects().count() + " Projects)"
+        )
     }
 
     fun getProjectListPanel(): ProjectListPanel {

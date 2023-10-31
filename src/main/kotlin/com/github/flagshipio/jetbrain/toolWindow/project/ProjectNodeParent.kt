@@ -34,7 +34,7 @@ class ProjectNodeParent(private var viewModel: ProjectNodeViewModel) : SimpleNod
     override fun update(data: PresentationData) {
         super.update(data)
 
-        data.presentableText = "Project: "+viewModel.projectName
+        data.presentableText = "Project: " + viewModel.projectName
         data.setIcon(AllIcons.Nodes.Folder)
     }
 }

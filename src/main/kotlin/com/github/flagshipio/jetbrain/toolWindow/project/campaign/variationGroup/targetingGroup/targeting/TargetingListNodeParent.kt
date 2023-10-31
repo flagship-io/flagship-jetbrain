@@ -1,7 +1,5 @@
 package com.github.flagshipio.jetbrain.toolWindow.project.campaign.variationGroup.targetingGroup.targeting
 
-import com.github.flagshipio.jetbrain.dataClass.Targeting
-import com.github.flagshipio.jetbrain.dataClass.TargetingGroup
 import com.github.flagshipio.jetbrain.toolWindow.RootNode
 import com.intellij.icons.AllIcons
 import com.intellij.ide.projectView.PresentationData

@@ -19,7 +19,7 @@ class SchedulerNodeParent(private val viewModel: SchedulerNodeViewModel) : Simpl
     }
 
     private fun buildChildren() {
-        if(viewModel.schedulerStartDate == "" && viewModel.schedulerStopDate == "" && viewModel.schedulerTimezone == "") {
+        if (viewModel.schedulerStartDate == "" && viewModel.schedulerStopDate == "" && viewModel.schedulerTimezone == "") {
             children.add(RootNode("No Scheduler"))
             return
         }

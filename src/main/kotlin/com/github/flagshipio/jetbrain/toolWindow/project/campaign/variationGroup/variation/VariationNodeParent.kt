@@ -19,12 +19,12 @@ class VariationNodeParent(private var variations: ArrayList<Variation>?) : Simpl
     }
 
     private fun buildChildren() {
-        if (variations == null || variations!!.size == 0){
+        if (variations == null || variations!!.size == 0) {
             children.add(RootNode("No Campaigns"))
             return
         }
 
-        variations?.forEach{
+        variations?.forEach {
             val variationViewModel = VariationNodeViewModel(it)
             children.add(VariationListNodeParent(variationViewModel))
         }

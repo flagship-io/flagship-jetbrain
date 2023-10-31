@@ -19,7 +19,9 @@ class ConfigurationPanel(project: Project) : JPanel() {
 
     init {
         val manageConfigurationBorder: Border = BorderFactory.createTitledBorder("Manage Configuration")
-        val listConfigurationBorder: Border = BorderFactory.createTitledBorder(listConfigTitle + " ("+ configurationStore.getConfigurations().count() +" Configurations)")
+        val listConfigurationBorder: Border = BorderFactory.createTitledBorder(
+            listConfigTitle + " (" + configurationStore.getConfigurations().count() + " Configurations)"
+        )
 
         manageConfigurationPanel.border = manageConfigurationBorder
         listConfigurationPanel.border = listConfigurationBorder
@@ -34,7 +36,9 @@ class ConfigurationPanel(project: Project) : JPanel() {
     }
 
     fun updateListConfigurationBorder() {
-        this.listConfigurationPanel.border = BorderFactory.createTitledBorder(listConfigTitle + " ("+ configurationStore.getConfigurations().count() +" Configurations)")
+        this.listConfigurationPanel.border = BorderFactory.createTitledBorder(
+            listConfigTitle + " (" + configurationStore.getConfigurations().count() + " Configurations)"
+        )
     }
 
     fun getListConfigurationPanel(): ConfigurationListPanel {

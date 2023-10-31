@@ -1,9 +1,9 @@
 package com.github.flagshipio.jetbrain.toolWindow.project.campaign.variationGroup.variation
 
 import com.github.flagshipio.jetbrain.toolWindow.RootNode
+import com.github.flagshipio.jetbrain.toolWindow.project.NAME_PREFIX
 import com.github.flagshipio.jetbrain.toolWindow.project.campaign.variationGroup.variation.modification.ModificationListNodeParent
 import com.github.flagshipio.jetbrain.toolWindow.project.campaign.variationGroup.variation.modification.ModificationNodeViewModel
-import com.github.flagshipio.jetbrain.toolWindow.project.NAME_PREFIX
 import com.intellij.icons.AllIcons.Debugger
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.ui.treeStructure.SimpleNode

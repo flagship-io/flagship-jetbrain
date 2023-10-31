@@ -1,12 +1,9 @@
 package com.github.flagshipio.jetbrain.toolWindow.project
 
 import com.github.flagshipio.jetbrain.action.ActionHelpers
-import com.github.flagshipio.jetbrain.dataClass.TargetingKey
 import com.github.flagshipio.jetbrain.store.ProjectStore
-import com.github.flagshipio.jetbrain.store.TargetingKeyStore
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.util.ui.JBUI
 import java.awt.BorderLayout

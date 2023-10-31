@@ -19,7 +19,7 @@ class CampaignNodeParent(private var campaigns: ArrayList<Campaign>?) : SimpleNo
     }
 
     private fun buildChildren() {
-        if (campaigns == null || campaigns!!.size == 0){
+        if (campaigns == null || campaigns!!.size == 0) {
             children.add(RootNode("No Campaigns"))
             return
         }

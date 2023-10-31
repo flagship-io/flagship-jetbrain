@@ -1,6 +1,6 @@
 package com.github.flagshipio.jetbrain.toolWindow.project.campaign.scheduler
 
-import com.github.flagshipio.jetbrain.dataClass.*
+import com.github.flagshipio.jetbrain.dataClass.Scheduler
 
 class SchedulerNodeViewModel(
     val scheduler: Scheduler,

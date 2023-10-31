@@ -33,8 +33,8 @@ class CampaignListNodeParent(private var viewModel: CampaignNodeViewModel) : Sim
         children.add(RootNode("Description: ${viewModel.campaignDescription}", Debugger.Db_muted_breakpoint))
         children.add(RootNode("Status: ${viewModel.campaignStatus}", Debugger.Db_muted_breakpoint))
         children.add(VariationGroupNodeParent(campaign.variationGroups))
-            val schedulerViewModel = SchedulerNodeViewModel(viewModel.campaignScheduler!!)
-            children.add(SchedulerNodeParent(schedulerViewModel))
+        val schedulerViewModel = SchedulerNodeViewModel(viewModel.campaignScheduler!!)
+        children.add(SchedulerNodeParent(schedulerViewModel))
 
     }
 
