@@ -3,10 +3,12 @@ package com.github.flagshipio.jetbrain.store
 import com.github.flagshipio.jetbrain.cli.CliCommand
 import com.github.flagshipio.jetbrain.dataClass.Configuration
 import com.github.flagshipio.jetbrain.services.ConfigurationDataService
+import com.intellij.openapi.progress.ProgressIndicator
+import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.Messages
 
-class ConfigurationStore(project: Project) {
+class ConfigurationStore(var project: Project) {
 
     private var configurationDataService: ConfigurationDataService
     private val cliCommand = CliCommand()
@@ -64,10 +66,28 @@ class ConfigurationStore(project: Project) {
         val cliResponse = configuration.name?.let { cliCommand.useConfigurationCli(it) }
         if (cliResponse != null) {
             if (cliResponse.contains("selected successfully", true)) {
-                projectStore.refreshProject()
-                flagStore.refreshFlag()
-                targetingKeyStore.refreshTargetingKey()
-                goalStore.refreshGoal()
+                ProgressManager.getInstance().runProcessWithProgressSynchronously(
+                    Runnable {
+                        val progressIndicator: ProgressIndicator? = ProgressManager.getInstance().progressIndicator
+                        progressIndicator?.fraction = 0.1
+                        progressIndicator?.text = "Loading projects and campaigns..."
+                        projectStore.refreshProject()
+                        progressIndicator?.fraction = 0.5
+                        progressIndicator?.text = "Loading flags..."
+                        flagStore.refreshFlag()
+                        progressIndicator?.fraction = 0.7
+                        progressIndicator?.text = "Loading targeting keys..."
+                        targetingKeyStore.refreshTargetingKey()
+                        progressIndicator?.fraction = 0.9
+                        progressIndicator?.text = "Loading goals..."
+                        goalStore.refreshGoal()
+                        progressIndicator?.fraction = 1.0
+                    },
+                    "Loading Flagship Resources...",
+                    false,
+                    project
+                )
+
                 return true
             }
         }

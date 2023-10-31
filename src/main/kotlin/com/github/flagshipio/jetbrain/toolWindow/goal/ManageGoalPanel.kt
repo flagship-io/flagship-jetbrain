@@ -12,12 +12,10 @@ import java.awt.BorderLayout
 import javax.swing.*
 
 class ManageGoalPanel(
-    project: Project,
-    goalStore: GoalStore,
+    private var project: Project,
+    private var goalStore: GoalStore,
 ) :
     SimpleToolWindowPanel(false, false), Disposable {
-    private val goalStoreLocal: GoalStore = goalStore
-    private val projectLocal: Project = project
 
     private fun mainFrame(): JPanel {
         val mainPanel = JPanel();
@@ -135,14 +133,14 @@ class ManageGoalPanel(
                 if (((typeComboBox.item == "transaction") || (typeComboBox.item == "event"))) null else valueTextField.text,
             )
             if (editGoal != null) {
-                goalStoreLocal.editGoal(editGoal, goal)
+                goalStore.editGoal(editGoal, goal)
             } else {
-                goalStoreLocal.saveGoal(goal)
+                goalStore.saveGoal(goal)
             }
 
 
-            ActionHelpers.getGoalPanel(projectLocal).updateListGoalBorder()
-            ActionHelpers.getListGoalPanel(projectLocal).updateNodeInfo()
+            ActionHelpers.getGoalPanel(project).updateListGoalBorder()
+            ActionHelpers.getListGoalPanel(project).updateNodeInfo()
             updateContent(mainFrame())
         }
         fromCredSubPanel.add(saveBtn)

@@ -22,12 +22,10 @@ import javax.swing.*
 import javax.swing.border.LineBorder
 
 class ManageConfigurationPanel(
-    project: Project,
-    configurationStore: ConfigurationStore,
+    private var project: Project,
+    private var configurationStore: ConfigurationStore,
 ) :
     SimpleToolWindowPanel(false, false), Disposable {
-    private val configurationStoreLocal: ConfigurationStore = configurationStore
-    private val projectLocal: Project = project
 
     private fun mainFrame(): JPanel {
         val mainPanel = JPanel();
@@ -117,13 +115,13 @@ class ManageConfigurationPanel(
                 accountEnvIdTextField.text
             )
             if (editConfiguration != null) {
-                configurationStoreLocal.editConfiguration(editConfiguration, configuration)
+                configurationStore.editConfiguration(editConfiguration, configuration)
             } else {
-                configurationStoreLocal.saveConfiguration(configuration)
+                configurationStore.saveConfiguration(configuration)
             }
 
-            ActionHelpers.getConfigurationPanel(projectLocal).updateListConfigurationBorder()
-            ActionHelpers.getListConfigurationPanel(projectLocal).updateNodeInfo()
+            ActionHelpers.getConfigurationPanel(project).updateListConfigurationBorder()
+            ActionHelpers.getListConfigurationPanel(project).updateNodeInfo()
             updateContent(mainFrame())
         }
         fromCredSubPanel.add(saveBtn)
@@ -174,7 +172,7 @@ class ManageConfigurationPanel(
         browserFile.add(browserBtn, BorderLayout.EAST);
 
         browserBtn.addActionListener {
-            val openedFilePath = openFileSystem(projectLocal)
+            val openedFilePath = openFileSystem(project)
             if (openedFilePath != null) {
                 pathToFileLabel.text = openedFilePath
                 fileChosenPath = openedFilePath
@@ -183,8 +181,8 @@ class ManageConfigurationPanel(
 
         fromFileSaveBtn.addActionListener {
             if (fileChosenPath != "") {
-                val cliResponse = configurationStoreLocal.saveConfigurationFromFile(fileChosenPath)
-                ActionHelpers.getListConfigurationPanel(projectLocal).updateNodeInfo()
+                val cliResponse = configurationStore.saveConfigurationFromFile(fileChosenPath)
+                ActionHelpers.getListConfigurationPanel(project).updateNodeInfo()
                 updateContent(mainFrame())
                 Messages.showInfoMessage(cliResponse, "Information")
             }
@@ -205,7 +203,7 @@ class ManageConfigurationPanel(
     }
 }
 
-private fun openFileSystem(project: Project): String? {
+fun openFileSystem(project: Project): String? {
     val fileChooserDialog = FileChooserFactory.getInstance().createFileChooser(
         createFileChooserDescriptor(),
         project,

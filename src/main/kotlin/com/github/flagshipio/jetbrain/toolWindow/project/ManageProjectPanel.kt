@@ -2,20 +2,23 @@ package com.github.flagshipio.jetbrain.toolWindow.project
 
 import com.github.flagshipio.jetbrain.action.ActionHelpers
 import com.github.flagshipio.jetbrain.store.ProjectStore
+import com.github.flagshipio.jetbrain.toolWindow.configuration.openFileSystem
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.ui.SimpleToolWindowPanel
+import com.intellij.ui.JBColor
 import com.intellij.util.ui.JBUI
 import java.awt.BorderLayout
+import java.awt.Dimension
 import javax.swing.*
+import javax.swing.border.LineBorder
 
 class ManageProjectPanel(
-    project: Project,
-    projectStore: ProjectStore,
+    private var project: Project,
+    private var projectStore: ProjectStore,
 ) :
     SimpleToolWindowPanel(false, false), Disposable {
-    private val projectStoreLocal: ProjectStore = projectStore
-    private val projectLocal: Project = project
 
     private fun mainFrame(): JPanel {
         val mainPanel = JPanel();
@@ -27,6 +30,11 @@ class ManageProjectPanel(
         val fromCredBtn = JButton("Enter Inputs");
         fromCredBtn.addActionListener {
             updateContent(projectFrame(null))
+        }
+
+        val fromResourceLoaderBtn = JButton("From resource loader file");
+        fromResourceLoaderBtn.addActionListener {
+            updateContent(fromFileFrame())
         }
 
         mainPanel.setLayout(
@@ -76,24 +84,86 @@ class ManageProjectPanel(
 
         val saveBtn = JButton("Save")
         saveBtn.addActionListener {
-            val project = com.github.flagshipio.jetbrain.dataClass.Project(
+            val projectClass = com.github.flagshipio.jetbrain.dataClass.Project(
                 null,
                 nameTextField.text,
                 null,
             )
             if (editProject != null) {
-                projectStoreLocal.editProject(editProject, project)
+                projectStore.editProject(editProject, projectClass)
             } else {
-                projectStoreLocal.saveProject(project)
+                projectStore.saveProject(projectClass)
             }
 
-            ActionHelpers.getProjectPanel(projectLocal).updateListProjectBorder()
-            ActionHelpers.getListProjectPanel(projectLocal).updateNodeInfo()
+            ActionHelpers.getProjectPanel(project).updateListProjectBorder()
+            ActionHelpers.getListProjectPanel(project).updateNodeInfo()
             updateContent(mainFrame())
         }
         fromCredSubPanel.add(saveBtn)
 
         return fromCredPanel
+    }
+
+    private fun fromFileFrame(): JPanel {
+
+        val fromFilePanel = JPanel();
+        fromFilePanel.setLayout(BorderLayout(0, 0));
+
+        val cancelSavePanel = JPanel()
+        fromFilePanel.add(cancelSavePanel, BorderLayout.SOUTH)
+
+        val fromFileCancelBtn = JButton("Cancel")
+        fromFileCancelBtn.addActionListener {
+            updateContent(mainFrame())
+        }
+        cancelSavePanel.add(fromFileCancelBtn)
+
+        val fromFileSaveBtn = JButton("Save")
+
+        cancelSavePanel.add(fromFileSaveBtn)
+
+        val addConfigLabel = JLabel("Add Flagship Resource");
+        addConfigLabel.border = JBUI.Borders.empty(10, 10, 0, 0)
+        fromFilePanel.add(addConfigLabel, BorderLayout.NORTH);
+
+        val browserFile = JPanel();
+        fromFilePanel.add(browserFile, BorderLayout.CENTER);
+
+        val pathToFileLabel = JLabel("/path/to/file.yaml");
+        pathToFileLabel.border = LineBorder(JBColor.BLACK)
+        pathToFileLabel.preferredSize = Dimension(900, 30)
+
+        browserFile.setLayout(
+            BorderLayout(0, 0)
+        );
+        pathToFileLabel.setAlignmentX(LEFT_ALIGNMENT);
+        browserFile.add(pathToFileLabel, BorderLayout.CENTER)
+
+        var fileChosenPath = ""
+
+        val browserBtn = JButton("Browser");
+        browserBtn.setAlignmentX(RIGHT_ALIGNMENT);
+        browserFile.border = JBUI.Borders.empty(10, 40, 0, 0)
+        browserFile.add(browserBtn, BorderLayout.EAST);
+
+        browserBtn.addActionListener {
+            val openedFilePath = openFileSystem(project)
+            if (openedFilePath != null) {
+                pathToFileLabel.text = openedFilePath
+                fileChosenPath = openedFilePath
+            }
+        }
+
+        fromFileSaveBtn.addActionListener {
+            if (fileChosenPath != "") {
+                val cliResponse = projectStore.loadResource(fileChosenPath)
+                ActionHelpers.getListConfigurationPanel(project).updateNodeInfo()
+                updateContent(mainFrame())
+                Messages.showInfoMessage(cliResponse, "Information")
+            }
+        }
+
+        return fromFilePanel
     }
 
     override fun dispose() {

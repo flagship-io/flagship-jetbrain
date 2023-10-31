@@ -12,12 +12,10 @@ import java.awt.BorderLayout
 import javax.swing.*
 
 class ManageTargetingKeyPanel(
-    project: Project,
-    targetingKeyStore: TargetingKeyStore,
+    private var project: Project,
+    private var targetingKeyStore: TargetingKeyStore,
 ) :
     SimpleToolWindowPanel(false, false), Disposable {
-    private val targetingKeyStoreLocal: TargetingKeyStore = targetingKeyStore
-    private val projectLocal: Project = project
 
     private fun mainFrame(): JPanel {
         val mainPanel = JPanel();
@@ -98,14 +96,14 @@ class ManageTargetingKeyPanel(
                 descriptionTextField.text,
             )
             if (editTargetingKey != null) {
-                targetingKeyStoreLocal.editTargetingKey(editTargetingKey, targetingKey)
+                targetingKeyStore.editTargetingKey(editTargetingKey, targetingKey)
             } else {
-                targetingKeyStoreLocal.saveTargetingKey(targetingKey)
+                targetingKeyStore.saveTargetingKey(targetingKey)
             }
 
 
-            ActionHelpers.getTargetingKeyPanel(projectLocal).updateListTargetingKeyBorder()
-            ActionHelpers.getListTargetingKeyPanel(projectLocal).updateNodeInfo()
+            ActionHelpers.getTargetingKeyPanel(project).updateListTargetingKeyBorder()
+            ActionHelpers.getListTargetingKeyPanel(project).updateNodeInfo()
             updateContent(mainFrame())
         }
         fromCredSubPanel.add(saveBtn)

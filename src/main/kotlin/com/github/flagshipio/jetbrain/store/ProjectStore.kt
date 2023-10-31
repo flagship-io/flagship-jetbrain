@@ -80,6 +80,11 @@ class ProjectStore(project: Project) {
         return cliResponse
     }
 
+    fun loadResource(filePath: String): String? {
+        val cliResponse = cliCommand.resourceLoaderCli(filePath)
+        return cliResponse
+    }
+
     fun getProjects(): List<com.github.flagshipio.jetbrain.dataClass.Project> {
         return projectDataService.state
     }

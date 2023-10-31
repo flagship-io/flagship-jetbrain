@@ -12,12 +12,10 @@ import java.awt.BorderLayout
 import javax.swing.*
 
 class ManageFlagPanel(
-    project: Project,
-    flagStore: FlagStore,
+    private var project: Project,
+    private var flagStore: FlagStore,
 ) :
     SimpleToolWindowPanel(false, false), Disposable {
-    private val flagStoreLocal: FlagStore = flagStore
-    private val projectLocal: Project = project
 
     private fun mainFrame(): JPanel {
         val mainPanel = JPanel();
@@ -120,13 +118,13 @@ class ManageFlagPanel(
                 defaultValueTextField.text
             )
             if (editFlag != null) {
-                flagStoreLocal.editFlag(editFlag, featureFlag)
+                flagStore.editFlag(editFlag, featureFlag)
             } else {
-                flagStoreLocal.saveFlag(featureFlag)
+                flagStore.saveFlag(featureFlag)
             }
 
-            ActionHelpers.getFlagPanel(projectLocal).updateListFlagBorder()
-            ActionHelpers.getListFlagPanel(projectLocal).updateNodeInfo()
+            ActionHelpers.getFlagPanel(project).updateListFlagBorder()
+            ActionHelpers.getListFlagPanel(project).updateNodeInfo()
             updateContent(mainFrame())
         }
         fromCredSubPanel.add(saveBtn)
