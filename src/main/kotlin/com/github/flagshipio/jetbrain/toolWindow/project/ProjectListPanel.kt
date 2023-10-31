@@ -1,9 +1,6 @@
 package com.github.flagshipio.jetbrain.toolWindow.project
 
-import com.github.flagshipio.jetbrain.action.project.CopyProjectNameAction
-import com.github.flagshipio.jetbrain.action.project.DeleteProjectAction
-import com.github.flagshipio.jetbrain.action.project.EditProjectAction
-import com.github.flagshipio.jetbrain.action.project.SwitchProjectAction
+import com.github.flagshipio.jetbrain.action.project.*
 import com.github.flagshipio.jetbrain.store.ProjectStore
 import com.github.flagshipio.jetbrain.toolWindow.NodeTreeStructure
 import com.github.flagshipio.jetbrain.toolWindow.RootNode
@@ -14,11 +11,7 @@ import com.intellij.openapi.actionSystem.ActionToolbar
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
-import com.intellij.ui.OnePixelSplitter
-import com.intellij.ui.PopupHandler
-import com.intellij.ui.ScrollPaneFactory
-import com.intellij.ui.SideBorder
-import com.intellij.ui.TreeUIHelper
+import com.intellij.ui.*
 import com.intellij.ui.tree.AsyncTreeModel
 import com.intellij.ui.tree.StructureTreeModel
 import com.intellij.ui.treeStructure.SimpleNode
@@ -119,6 +112,7 @@ class ProjectListPanel(private val myProject: Project) :
         val actionPopup = DefaultActionGroup()
         val actionToolbar: ActionToolbar = actionManager.createActionToolbar("ACTION_TOOLBAR", actionGroup, true)
         toolbar = actionToolbar.component
+        val copyProjectIdAction = actionManager.getAction(CopyProjectIdAction.ID)
         val copyProjectNameAction = actionManager.getAction(CopyProjectNameAction.ID)
         val editProjectAction = actionManager.getAction(EditProjectAction.ID)
         val deleteProjectAction = actionManager.getAction(DeleteProjectAction.ID)
@@ -128,6 +122,7 @@ class ProjectListPanel(private val myProject: Project) :
         PopupHandler.installPopupMenu(
             tree,
             actionPopup.apply {
+                add(copyProjectIdAction)
                 add(copyProjectNameAction)
                 add(editProjectAction)
                 add(deleteProjectAction)

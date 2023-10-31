@@ -19,7 +19,8 @@ class GoalPanel(project: Project) : JPanel() {
     init {
 
         val manageGoalBorder: Border = BorderFactory.createTitledBorder("Manage Goal")
-        val listGoalBorder: Border = BorderFactory.createTitledBorder(listGoalTitle + " ("+ goalStore.getGoals().count() +" Goals)")
+        val listGoalBorder: Border =
+            BorderFactory.createTitledBorder(listGoalTitle + " (" + goalStore.getGoals().count() + " Goals)")
 
         manageGoalPanel.border = manageGoalBorder
         listGoalPanel.border = listGoalBorder
@@ -34,7 +35,8 @@ class GoalPanel(project: Project) : JPanel() {
     }
 
     fun updateListGoalBorder() {
-        this.listGoalPanel.border = BorderFactory.createTitledBorder(listGoalTitle + " ("+ goalStore.getGoals().count() +" Goals)")
+        this.listGoalPanel.border =
+            BorderFactory.createTitledBorder(listGoalTitle + " (" + goalStore.getGoals().count() + " Goals)")
     }
 
     fun getGoalListPanel(): GoalListPanel {

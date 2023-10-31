@@ -9,9 +9,12 @@ import java.awt.datatransfer.Clipboard
 import java.awt.datatransfer.StringSelection
 import javax.swing.tree.DefaultMutableTreeNode
 
-class CopyTargetingKeyNameAction : AnAction() {
+
+const val NAME_PREFIX = "Name:"
+
+class CopyTargetingKeyIdAction : AnAction() {
     companion object {
-        const val ID = "com.github.flagshipio.jetbrain.action.CopyTargetingKeyNameAction"
+        const val ID = "com.github.flagshipio.jetbrain.action.CopyTargetingKeyIdAction"
     }
 
     override fun actionPerformed(event: AnActionEvent) {
@@ -20,7 +23,7 @@ class CopyTargetingKeyNameAction : AnAction() {
         while (selectedNode != null) {
             if (selectedNode.userObject is TargetingKeyNodeParent) {
                 val targetingKeyNodeParent = selectedNode.userObject as TargetingKeyNodeParent
-                val selection = StringSelection(targetingKeyNodeParent.name_)
+                val selection = StringSelection(targetingKeyNodeParent.targetingKey.id)
                 val clipboard: Clipboard = Toolkit.getDefaultToolkit().systemClipboard
                 return clipboard.setContents(selection, selection)
             } else {

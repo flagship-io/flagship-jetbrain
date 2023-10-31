@@ -1,6 +1,7 @@
 package com.github.flagshipio.jetbrain.toolWindow.flag
 
-import com.github.flagshipio.jetbrain.action.flag.CopyKeyAction
+import com.github.flagshipio.jetbrain.action.flag.CopyFlagIdAction
+import com.github.flagshipio.jetbrain.action.flag.CopyFlagKeyAction
 import com.github.flagshipio.jetbrain.action.flag.DeleteFlagAction
 import com.github.flagshipio.jetbrain.action.flag.EditFlagAction
 import com.github.flagshipio.jetbrain.dataClass.Flag
@@ -13,11 +14,7 @@ import com.intellij.openapi.actionSystem.ActionToolbar
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
-import com.intellij.ui.OnePixelSplitter
-import com.intellij.ui.PopupHandler
-import com.intellij.ui.ScrollPaneFactory
-import com.intellij.ui.SideBorder
-import com.intellij.ui.TreeUIHelper
+import com.intellij.ui.*
 import com.intellij.ui.tree.AsyncTreeModel
 import com.intellij.ui.tree.StructureTreeModel
 import com.intellij.ui.treeStructure.SimpleNode
@@ -116,7 +113,8 @@ class FlagListPanel(private val myProject: Project) :
         val actionPopup = DefaultActionGroup()
         val actionToolbar: ActionToolbar = actionManager.createActionToolbar("ACTION_TOOLBAR", actionGroup, true)
         toolbar = actionToolbar.component
-        val copyKeyAction = actionManager.getAction(CopyKeyAction.ID)
+        val copyFlagIdAction = actionManager.getAction(CopyFlagIdAction.ID)
+        val copyFlagKeyAction = actionManager.getAction(CopyFlagKeyAction.ID)
         val editFlagAction = actionManager.getAction(EditFlagAction.ID)
         val deleteFlagAction = actionManager.getAction(DeleteFlagAction.ID)
 
@@ -124,7 +122,8 @@ class FlagListPanel(private val myProject: Project) :
         PopupHandler.installPopupMenu(
             tree,
             actionPopup.apply {
-                add(copyKeyAction)
+                add(copyFlagIdAction)
+                add(copyFlagKeyAction)
                 add(editFlagAction)
                 add(deleteFlagAction)
             },

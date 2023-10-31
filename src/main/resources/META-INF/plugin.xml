@@ -18,8 +18,11 @@
     </extensions>
 
     <actions>
-        <action class="com.github.flagshipio.jetbrain.action.flag.CopyKeyAction"
-                id="com.github.flagshipio.jetbrain.action.CopyKeyAction" text="Copy Flag Key"
+        <action class="com.github.flagshipio.jetbrain.action.flag.CopyFlagIdAction"
+                id="com.github.flagshipio.jetbrain.action.CopyFlagIdAction" text="Copy Flag ID"
+                description="Copy flag id to clipboard" icon="AllIcons.Actions.Copy"/>
+        <action class="com.github.flagshipio.jetbrain.action.flag.CopyFlagKeyAction"
+                id="com.github.flagshipio.jetbrain.action.CopyFlagKeyAction" text="Copy Flag Key"
                 description="Copy flag key to clipboard" icon="AllIcons.Actions.Copy"/>
         <action class="com.github.flagshipio.jetbrain.action.flag.DeleteFlagAction"
                 id="com.github.flagshipio.jetbrain.action.DeleteFlagAction" text="Delete Flag"
@@ -38,8 +41,11 @@
                 id="com.github.flagshipio.jetbrain.action.SelectConfigurationAction" text="Select This Configuration"
                 description="Select this configuration" icon="AllIcons.Actions.Forward"/>
 
-        <action class="com.github.flagshipio.jetbrain.action.goal.CopyLabelAction"
-                id="com.github.flagshipio.jetbrain.action.CopyLabelAction" text="Copy Goal Label"
+        <action class="com.github.flagshipio.jetbrain.action.goal.CopyGoalIdAction"
+                id="com.github.flagshipio.jetbrain.action.CopyGoalIdAction" text="Copy Goal ID"
+                description="Copy goal id to clipboard" icon="AllIcons.Actions.Copy"/>
+        <action class="com.github.flagshipio.jetbrain.action.goal.CopyGoalLabelAction"
+                id="com.github.flagshipio.jetbrain.action.CopyGoalLabelAction" text="Copy Goal Label"
                 description="Copy goal label to clipboard" icon="AllIcons.Actions.Copy"/>
         <action class="com.github.flagshipio.jetbrain.action.goal.DeleteGoalAction"
                 id="com.github.flagshipio.jetbrain.action.DeleteGoalAction" text="Delete Goal"
@@ -48,6 +54,9 @@
                 id="com.github.flagshipio.jetbrain.action.EditGoalAction" text="Edit Goal"
                 description="Edit goal from your system" icon="AllIcons.Actions.Edit"/>
 
+        <action class="com.github.flagshipio.jetbrain.action.targetingKey.CopyTargetingKeyIdAction"
+                id="com.github.flagshipio.jetbrain.action.CopyTargetingKeyIdAction" text="Copy Targeting Key ID"
+                description="Copy targeting key id to clipboard" icon="AllIcons.Actions.Copy"/>
         <action class="com.github.flagshipio.jetbrain.action.targetingKey.CopyTargetingKeyNameAction"
                 id="com.github.flagshipio.jetbrain.action.CopyTargetingKeyNameAction" text="Copy Targeting Key Name"
                 description="Copy targeting key name to clipboard" icon="AllIcons.Actions.Copy"/>
@@ -58,6 +67,9 @@
                 id="com.github.flagshipio.jetbrain.action.EditTargetingKeyAction" text="Edit Targeting Key"
                 description="Edit targeting key from your system" icon="AllIcons.Actions.Edit"/>
 
+        <action class="com.github.flagshipio.jetbrain.action.project.CopyProjectIdAction"
+                id="com.github.flagshipio.jetbrain.action.CopyProjectIdAction" text="Copy Project ID"
+                description="Copy project id to clipboard" icon="AllIcons.Actions.Copy"/>
         <action class="com.github.flagshipio.jetbrain.action.project.CopyProjectNameAction"
                 id="com.github.flagshipio.jetbrain.action.CopyProjectNameAction" text="Copy Project Name"
                 description="Copy project name to clipboard" icon="AllIcons.Actions.Copy"/>

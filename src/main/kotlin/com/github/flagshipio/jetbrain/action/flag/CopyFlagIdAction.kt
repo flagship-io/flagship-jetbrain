@@ -9,12 +9,11 @@ import java.awt.datatransfer.Clipboard
 import java.awt.datatransfer.StringSelection
 import javax.swing.tree.DefaultMutableTreeNode
 
-
 const val KEY_PREFIX = "Key:"
 
-class CopyKeyAction : AnAction() {
+class CopyFlagIdAction : AnAction() {
     companion object {
-        const val ID = "com.github.flagshipio.jetbrain.action.CopyKeyAction"
+        const val ID = "com.github.flagshipio.jetbrain.action.CopyFlagIdAction"
     }
 
     override fun actionPerformed(event: AnActionEvent) {
@@ -23,7 +22,7 @@ class CopyKeyAction : AnAction() {
         while (selectedNode != null) {
             if (selectedNode.userObject is FlagNodeParent) {
                 val flagNodeParent = selectedNode.userObject as FlagNodeParent
-                val selection = StringSelection(flagNodeParent.key)
+                val selection = StringSelection(flagNodeParent.flag.id)
                 val clipboard: Clipboard = Toolkit.getDefaultToolkit().systemClipboard
                 return clipboard.setContents(selection, selection)
             } else {

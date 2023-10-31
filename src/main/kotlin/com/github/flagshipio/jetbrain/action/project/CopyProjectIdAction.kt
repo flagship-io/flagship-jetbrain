@@ -10,9 +10,11 @@ import java.awt.datatransfer.StringSelection
 import javax.swing.tree.DefaultMutableTreeNode
 
 
-class CopyProjectNameAction : AnAction() {
+const val NAME_PREFIX = "Name:"
+
+class CopyProjectIdAction : AnAction() {
     companion object {
-        const val ID = "com.github.flagshipio.jetbrain.action.CopyProjectNameAction"
+        const val ID = "com.github.flagshipio.jetbrain.action.CopyProjectIdAction"
     }
 
     override fun actionPerformed(event: AnActionEvent) {
@@ -21,7 +23,7 @@ class CopyProjectNameAction : AnAction() {
         while (selectedNode != null) {
             if (selectedNode.userObject is ProjectNodeParent) {
                 val projectNodeParent = selectedNode.userObject as ProjectNodeParent
-                val selection = StringSelection(projectNodeParent.name_)
+                val selection = StringSelection(projectNodeParent.project.id)
                 val clipboard: Clipboard = Toolkit.getDefaultToolkit().systemClipboard
                 return clipboard.setContents(selection, selection)
             } else {

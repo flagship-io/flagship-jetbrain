@@ -645,7 +645,8 @@ class CliCommand {
         println("running")
         try {
 
-            val targetingKeyDataRaw = "-d={\"name\":\"${targetingKey.name}\",\"type\":\"${targetingKey.type}\",\"description\":\"${targetingKey.description}\"}"
+            val targetingKeyDataRaw =
+                "-d={\"name\":\"${targetingKey.name}\",\"type\":\"${targetingKey.type}\",\"description\":\"${targetingKey.description}\"}"
 
             val processBuilder = ProcessBuilder(
                 PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
@@ -683,7 +684,8 @@ class CliCommand {
     fun editTargetingKeyCli(targetingKeyID: String, newTargetingKey: TargetingKey): TargetingKey? {
         println("running")
         try {
-            val targetingKeyDataRaw = "-d={\"name\":\"${newTargetingKey.name}\",\"type\":\"${newTargetingKey.type}\",\"description\":\"${newTargetingKey.description}\"}"
+            val targetingKeyDataRaw =
+                "-d={\"name\":\"${newTargetingKey.name}\",\"type\":\"${newTargetingKey.type}\",\"description\":\"${newTargetingKey.description}\"}"
 
 
             val processBuilder = ProcessBuilder(
@@ -1022,8 +1024,6 @@ class CliCommand {
 
         return null
     }
-
-
 
 
     fun checkCli(): Boolean {

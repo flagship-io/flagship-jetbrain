@@ -18,17 +18,18 @@ class ProjectStore(project: Project) {
         val projectsCLI = cliCommand.listProjectCli()
         val campaignsCLI = cliCommand.listCampaignCli()
 
-        var projects : List<com.github.flagshipio.jetbrain.dataClass.Project> = emptyList()
+        var projects: List<com.github.flagshipio.jetbrain.dataClass.Project> = emptyList()
 
         if (projectsCLI != null) {
             if (campaignsCLI != null) {
                 for (projectCLI in projectsCLI) {
-                    val project = com.github.flagshipio.jetbrain.dataClass.Project(projectCLI.id, projectCLI.name, ArrayList())
+                    val project =
+                        com.github.flagshipio.jetbrain.dataClass.Project(projectCLI.id, projectCLI.name, ArrayList())
                     for (campaign in campaignsCLI) {
-                        if (campaign.projectID == projectCLI.id){
+                        if (campaign.projectID == projectCLI.id) {
                             project.campaign?.add(campaign)
                         }
-                        }
+                    }
                     projects = projects.plus(project)
                 }
             }
@@ -46,7 +47,10 @@ class ProjectStore(project: Project) {
         return cliResponse
     }
 
-    fun editProject(project: com.github.flagshipio.jetbrain.dataClass.Project, newProject: com.github.flagshipio.jetbrain.dataClass.Project): com.github.flagshipio.jetbrain.dataClass.Project? {
+    fun editProject(
+        project: com.github.flagshipio.jetbrain.dataClass.Project,
+        newProject: com.github.flagshipio.jetbrain.dataClass.Project
+    ): com.github.flagshipio.jetbrain.dataClass.Project? {
         val cliResponse = project.id?.let { cliCommand.editProjectCli(it, newProject) }
         if (cliResponse != null) {
             projectDataService.editProject(project, cliResponse)
@@ -66,7 +70,7 @@ class ProjectStore(project: Project) {
         return cliResponse
     }
 
-    fun switchProject(project: com.github.flagshipio.jetbrain.dataClass.Project, state :String): String? {
+    fun switchProject(project: com.github.flagshipio.jetbrain.dataClass.Project, state: String): String? {
         val cliResponse = project.id?.let { cliCommand.switchProjectStateCli(it, state) }
         if (cliResponse != null) {
             if (cliResponse.contains("project status", true)) {

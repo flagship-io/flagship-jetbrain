@@ -18,7 +18,7 @@ data class Scheduler(
     @SerializedName("start_date") val startDate: String?,
     @SerializedName("stop_date") val stopDate: String?,
     val timezone: String?,
-){
+) {
 }
 
 data class VariationGroup(
@@ -26,24 +26,24 @@ data class VariationGroup(
     val name: String,
     val variations: ArrayList<Variation>?,
     val targeting: Targeting?,
-){
+) {
 }
 
 data class Targeting(
     @SerializedName("targeting_groups") val targetingGroups: ArrayList<TargetingGroup>?,
-){
+) {
 }
 
 data class TargetingGroup(
     val targetings: ArrayList<Targetings>?,
-){
+) {
 }
 
 data class Targetings(
     val key: String,
     val operator: String?,
     val value: String?,
-){
+) {
 }
 
 data class Variation(
@@ -52,12 +52,12 @@ data class Variation(
     val reference: Boolean?,
     val allocation: Number?,
     val modifications: Modification?,
-){
+) {
 }
 
 data class Modification(
     val type: String?,
     val value: Any?,
-){
+) {
 
 }

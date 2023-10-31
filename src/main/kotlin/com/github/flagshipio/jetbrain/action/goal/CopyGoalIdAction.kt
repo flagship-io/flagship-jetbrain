@@ -12,9 +12,9 @@ import javax.swing.tree.DefaultMutableTreeNode
 
 const val LABEL_PREFIX = "Label:"
 
-class CopyLabelAction : AnAction() {
+class CopyGoalIdAction : AnAction() {
     companion object {
-        const val ID = "com.github.flagshipio.jetbrain.action.CopyLabelAction"
+        const val ID = "com.github.flagshipio.jetbrain.action.CopyGoalIdAction"
     }
 
     override fun actionPerformed(event: AnActionEvent) {
@@ -23,7 +23,7 @@ class CopyLabelAction : AnAction() {
         while (selectedNode != null) {
             if (selectedNode.userObject is GoalNodeParent) {
                 val goalNodeParent = selectedNode.userObject as GoalNodeParent
-                val selection = StringSelection(goalNodeParent.label)
+                val selection = StringSelection(goalNodeParent.goal.id)
                 val clipboard: Clipboard = Toolkit.getDefaultToolkit().systemClipboard
                 return clipboard.setContents(selection, selection)
             } else {

@@ -1,6 +1,7 @@
 package com.github.flagshipio.jetbrain.toolWindow.goal
 
-import com.github.flagshipio.jetbrain.action.goal.CopyLabelAction
+import com.github.flagshipio.jetbrain.action.goal.CopyGoalIdAction
+import com.github.flagshipio.jetbrain.action.goal.CopyGoalLabelAction
 import com.github.flagshipio.jetbrain.action.goal.DeleteGoalAction
 import com.github.flagshipio.jetbrain.action.goal.EditGoalAction
 import com.github.flagshipio.jetbrain.dataClass.Goal
@@ -14,11 +15,7 @@ import com.intellij.openapi.actionSystem.ActionToolbar
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.SimpleToolWindowPanel
-import com.intellij.ui.OnePixelSplitter
-import com.intellij.ui.PopupHandler
-import com.intellij.ui.ScrollPaneFactory
-import com.intellij.ui.SideBorder
-import com.intellij.ui.TreeUIHelper
+import com.intellij.ui.*
 import com.intellij.ui.tree.AsyncTreeModel
 import com.intellij.ui.tree.StructureTreeModel
 import com.intellij.ui.treeStructure.SimpleNode
@@ -117,7 +114,8 @@ class GoalListPanel(private val myProject: Project) :
         val actionPopup = DefaultActionGroup()
         val actionToolbar: ActionToolbar = actionManager.createActionToolbar("ACTION_TOOLBAR", actionGroup, true)
         toolbar = actionToolbar.component
-        val copyLabelAction = actionManager.getAction(CopyLabelAction.ID)
+        val copyGoalIdAction = actionManager.getAction(CopyGoalIdAction.ID)
+        val copyGoalLabelAction = actionManager.getAction(CopyGoalLabelAction.ID)
         val editGoalAction = actionManager.getAction(EditGoalAction.ID)
         val deleteGoalAction = actionManager.getAction(DeleteGoalAction.ID)
 
@@ -125,7 +123,8 @@ class GoalListPanel(private val myProject: Project) :
         PopupHandler.installPopupMenu(
             tree,
             actionPopup.apply {
-                add(copyLabelAction)
+                add(copyGoalIdAction)
+                add(copyGoalLabelAction)
                 add(editGoalAction)
                 add(deleteGoalAction)
             },

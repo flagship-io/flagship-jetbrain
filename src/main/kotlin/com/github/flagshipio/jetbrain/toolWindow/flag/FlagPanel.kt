@@ -19,7 +19,8 @@ class FlagPanel(project: Project) : JPanel() {
     init {
 
         val manageFlagBorder: Border = BorderFactory.createTitledBorder("Manage Feature flags")
-        val listFlagBorder: Border = BorderFactory.createTitledBorder(listFlagTitle + " ("+ flagStore.getFlags().count() +" Flags)")
+        val listFlagBorder: Border =
+            BorderFactory.createTitledBorder(listFlagTitle + " (" + flagStore.getFlags().count() + " Flags)")
 
         manageFlagPanel.border = manageFlagBorder
         listFlagPanel.border = listFlagBorder
@@ -34,7 +35,8 @@ class FlagPanel(project: Project) : JPanel() {
     }
 
     fun updateListFlagBorder() {
-        this.listFlagPanel.border = BorderFactory.createTitledBorder(listFlagTitle + " ("+ flagStore.getFlags().count() +" Flags)")
+        this.listFlagPanel.border =
+            BorderFactory.createTitledBorder(listFlagTitle + " (" + flagStore.getFlags().count() + " Flags)")
     }
 
     fun getFlagListPanel(): FlagListPanel {
