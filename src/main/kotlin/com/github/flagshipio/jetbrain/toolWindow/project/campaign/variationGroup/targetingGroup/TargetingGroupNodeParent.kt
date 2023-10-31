@@ -1,12 +1,12 @@
-package com.github.flagshipio.jetbrain.toolWindow.project.campaign.variationGroup
+package com.github.flagshipio.jetbrain.toolWindow.project.campaign.variationGroup.targetingGroup
 
+import com.github.flagshipio.jetbrain.dataClass.TargetingGroup
 import com.github.flagshipio.jetbrain.dataClass.VariationGroup
 import com.github.flagshipio.jetbrain.toolWindow.RootNode
-import com.github.flagshipio.jetbrain.toolWindow.project.campaign.variationGroup.targetingGroup.TargetingGroupNodeParent
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.ui.treeStructure.SimpleNode
 
-class VariationGroupNodeParent(private var variationGroups: ArrayList<VariationGroup>?) : SimpleNode() {
+class TargetingGroupNodeParent(private var targetingGroups: ArrayList<TargetingGroup>?) : SimpleNode() {
     private var children: MutableList<SimpleNode> = ArrayList()
 
     override fun getChildren(): Array<SimpleNode> {
@@ -20,20 +20,19 @@ class VariationGroupNodeParent(private var variationGroups: ArrayList<VariationG
     }
 
     private fun buildChildren() {
-        if (variationGroups == null || variationGroups!!.size == 0){
-            children.add(RootNode("No Variation Groups"))
+        if (targetingGroups == null || targetingGroups!!.size == 0){
+            children.add(RootNode("No Targeting Groups"))
             return
         }
 
-        variationGroups?.forEach {
-            val variationGroupViewModel = VariationGroupNodeViewModel(it)
-            children.add(VariationGroupListNodeParent(variationGroupViewModel))
+        targetingGroups?.forEach {
+            children.add(TargetingGroupListNodeParent(it))
         }
     }
 
     override fun update(data: PresentationData) {
         super.update(data)
 
-        data.presentableText = "Variation Group List"
+        data.presentableText = "Targeting Group List"
     }
 }

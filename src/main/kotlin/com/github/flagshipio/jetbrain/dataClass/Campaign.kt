@@ -17,7 +17,7 @@ data class Campaign(
 data class Scheduler(
     @SerializedName("start_date") val startDate: String?,
     @SerializedName("stop_date") val stopDate: String?,
-    val timezone: String,
+    val timezone: String?,
 ){
 }
 

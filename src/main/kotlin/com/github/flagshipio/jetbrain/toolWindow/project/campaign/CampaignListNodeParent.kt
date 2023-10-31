@@ -5,6 +5,7 @@ import com.github.flagshipio.jetbrain.toolWindow.project.NAME_PREFIX
 import com.github.flagshipio.jetbrain.toolWindow.project.campaign.scheduler.SchedulerNodeParent
 import com.github.flagshipio.jetbrain.toolWindow.project.campaign.scheduler.SchedulerNodeViewModel
 import com.github.flagshipio.jetbrain.toolWindow.project.campaign.variationGroup.VariationGroupNodeParent
+import com.intellij.icons.AllIcons
 import com.intellij.icons.AllIcons.Debugger
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.ui.treeStructure.SimpleNode
@@ -32,13 +33,15 @@ class CampaignListNodeParent(private var viewModel: CampaignNodeViewModel) : Sim
         children.add(RootNode("Description: ${viewModel.campaignDescription}", Debugger.Db_muted_breakpoint))
         children.add(RootNode("Status: ${viewModel.campaignStatus}", Debugger.Db_muted_breakpoint))
         children.add(VariationGroupNodeParent(campaign.variationGroups))
-        val schedulerViewModel = SchedulerNodeViewModel(viewModel.campaignScheduler!!)
-        children.add(SchedulerNodeParent(schedulerViewModel))
+            val schedulerViewModel = SchedulerNodeViewModel(viewModel.campaignScheduler!!)
+            children.add(SchedulerNodeParent(schedulerViewModel))
+
     }
 
     override fun update(data: PresentationData) {
         super.update(data)
 
         data.presentableText = viewModel.campaignName
+        data.setIcon(AllIcons.FileTypes.Any_type)
     }
 }

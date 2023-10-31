@@ -2,6 +2,7 @@ package com.github.flagshipio.jetbrain.toolWindow.project
 
 import com.github.flagshipio.jetbrain.toolWindow.RootNode
 import com.github.flagshipio.jetbrain.toolWindow.project.campaign.CampaignNodeParent
+import com.intellij.icons.AllIcons
 import com.intellij.icons.AllIcons.Debugger
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.ui.treeStructure.SimpleNode
@@ -34,5 +35,6 @@ class ProjectNodeParent(private var viewModel: ProjectNodeViewModel) : SimpleNod
         super.update(data)
 
         data.presentableText = "Project: "+viewModel.projectName
+        data.setIcon(AllIcons.Nodes.Folder)
     }
 }

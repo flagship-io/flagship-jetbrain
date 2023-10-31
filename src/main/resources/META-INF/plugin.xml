@@ -69,7 +69,7 @@
                 description="Edit project from your system" icon="AllIcons.Actions.Edit"/>
         <action class="com.github.flagshipio.jetbrain.action.project.SwitchProjectAction"
                 id="com.github.flagshipio.jetbrain.action.SwitchProjectAction" text="Switch Project State"
-                description="Switch project state in the platform" icon="AllIcons.Actions.GC"/>
+                description="Switch project state in the platform" icon="AllIcons.Diff.ApplyNotConflicts"/>
 
         <!--<action class="com.github.flagshipio.jetbrain.action.CreateCredentialPanel"
                 id="com.github.flagshipio.jetbrain.action.CreateCredentialPanel" text="Create Configuration"
