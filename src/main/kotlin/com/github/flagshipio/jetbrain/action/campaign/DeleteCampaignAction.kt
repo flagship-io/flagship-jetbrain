@@ -1,16 +1,21 @@
-package com.github.flagshipio.jetbrain.action.project
+package com.github.flagshipio.jetbrain.action.campaign
 
 import com.github.flagshipio.jetbrain.action.ActionHelpers
+import com.github.flagshipio.jetbrain.cli.CliCommand
 import com.github.flagshipio.jetbrain.store.ProjectStore
-import com.github.flagshipio.jetbrain.toolWindow.project.ProjectNodeParent
+import com.github.flagshipio.jetbrain.toolWindow.project.campaign.CampaignListNodeParent
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.progress.ProgressIndicator
+import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.ui.Messages
 import javax.swing.tree.DefaultMutableTreeNode
 
 class DeleteCampaignAction : AnAction() {
+
+    private val cliCommand = CliCommand()
     companion object {
-        const val ID = "com.github.flagshipio.jetbrain.action.DeleteProjectAction"
+        const val ID = "com.github.flagshipio.jetbrain.action.DeleteCampaignAction"
     }
 
     override fun actionPerformed(event: AnActionEvent) {
@@ -18,11 +23,11 @@ class DeleteCampaignAction : AnAction() {
         val projectStore = ProjectStore(project)
         var selectedNode = ActionHelpers.getLastSelectedDefaultMutableListProjectTreeNode(project)
         while (selectedNode != null) {
-            if (selectedNode.userObject is ProjectNodeParent) {
-                val projectNodeParent = selectedNode.userObject as ProjectNodeParent
+            if (selectedNode.userObject is CampaignListNodeParent) {
+                val campaignNodeParent = selectedNode.userObject as CampaignListNodeParent
                 val resp = Messages.showOkCancelDialog(
-                    "Do you want to delete this project ?",
-                    "Delete Project",
+                    "Do you want to delete this campaign ?",
+                    "Delete Campaign",
                     "Yes",
                     "No",
                     null
@@ -31,7 +36,22 @@ class DeleteCampaignAction : AnAction() {
                     return
                 }
 
-                projectStore.deleteProject(projectNodeParent.project)
+                campaignNodeParent.campaign.id?.let { cliCommand.deleteCampaignCli(it) }
+
+                ProgressManager.getInstance().runProcessWithProgressSynchronously(
+                    Runnable {
+                        val progressIndicator: ProgressIndicator? = ProgressManager.getInstance().progressIndicator
+                        progressIndicator?.fraction = 0.1
+                        progressIndicator?.text = "Loading projects and campaigns..."
+                        progressIndicator?.fraction = 0.5
+                        projectStore.refreshProject()
+                        progressIndicator?.fraction = 1.0
+                    },
+                    "Loading Flagship Resources...",
+                    false,
+                    project
+                )
+
                 ActionHelpers.getProjectPanel(project).updateListProjectBorder()
                 ActionHelpers.getListProjectPanel(project).updateNodeInfo()
                 return
@@ -45,9 +65,9 @@ class DeleteCampaignAction : AnAction() {
         super.update(e)
         val project = e.project
         val selectedNode = ActionHelpers.getLastSelectedDefaultMutableListProjectTreeNode(project!!)
-        val isProjectParentNode = selectedNode!!.userObject is ProjectNodeParent
+        val isCampaignParentNode = selectedNode!!.userObject is CampaignListNodeParent
         val hasNamePrefix = selectedNode.toString().startsWith(NAME_PREFIX)
 
-        e.presentation.isEnabledAndVisible = e.presentation.isEnabled && (hasNamePrefix || isProjectParentNode)
+        e.presentation.isEnabledAndVisible = e.presentation.isEnabled && (hasNamePrefix || isCampaignParentNode)
     }
 }

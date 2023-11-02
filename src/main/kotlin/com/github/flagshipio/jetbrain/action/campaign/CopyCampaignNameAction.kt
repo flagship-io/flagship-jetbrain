@@ -1,14 +1,13 @@
-package com.github.flagshipio.jetbrain.action.project
+package com.github.flagshipio.jetbrain.action.campaign
 
 import com.github.flagshipio.jetbrain.action.ActionHelpers
-import com.github.flagshipio.jetbrain.toolWindow.project.ProjectNodeParent
+import com.github.flagshipio.jetbrain.toolWindow.project.campaign.CampaignListNodeParent
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import java.awt.Toolkit
 import java.awt.datatransfer.Clipboard
 import java.awt.datatransfer.StringSelection
 import javax.swing.tree.DefaultMutableTreeNode
-
 
 class CopyCampaignNameAction : AnAction() {
     companion object {
@@ -19,9 +18,10 @@ class CopyCampaignNameAction : AnAction() {
         val project = event.project ?: return
         var selectedNode = ActionHelpers.getLastSelectedDefaultMutableListProjectTreeNode(project)
         while (selectedNode != null) {
-            if (selectedNode.userObject is ProjectNodeParent) {
-                val projectNodeParent = selectedNode.userObject as ProjectNodeParent
-                val selection = StringSelection(projectNodeParent.name_)
+            if (selectedNode.userObject is CampaignListNodeParent) {
+                val campaignNodeParent = selectedNode.userObject as CampaignListNodeParent
+                val campaignSelection = campaignNodeParent.campaign
+                val selection = StringSelection(campaignSelection.name)
                 val clipboard: Clipboard = Toolkit.getDefaultToolkit().systemClipboard
                 return clipboard.setContents(selection, selection)
             } else {
@@ -34,10 +34,10 @@ class CopyCampaignNameAction : AnAction() {
         super.update(e)
         val project = e.project
         val selectedNode = ActionHelpers.getLastSelectedDefaultMutableListProjectTreeNode(project!!)
-        val isProjectParentNode = selectedNode!!.userObject is ProjectNodeParent
+        val isCampaignParentNode = selectedNode!!.userObject is CampaignListNodeParent
         val hasNamePrefix = selectedNode.toString().startsWith(NAME_PREFIX)
 
-        e.presentation.isEnabledAndVisible = e.presentation.isEnabled && (hasNamePrefix || isProjectParentNode)
+        e.presentation.isEnabledAndVisible = e.presentation.isEnabled && (hasNamePrefix || isCampaignParentNode)
     }
 
 }

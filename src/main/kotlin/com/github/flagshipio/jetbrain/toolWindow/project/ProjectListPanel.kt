@@ -1,5 +1,9 @@
 package com.github.flagshipio.jetbrain.toolWindow.project
 
+import com.github.flagshipio.jetbrain.action.campaign.CopyCampaignIdAction
+import com.github.flagshipio.jetbrain.action.campaign.CopyCampaignNameAction
+import com.github.flagshipio.jetbrain.action.campaign.DeleteCampaignAction
+import com.github.flagshipio.jetbrain.action.campaign.SwitchCampaignAction
 import com.github.flagshipio.jetbrain.action.project.*
 import com.github.flagshipio.jetbrain.store.ProjectStore
 import com.github.flagshipio.jetbrain.toolWindow.NodeTreeStructure
@@ -117,15 +121,26 @@ class ProjectListPanel(private val myProject: Project) :
         val deleteProjectAction = actionManager.getAction(DeleteProjectAction.ID)
         val switchProjectAction = actionManager.getAction(SwitchProjectAction.ID)
 
+        val copyCampaignIdAction = actionManager.getAction(CopyCampaignIdAction.ID)
+        val copyCampaignNameAction = actionManager.getAction(CopyCampaignNameAction.ID)
+        val deleteCampaignAction = actionManager.getAction(DeleteCampaignAction.ID)
+        val switchCampaignAction = actionManager.getAction(SwitchCampaignAction.ID)
+
         actionToolbar.targetComponent = this
         PopupHandler.installPopupMenu(
             tree,
             actionPopup.apply {
+                //project
                 add(copyProjectIdAction)
                 add(copyProjectNameAction)
                 add(editProjectAction)
                 add(deleteProjectAction)
                 add(switchProjectAction)
+                //campaign
+                add(copyCampaignIdAction)
+                add(copyCampaignNameAction)
+                add(deleteCampaignAction)
+                add(switchCampaignAction)
             },
             ActionPlaces.POPUP
         )

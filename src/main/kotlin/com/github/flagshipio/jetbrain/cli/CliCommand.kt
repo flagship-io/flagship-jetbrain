@@ -1025,6 +1025,87 @@ class CliCommand {
         return null
     }
 
+    fun deleteCampaignCli(campaignID: String): String? {
+        println("running")
+        try {
+            val processBuilder = ProcessBuilder(
+                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
+                "campaign",
+                "delete",
+                "-i=$campaignID",
+                "--user-agent=flagship-ext-jetbrain/v" + (PluginManagerCore.getPlugin(PluginId.getId("com.github.flagshipio.jetbrain"))?.version
+                    ?: "")
+            )
+            processBuilder.redirectErrorStream(true)
+            val process = processBuilder.start()
+
+            val output = process.inputStream.bufferedReader().use { it.readText() }
+            val exitCode = process.waitFor()
+
+            Notifications.Bus.notify(
+                Notification(
+                    Cli.FLAGSHIP_CLI_ID,
+                    "Flagship",
+                    output,
+                    NotificationType.INFORMATION
+                )
+            )
+
+            if (exitCode == 0) {
+                println("Command completed successfully.")
+                return output
+
+            } else {
+                println("Command failed with exit code $exitCode.")
+            }
+
+            Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+        } catch (exception: Exception) {
+            println(exception)
+            println("didn't work")
+        }
+
+        return null
+    }
+
+    fun switchCampaignStateCli(campaignID: String, status: String): String? {
+        println("running")
+        try {
+            val processBuilder = ProcessBuilder(
+                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
+                "campaign",
+                "switch",
+                "-i=$campaignID",
+                "-s=$status",
+                "--output-format=json",
+                "--user-agent=flagship-ext-jetbrain/v" + (PluginManagerCore.getPlugin(PluginId.getId("com.github.flagshipio.jetbrain"))?.version
+                    ?: "")
+            )
+            processBuilder.redirectErrorStream(true)
+            val process = processBuilder.start()
+
+            val output = process.inputStream.bufferedReader().use { it.readText() }
+            val exitCode = process.waitFor()
+
+            if (exitCode == 0) {
+                println("Command completed successfully.")
+                println(output)
+
+                return output
+
+            } else {
+                println("Command failed with exit code $exitCode.")
+            }
+
+            Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+        } catch (exception: Exception) {
+            println(exception)
+            println("didn't work")
+        }
+
+        return null
+    }
+
     fun resourceLoaderCli(filePath: String): String? {
         println("running")
         try {
