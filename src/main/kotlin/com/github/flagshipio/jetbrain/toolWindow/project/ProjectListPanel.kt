@@ -49,7 +49,6 @@ class ProjectNode(private val intProject: Project) :
         when {
             projectNodeChildren.isEmpty() && projects.items != null -> {
                 for (project in projects.items!!) {
-                    //println(project)
                     val projectViewModel = ProjectNodeViewModel(project)
                     projectNodeChildren.add(ProjectNodeParent(projectViewModel))
                 }

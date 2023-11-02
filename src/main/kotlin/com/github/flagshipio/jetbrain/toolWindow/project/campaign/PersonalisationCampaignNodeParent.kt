@@ -5,7 +5,7 @@ import com.github.flagshipio.jetbrain.toolWindow.RootNode
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.ui.treeStructure.SimpleNode
 
-class CampaignNodeParent(private var campaigns: ArrayList<Campaign>?) : SimpleNode() {
+class PersonalisationCampaignNodeParent(private var campaigns: ArrayList<Campaign>?) : SimpleNode() {
     private var children: MutableList<SimpleNode> = ArrayList()
 
     override fun getChildren(): Array<SimpleNode> {
@@ -19,6 +19,7 @@ class CampaignNodeParent(private var campaigns: ArrayList<Campaign>?) : SimpleNo
     }
 
     private fun buildChildren() {
+
         if (campaigns == null || campaigns!!.size == 0) {
             children.add(RootNode("No Campaigns"))
             return
@@ -33,6 +34,6 @@ class CampaignNodeParent(private var campaigns: ArrayList<Campaign>?) : SimpleNo
     override fun update(data: PresentationData) {
         super.update(data)
 
-        data.presentableText = "Campaign List"
+        data.presentableText = "Personalisation - ${campaigns?.size} campaign(s)"
     }
 }

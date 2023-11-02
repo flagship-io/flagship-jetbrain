@@ -70,16 +70,16 @@
         <action class="com.github.flagshipio.jetbrain.action.project.CopyProjectIdAction"
                 id="com.github.flagshipio.jetbrain.action.CopyProjectIdAction" text="Copy Project ID"
                 description="Copy project id to clipboard" icon="AllIcons.Actions.Copy"/>
-        <action class="com.github.flagshipio.jetbrain.action.project.CopyProjectNameAction"
+        <action class="com.github.flagshipio.jetbrain.action.project.CopyCampaignNameAction"
                 id="com.github.flagshipio.jetbrain.action.CopyProjectNameAction" text="Copy Project Name"
                 description="Copy project name to clipboard" icon="AllIcons.Actions.Copy"/>
-        <action class="com.github.flagshipio.jetbrain.action.project.DeleteProjectAction"
+        <action class="com.github.flagshipio.jetbrain.action.project.DeleteCampaignAction"
                 id="com.github.flagshipio.jetbrain.action.DeleteProjectAction" text="Delete Project"
                 description="Delete project from your system" icon="AllIcons.Actions.GC"/>
         <action class="com.github.flagshipio.jetbrain.action.project.EditProjectAction"
                 id="com.github.flagshipio.jetbrain.action.EditProjectAction" text="Edit Project"
                 description="Edit project from your system" icon="AllIcons.Actions.Edit"/>
-        <action class="com.github.flagshipio.jetbrain.action.project.SwitchProjectAction"
+        <action class="com.github.flagshipio.jetbrain.action.project.SwitchCampaignAction"
                 id="com.github.flagshipio.jetbrain.action.SwitchProjectAction" text="Switch Project State"
                 description="Switch project state in the platform" icon="AllIcons.Diff.ApplyNotConflicts"/>
 

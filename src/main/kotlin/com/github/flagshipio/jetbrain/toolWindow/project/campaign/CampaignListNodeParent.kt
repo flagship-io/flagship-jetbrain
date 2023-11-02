@@ -1,7 +1,5 @@
 package com.github.flagshipio.jetbrain.toolWindow.project.campaign
 
-import com.github.flagshipio.jetbrain.toolWindow.RootNode
-import com.github.flagshipio.jetbrain.toolWindow.project.NAME_PREFIX
 import com.github.flagshipio.jetbrain.toolWindow.project.campaign.scheduler.SchedulerNodeParent
 import com.github.flagshipio.jetbrain.toolWindow.project.campaign.scheduler.SchedulerNodeViewModel
 import com.github.flagshipio.jetbrain.toolWindow.project.campaign.variationGroup.VariationGroupNodeParent
@@ -27,11 +25,6 @@ class CampaignListNodeParent(private var viewModel: CampaignNodeViewModel) : Sim
     }
 
     private fun buildChildren() {
-        children.add(RootNode("Id: ${viewModel.campaignId}", Debugger.Db_muted_breakpoint))
-        children.add(RootNode("$NAME_PREFIX ${viewModel.campaignName}", Debugger.Db_muted_breakpoint))
-        children.add(RootNode("Type: ${viewModel.campaignType}", Debugger.Db_muted_breakpoint))
-        children.add(RootNode("Description: ${viewModel.campaignDescription}", Debugger.Db_muted_breakpoint))
-        children.add(RootNode("Status: ${viewModel.campaignStatus}", Debugger.Db_muted_breakpoint))
         children.add(VariationGroupNodeParent(campaign.variationGroups))
         val schedulerViewModel = SchedulerNodeViewModel(viewModel.campaignScheduler!!)
         children.add(SchedulerNodeParent(schedulerViewModel))
@@ -42,6 +35,13 @@ class CampaignListNodeParent(private var viewModel: CampaignNodeViewModel) : Sim
         super.update(data)
 
         data.presentableText = viewModel.campaignName
-        data.setIcon(AllIcons.FileTypes.Any_type)
+        data.tooltip = "Description: ${viewModel.campaignDescription}"
+
+        when (viewModel.campaignStatus){
+            "active" -> data.setIcon(AllIcons.Actions.Execute)
+            "paused" -> data.setIcon(Debugger.Db_no_suspend_breakpoint)
+            "interrupted" -> data.setIcon(Debugger.Db_set_breakpoint)
+            else -> data.setIcon(Debugger.Db_muted_breakpoint)
+        }
     }
 }

@@ -1,7 +1,8 @@
 package com.github.flagshipio.jetbrain.toolWindow.project
 
+import com.github.flagshipio.jetbrain.dataClass.Campaign
 import com.github.flagshipio.jetbrain.toolWindow.RootNode
-import com.github.flagshipio.jetbrain.toolWindow.project.campaign.CampaignNodeParent
+import com.github.flagshipio.jetbrain.toolWindow.project.campaign.*
 import com.intellij.icons.AllIcons
 import com.intellij.icons.AllIcons.Debugger
 import com.intellij.ide.projectView.PresentationData
@@ -26,15 +27,49 @@ class ProjectNodeParent(private var viewModel: ProjectNodeViewModel) : SimpleNod
     }
 
     private fun buildChildren() {
-        children.add(RootNode("Id: ${viewModel.projectId}", Debugger.Db_muted_breakpoint))
-        children.add(RootNode("$NAME_PREFIX ${viewModel.projectName}", Debugger.Db_muted_breakpoint))
-        children.add(CampaignNodeParent(project.campaign))
+        val abTestCampaigns = ArrayList<Campaign>()
+        val toggleCampaigns = ArrayList<Campaign>()
+        val persoCampaigns = ArrayList<Campaign>()
+        val deploymentCampaigns = ArrayList<Campaign>()
+        val flagCampaigns = ArrayList<Campaign>()
+        val customCampaigns = ArrayList<Campaign>()
+        project.campaign?.map {
+            when (it.type) {
+                "ab" -> abTestCampaigns.add(it)
+                "toggle" -> toggleCampaigns.add(it)
+                "perso" -> persoCampaigns.add(it)
+                "deployment" -> deploymentCampaigns.add(it)
+                "flag" -> flagCampaigns.add(it)
+                "custom" -> customCampaigns.add(it)
+                else -> {}
+            }
+        }
+
+        if (abTestCampaigns.isNotEmpty()){
+            children.add(ABTestCampaignNodeParent(abTestCampaigns))
+        }
+        if (toggleCampaigns.isNotEmpty()){
+            children.add(ToggleCampaignNodeParent(toggleCampaigns))
+        }
+        if (persoCampaigns.isNotEmpty()){
+            children.add(PersonalisationCampaignNodeParent(persoCampaigns))
+        }
+        if (deploymentCampaigns.isNotEmpty()){
+            children.add(DeploymentCampaignNodeParent(deploymentCampaigns))
+        }
+        if (flagCampaigns.isNotEmpty()){
+            children.add(FlagCampaignNodeParent(flagCampaigns))
+        }
+        if (customCampaigns.isNotEmpty()){
+            children.add(CustomizationCampaignNodeParent(customCampaigns))
+        }
+
     }
 
     override fun update(data: PresentationData) {
         super.update(data)
 
-        data.presentableText = "Project: " + viewModel.projectName
+        data.presentableText = viewModel.projectName
         data.setIcon(AllIcons.Nodes.Folder)
     }
 }
