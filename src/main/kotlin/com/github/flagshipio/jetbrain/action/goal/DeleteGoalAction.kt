@@ -32,7 +32,6 @@ class DeleteGoalAction : AnAction() {
                 }
 
                 goalStore.deleteGoal(goalNodeParent.goal)
-                ActionHelpers.getGoalPanel(project).updateListGoalBorder()
                 ActionHelpers.getListGoalPanel(project).updateNodeInfo()
                 return
             }

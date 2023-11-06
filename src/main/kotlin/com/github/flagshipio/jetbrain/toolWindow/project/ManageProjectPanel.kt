@@ -95,7 +95,6 @@ class ManageProjectPanel(
                 projectStore.saveProject(projectClass)
             }
 
-            ActionHelpers.getProjectPanel(project).updateListProjectBorder()
             ActionHelpers.getListProjectPanel(project).updateNodeInfo()
             updateContent(mainFrame())
         }

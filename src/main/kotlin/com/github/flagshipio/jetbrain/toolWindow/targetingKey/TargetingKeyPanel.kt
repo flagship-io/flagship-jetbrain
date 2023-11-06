@@ -19,9 +19,7 @@ class TargetingKeyPanel(project: Project) : JPanel() {
     init {
 
         val manageTargetingKeyBorder: Border = BorderFactory.createTitledBorder("Manage Targeting Key")
-        val listTargetingKeyBorder: Border = BorderFactory.createTitledBorder(
-            listTargetingKeyTitle + " (" + targetingKeyStore.getTargetingKeys().count() + " Targeting Keys)"
-        )
+        val listTargetingKeyBorder: Border = BorderFactory.createTitledBorder(listTargetingKeyTitle)
 
         manageTargetingKeyPanel.border = manageTargetingKeyBorder
         listTargetingKeyPanel.border = listTargetingKeyBorder
@@ -33,12 +31,6 @@ class TargetingKeyPanel(project: Project) : JPanel() {
             secondComponent = listTargetingKeyPanel
         }
         add(splitter, BorderLayout.CENTER)
-    }
-
-    fun updateListTargetingKeyBorder() {
-        this.listTargetingKeyPanel.border = BorderFactory.createTitledBorder(
-            listTargetingKeyTitle + " (" + targetingKeyStore.getTargetingKeys().count() + " Targeting Keys)"
-        )
     }
 
     fun getTargetingKeyListPanel(): TargetingKeyListPanel {

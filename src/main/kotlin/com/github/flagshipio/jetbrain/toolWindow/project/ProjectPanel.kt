@@ -19,9 +19,7 @@ class ProjectPanel(project: Project) : JPanel() {
     init {
 
         val manageProjectBorder: Border = BorderFactory.createTitledBorder("Manage Project")
-        val listProjectBorder: Border = BorderFactory.createTitledBorder(
-            listProjectTitle + " (" + projectStore.getProjects().count() + " Projects)"
-        )
+        val listProjectBorder: Border = BorderFactory.createTitledBorder(listProjectTitle)
 
         manageProjectPanel.border = manageProjectBorder
         listProjectPanel.border = listProjectBorder
@@ -35,11 +33,6 @@ class ProjectPanel(project: Project) : JPanel() {
         add(splitter, BorderLayout.CENTER)
     }
 
-    fun updateListProjectBorder() {
-        this.listProjectPanel.border = BorderFactory.createTitledBorder(
-            listProjectTitle + " (" + projectStore.getProjects().count() + " Projects)"
-        )
-    }
 
     fun getProjectListPanel(): ProjectListPanel {
         return listProjectPanel

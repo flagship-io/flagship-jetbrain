@@ -1,4 +1,4 @@
-package com.github.flagshipio.jetbrain.toolWindow.goal
+package com.github.flagshipio.jetbrain.toolWindow.flagsInFile
 
 import com.github.flagshipio.jetbrain.action.ActionHelpers
 import com.github.flagshipio.jetbrain.dataClass.Goal
@@ -11,7 +11,7 @@ import com.intellij.util.ui.JBUI
 import java.awt.BorderLayout
 import javax.swing.*
 
-class ManageGoalPanel(
+class ManageFlagsInFilePanel(
     private var project: Project,
     private var goalStore: GoalStore,
 ) :

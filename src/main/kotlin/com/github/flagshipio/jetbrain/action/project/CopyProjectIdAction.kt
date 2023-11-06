@@ -10,7 +10,7 @@ import java.awt.datatransfer.StringSelection
 import javax.swing.tree.DefaultMutableTreeNode
 
 
-const val NAME_PREFIX = "Name:"
+val NAME_PREFIX = "Name:"
 
 class CopyProjectIdAction : AnAction() {
     companion object {

@@ -52,7 +52,6 @@ class DeleteCampaignAction : AnAction() {
                     project
                 )
 
-                ActionHelpers.getProjectPanel(project).updateListProjectBorder()
                 ActionHelpers.getListProjectPanel(project).updateNodeInfo()
                 return
             }

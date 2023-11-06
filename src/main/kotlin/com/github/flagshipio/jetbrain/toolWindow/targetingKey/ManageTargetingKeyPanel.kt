@@ -101,8 +101,6 @@ class ManageTargetingKeyPanel(
                 targetingKeyStore.saveTargetingKey(targetingKey)
             }
 
-
-            ActionHelpers.getTargetingKeyPanel(project).updateListTargetingKeyBorder()
             ActionHelpers.getListTargetingKeyPanel(project).updateNodeInfo()
             updateContent(mainFrame())
         }

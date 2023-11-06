@@ -972,7 +972,6 @@ class CliCommand {
 
             if (exitCode == 0) {
                 println("Command completed successfully.")
-                println(output)
 
                 return output
 
@@ -1008,8 +1007,6 @@ class CliCommand {
 
             if (exitCode == 0) {
                 println("Command completed successfully.")
-                println(output)
-
                 return gson.fromJson(output, Array<Campaign>::class.java).toList()
 
             } else {
@@ -1089,7 +1086,6 @@ class CliCommand {
 
             if (exitCode == 0) {
                 println("Command completed successfully.")
-                println(output)
 
                 return output
 
@@ -1104,6 +1100,41 @@ class CliCommand {
         }
 
         return null
+    }
+
+    fun listAnalyzedFlag(path: String): List<FileAnalyzed>? {
+        println("running")
+        println(path)
+        try {
+            val processBuilder = ProcessBuilder(
+                PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
+                "analyze",
+                "flag",
+                "list",
+                "--output-format=json",
+                "--directory=$path",
+                "--user-agent=flagship-ext-jetbrain/v" + (PluginManagerCore.getPlugin(PluginId.getId("com.github.flagshipio.jetbrain"))?.version
+                    ?: "")
+            )
+            processBuilder.redirectErrorStream(true)
+            val process = processBuilder.start()
+
+            val output = process.inputStream.bufferedReader().use { it.readText() }
+            val exitCode = process.waitFor()
+
+            if (exitCode == 0) {
+                println("Command completed successfully.")
+                return gson.fromJson(output, Array<FileAnalyzed>::class.java).toList()
+            } else {
+                println("Command failed with exit code $exitCode.")
+            }
+
+            Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
+        } catch (exception: Exception) {
+            println("Not Flag found")
+        }
+
+        return emptyList()
     }
 
     fun resourceLoaderCli(filePath: String): String? {

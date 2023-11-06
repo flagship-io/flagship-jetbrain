@@ -14,8 +14,14 @@
         <documentationProvider implementation="com.github.flagshipio.jetbrain.hover.HoverDoc"/>
         <completion.contributor language="any"
                                 implementationClass="com.github.flagshipio.jetbrain.codeInsight.MyCompletionContributor"/>
-
     </extensions>
+
+    <applicationListeners>
+        <listener
+                class="com.github.flagshipio.jetbrain.listener.MyFileEditorManagerListener"
+                topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"
+        />
+    </applicationListeners>
 
     <actions>
         <action class="com.github.flagshipio.jetbrain.action.flag.CopyFlagIdAction"

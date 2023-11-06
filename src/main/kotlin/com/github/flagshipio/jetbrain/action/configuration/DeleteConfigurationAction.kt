@@ -34,7 +34,6 @@ class DeleteConfigurationAction : AnAction() {
 
                 configurationStore.deleteConfiguration(configurationNodeParent.configuration)
                 ActionHelpers.getListConfigurationPanel(project).updateNodeInfo()
-                ActionHelpers.getConfigurationPanel(project).updateListConfigurationBorder()
 
                 return
             }

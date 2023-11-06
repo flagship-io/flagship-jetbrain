@@ -32,7 +32,6 @@ class DeleteTargetingKeyAction : AnAction() {
                 }
 
                 targetingKeyStore.deleteTargetingKey(targetingKeyNodeParent.targetingKey)
-                ActionHelpers.getTargetingKeyPanel(project).updateListTargetingKeyBorder()
                 ActionHelpers.getListTargetingKeyPanel(project).updateNodeInfo()
                 return
             }

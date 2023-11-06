@@ -27,7 +27,7 @@ class SwitchCampaignAction : AnAction() {
         while (selectedNode != null) {
             if (selectedNode.userObject is CampaignListNodeParent) {
                 val campaignNodeParent = selectedNode.userObject as CampaignListNodeParent
-                val selectedProjectState = Messages.showEditableChooseDialog(
+                val selectedCampaignState = Messages.showEditableChooseDialog(
                     "Select a state for the campaign:",
                     "Campaign State",
                     Messages.getInformationIcon(),
@@ -35,23 +35,26 @@ class SwitchCampaignAction : AnAction() {
                     campaignStates[0],
                     null
                 )
-                campaignNodeParent.campaign.id?.let { cliCommand.switchCampaignStateCli(it, selectedProjectState!!) }
-                ProgressManager.getInstance().runProcessWithProgressSynchronously(
-                    Runnable {
-                        val progressIndicator: ProgressIndicator? = ProgressManager.getInstance().progressIndicator
-                        progressIndicator?.fraction = 0.1
-                        progressIndicator?.text = "Loading projects and campaigns..."
-                        progressIndicator?.fraction = 0.5
-                        projectStore.refreshProject()
-                        progressIndicator?.fraction = 1.0
-                    },
-                    "Loading Flagship Resources...",
-                    false,
-                    project
-                )
 
-                ActionHelpers.getProjectPanel(project).updateListProjectBorder()
-                ActionHelpers.getListProjectPanel(project).updateNodeInfo()
+                if (selectedCampaignState != null) {
+                    campaignNodeParent.campaign.id?.let { cliCommand.switchCampaignStateCli(it, selectedCampaignState) }
+                    ProgressManager.getInstance().runProcessWithProgressSynchronously(
+                        Runnable {
+                            val progressIndicator: ProgressIndicator? = ProgressManager.getInstance().progressIndicator
+                            progressIndicator?.fraction = 0.1
+                            progressIndicator?.text = "Loading projects and campaigns..."
+                            progressIndicator?.fraction = 0.5
+                            projectStore.refreshProject()
+                            progressIndicator?.fraction = 1.0
+                        },
+                        "Loading Flagship Resources...",
+                        false,
+                        project
+                    )
+
+                    ActionHelpers.getListProjectPanel(project).updateNodeInfo()
+                }
+
                 return
             }
             selectedNode = selectedNode.parent as? DefaultMutableTreeNode

@@ -32,7 +32,6 @@ class DeleteProjectAction : AnAction() {
                 }
 
                 projectStore.deleteProject(projectNodeParent.project)
-                ActionHelpers.getProjectPanel(project).updateListProjectBorder()
                 ActionHelpers.getListProjectPanel(project).updateNodeInfo()
                 return
             }

@@ -20,7 +20,7 @@ class GoalPanel(project: Project) : JPanel() {
 
         val manageGoalBorder: Border = BorderFactory.createTitledBorder("Manage Goal")
         val listGoalBorder: Border =
-            BorderFactory.createTitledBorder(listGoalTitle + " (" + goalStore.getGoals().count() + " Goals)")
+            BorderFactory.createTitledBorder(listGoalTitle)
 
         manageGoalPanel.border = manageGoalBorder
         listGoalPanel.border = listGoalBorder
@@ -32,11 +32,6 @@ class GoalPanel(project: Project) : JPanel() {
             secondComponent = listGoalPanel
         }
         add(splitter, BorderLayout.CENTER)
-    }
-
-    fun updateListGoalBorder() {
-        this.listGoalPanel.border =
-            BorderFactory.createTitledBorder(listGoalTitle + " (" + goalStore.getGoals().count() + " Goals)")
     }
 
     fun getGoalListPanel(): GoalListPanel {

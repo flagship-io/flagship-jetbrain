@@ -2,6 +2,7 @@ package com.github.flagshipio.jetbrain.toolWindow
 
 import com.github.flagshipio.jetbrain.toolWindow.configuration.ConfigurationPanel
 import com.github.flagshipio.jetbrain.toolWindow.flag.FlagPanel
+import com.github.flagshipio.jetbrain.toolWindow.flagsInFile.FlagsInFilePanel
 import com.github.flagshipio.jetbrain.toolWindow.goal.GoalPanel
 import com.github.flagshipio.jetbrain.toolWindow.project.ProjectPanel
 import com.github.flagshipio.jetbrain.toolWindow.targetingKey.TargetingKeyPanel
@@ -20,14 +21,15 @@ class ApplicationToolWindow(project: Project) : DumbAware, Disposable {
     private val flagPanel: FlagPanel = FlagPanel(project)
     private val targetingKeyPanel: TargetingKeyPanel = TargetingKeyPanel(project)
     private val goalPanel: GoalPanel = GoalPanel(project)
+    private val flagsInFilePanel: FlagsInFilePanel = FlagsInFilePanel(project)
 
     fun initializeFlagPanel(toolWindow: ToolWindow) {
         val contentFactory = ContentFactory.getInstance()
 
-        val content: Content = contentFactory.createContent(null, "Feature Flag", false)
-        content.component = flagPanel
+        val contentFlag: Content = contentFactory.createContent(null, "Feature Flag", false)
+        contentFlag.component = flagPanel
 
-        toolWindow.contentManager.addContent(content)
+        toolWindow.contentManager.addContent(contentFlag)
     }
 
     fun initializeGoalPanel(toolWindow: ToolWindow) {
@@ -51,19 +53,28 @@ class ApplicationToolWindow(project: Project) : DumbAware, Disposable {
     fun initializeTargetingKeyPanel(toolWindow: ToolWindow) {
         val contentFactory = ContentFactory.getInstance()
 
-        val contentGoal: Content = contentFactory.createContent(null, "Targeting Key", false)
-        contentGoal.component = targetingKeyPanel
+        val contentTargetingKey: Content = contentFactory.createContent(null, "Targeting Key", false)
+        contentTargetingKey.component = targetingKeyPanel
 
-        toolWindow.contentManager.addContent(contentGoal)
+        toolWindow.contentManager.addContent(contentTargetingKey)
     }
 
     fun initializeProjectPanel(toolWindow: ToolWindow) {
         val contentFactory = ContentFactory.getInstance()
 
-        val contentGoal: Content = contentFactory.createContent(null, "Project", false)
-        contentGoal.component = projectPanel
+        val contentProject: Content = contentFactory.createContent(null, "Project", false)
+        contentProject.component = projectPanel
 
-        toolWindow.contentManager.addContent(contentGoal)
+        toolWindow.contentManager.addContent(contentProject)
+    }
+
+    fun initializeFlagsInFilePanel(toolWindow: ToolWindow) {
+        val contentFactory = ContentFactory.getInstance()
+
+        val contentFlagsInFilePanel: Content = contentFactory.createContent(null, "Flags In File", false)
+        contentFlagsInFilePanel.component = flagsInFilePanel
+
+        toolWindow.contentManager.addContent(contentFlagsInFilePanel)
     }
 
     fun getProjectPanel(): ProjectPanel {
@@ -84,6 +95,10 @@ class ApplicationToolWindow(project: Project) : DumbAware, Disposable {
 
     fun getTargetingKeyPanel(): TargetingKeyPanel {
         return targetingKeyPanel
+    }
+
+    fun getFlagsInFilePanel(): FlagsInFilePanel {
+        return flagsInFilePanel
     }
 
     companion object {

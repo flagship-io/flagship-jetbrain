@@ -7,6 +7,9 @@ import com.github.flagshipio.jetbrain.toolWindow.configuration.ManageConfigurati
 import com.github.flagshipio.jetbrain.toolWindow.flag.FlagListPanel
 import com.github.flagshipio.jetbrain.toolWindow.flag.FlagPanel
 import com.github.flagshipio.jetbrain.toolWindow.flag.ManageFlagPanel
+import com.github.flagshipio.jetbrain.toolWindow.flagsInFile.FlagsInFileListPanel
+import com.github.flagshipio.jetbrain.toolWindow.flagsInFile.FlagsInFilePanel
+import com.github.flagshipio.jetbrain.toolWindow.flagsInFile.ManageFlagsInFilePanel
 import com.github.flagshipio.jetbrain.toolWindow.goal.GoalListPanel
 import com.github.flagshipio.jetbrain.toolWindow.goal.GoalPanel
 import com.github.flagshipio.jetbrain.toolWindow.goal.ManageGoalPanel
@@ -107,4 +110,15 @@ object ActionHelpers {
         return project.service<ApplicationToolWindow>().getProjectPanel()
     }
 
+    fun getListFlagsInFilePanel(project: Project): FlagsInFileListPanel {
+        return project.service<ApplicationToolWindow>().getFlagsInFilePanel().getFlagsInFileListPanel()
+    }
+
+    fun getManageFlagsInFilePanel(project: Project): ManageFlagsInFilePanel {
+        return project.service<ApplicationToolWindow>().getFlagsInFilePanel().getManageFlagsInFilePanel()
+    }
+
+    fun getFlagsInFilePanel(project: Project): FlagsInFilePanel {
+        return project.service<ApplicationToolWindow>().getFlagsInFilePanel()
+    }
 }

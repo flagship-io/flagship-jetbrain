@@ -29,10 +29,11 @@ class SwitchProjectAction : AnAction() {
                     projectStates[0],
                     null
                 )
+                if (selectedProjectState != null) {
+                    projectStore.switchProject(projectNodeParent.project, selectedProjectState)
+                    ActionHelpers.getListProjectPanel(project).updateNodeInfo()
+                }
 
-                projectStore.switchProject(projectNodeParent.project, selectedProjectState!!)
-                ActionHelpers.getProjectPanel(project).updateListProjectBorder()
-                ActionHelpers.getListProjectPanel(project).updateNodeInfo()
                 return
             }
             selectedNode = selectedNode.parent as? DefaultMutableTreeNode

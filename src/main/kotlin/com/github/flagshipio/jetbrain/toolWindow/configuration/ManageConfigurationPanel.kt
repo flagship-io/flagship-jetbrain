@@ -120,7 +120,6 @@ class ManageConfigurationPanel(
                 configurationStore.saveConfiguration(configuration)
             }
 
-            ActionHelpers.getConfigurationPanel(project).updateListConfigurationBorder()
             ActionHelpers.getListConfigurationPanel(project).updateNodeInfo()
             updateContent(mainFrame())
         }

@@ -123,7 +123,6 @@ class ManageFlagPanel(
                 flagStore.saveFlag(featureFlag)
             }
 
-            ActionHelpers.getFlagPanel(project).updateListFlagBorder()
             ActionHelpers.getListFlagPanel(project).updateNodeInfo()
             updateContent(mainFrame())
         }
