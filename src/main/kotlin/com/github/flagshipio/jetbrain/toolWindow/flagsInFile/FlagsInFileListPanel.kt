@@ -1,5 +1,7 @@
 package com.github.flagshipio.jetbrain.toolWindow.flagsInFile
 
+import com.github.flagshipio.jetbrain.action.flagInFile.AddFlagAction
+import com.github.flagshipio.jetbrain.action.flagInFile.GoToFlagFileAction
 import com.github.flagshipio.jetbrain.action.goal.CopyGoalIdAction
 import com.github.flagshipio.jetbrain.action.goal.CopyGoalLabelAction
 import com.github.flagshipio.jetbrain.action.goal.DeleteGoalAction
@@ -114,19 +116,15 @@ class FlagsInFileListPanel(private val myProject: Project) :
         val actionPopup = DefaultActionGroup()
         val actionToolbar: ActionToolbar = actionManager.createActionToolbar("ACTION_TOOLBAR", actionGroup, true)
         toolbar = actionToolbar.component
-        val copyGoalIdAction = actionManager.getAction(CopyGoalIdAction.ID)
-        val copyGoalLabelAction = actionManager.getAction(CopyGoalLabelAction.ID)
-        val editGoalAction = actionManager.getAction(EditGoalAction.ID)
-        val deleteGoalAction = actionManager.getAction(DeleteGoalAction.ID)
+        val addFlagAction = actionManager.getAction(AddFlagAction.ID)
+        val GoToFlagFileAction = actionManager.getAction(GoToFlagFileAction.ID)
 
         actionToolbar.targetComponent = this
         PopupHandler.installPopupMenu(
             tree,
             actionPopup.apply {
-                add(copyGoalIdAction)
-                add(copyGoalLabelAction)
-                add(editGoalAction)
-                add(deleteGoalAction)
+                add(addFlagAction)
+                add(GoToFlagFileAction)
             },
             ActionPlaces.POPUP
         )

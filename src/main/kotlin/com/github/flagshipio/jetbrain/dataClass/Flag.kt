@@ -7,7 +7,6 @@ data class Flag(
     var name: String?,
     var type: String?,
     var description: String?,
-    var source: String?,
     @SerializedName("default_value") var defaultValue: String? = null
 ) {
 

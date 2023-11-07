@@ -114,7 +114,6 @@ class ManageFlagPanel(
                 keyTextField.text,
                 typeComboBox.item.toString(),
                 descriptionTextField.text,
-                null,
                 defaultValueTextField.text
             )
             if (editFlag != null) {

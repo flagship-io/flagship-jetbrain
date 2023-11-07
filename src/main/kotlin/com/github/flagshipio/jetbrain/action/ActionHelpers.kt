@@ -50,6 +50,11 @@ object ActionHelpers {
             .getProjectListPanel().tree.lastSelectedPathComponent as? DefaultMutableTreeNode
     }
 
+    fun getLastSelectedDefaultMutableListFlagInFileTreeNode(project: Project): DefaultMutableTreeNode? {
+        return project.service<ApplicationToolWindow>().getFlagsInFilePanel()
+            .getFlagsInFileListPanel().tree.lastSelectedPathComponent as? DefaultMutableTreeNode
+    }
+
     fun getListConfigurationPanel(project: Project): ConfigurationListPanel {
         return project.service<ApplicationToolWindow>().getConfigurationPanel().getListConfigurationPanel()
     }
@@ -114,9 +119,6 @@ object ActionHelpers {
         return project.service<ApplicationToolWindow>().getFlagsInFilePanel().getFlagsInFileListPanel()
     }
 
-    fun getManageFlagsInFilePanel(project: Project): ManageFlagsInFilePanel {
-        return project.service<ApplicationToolWindow>().getFlagsInFilePanel().getManageFlagsInFilePanel()
-    }
 
     fun getFlagsInFilePanel(project: Project): FlagsInFilePanel {
         return project.service<ApplicationToolWindow>().getFlagsInFilePanel()

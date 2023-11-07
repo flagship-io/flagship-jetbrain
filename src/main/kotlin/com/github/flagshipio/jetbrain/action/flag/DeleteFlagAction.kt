@@ -36,7 +36,6 @@ class DeleteFlagAction : AnAction() {
                 return
             }
             selectedNode = selectedNode.parent as? DefaultMutableTreeNode
-
         }
     }
 

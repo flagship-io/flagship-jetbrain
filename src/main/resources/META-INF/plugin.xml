@@ -102,6 +102,13 @@
                 id="com.github.flagshipio.jetbrain.action.SwitchCampaignAction" text="Switch Campaign State"
                 description="Switch campaign state in the platform" icon="AllIcons.Diff.ApplyNotConflicts"/>
 
+        <action class="com.github.flagshipio.jetbrain.action.flagInFile.AddFlagAction"
+                id="com.github.flagshipio.jetbrain.action.AddFlagAction" text="Add Flag"
+                description="Add the flag automatically" icon="AllIcons.General.Add"/>
+        <action class="com.github.flagshipio.jetbrain.action.flagInFile.GoToFlagFileAction"
+                id="com.github.flagshipio.jetbrain.action.GoToFlagFileAction" text="Go to Flag"
+                description="Add the flag automatically" icon="AllIcons.Actions.Find"/>
+
         <!--<action class="com.github.flagshipio.jetbrain.action.CreateCredentialPanel"
                 id="com.github.flagshipio.jetbrain.action.CreateCredentialPanel" text="Create Configuration"
                 icon="/icons/logo.svg">

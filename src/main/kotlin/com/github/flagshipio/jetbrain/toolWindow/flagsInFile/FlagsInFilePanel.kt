@@ -16,36 +16,22 @@ class FlagsInFilePanel(project: Project) : JPanel() {
     private val listFlagsInFileTitle = "Flags In File"
 
     private val listFlagsInFilePanel = FlagsInFileListPanel(project)
-    private val manageFlagsInFilePanel = ManageFlagsInFilePanel(project, goalStore)
 
     init {
-
-        val manageFlagsInFileBorder: Border = BorderFactory.createTitledBorder("Manage Flags In File")
         val listFlagsInFileBorder: Border =
-            BorderFactory.createTitledBorder(listFlagsInFileTitle + " (" + flagsInFileStore.getFlags().count() + " Flags)")
+            BorderFactory.createTitledBorder(listFlagsInFileTitle)
 
-        manageFlagsInFilePanel.border = manageFlagsInFileBorder
         listFlagsInFilePanel.border = listFlagsInFileBorder
 
         layout = BorderLayout(0, 0)
         splitter.apply {
             setResizeEnabled(true)
-            firstComponent = manageFlagsInFilePanel
-            secondComponent = listFlagsInFilePanel
+            firstComponent = listFlagsInFilePanel
         }
         add(splitter, BorderLayout.CENTER)
     }
 
-    fun updateListFlagsInFileBorder() {
-        this.listFlagsInFilePanel.border =
-            BorderFactory.createTitledBorder(listFlagsInFileTitle + " (" + flagsInFileStore.getFlags().count() + " Flags)")
-    }
-
     fun getFlagsInFileListPanel(): FlagsInFileListPanel {
         return listFlagsInFilePanel
-    }
-
-    fun getManageFlagsInFilePanel(): ManageFlagsInFilePanel {
-        return manageFlagsInFilePanel
     }
 }

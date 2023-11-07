@@ -23,6 +23,7 @@ class FlagsInFileStore(project: Project) {
         val files = cliCommand.listAnalyzedFlag(path)
         files?.map { file ->
             file.results?.map { flag ->
+                flag.flagFile = file.file
                 flagResults.add(flag)
             }
         }

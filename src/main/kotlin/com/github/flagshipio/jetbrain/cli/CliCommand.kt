@@ -346,8 +346,22 @@ class CliCommand {
                 println("Command failed with exit code $exitCode.")
             }
 
+            val flagAdded = gson.fromJson(output, Flag::class.java)
             Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
-            return gson.fromJson(output, Flag::class.java)
+
+            if (flagAdded.id != null) {
+                return flagAdded
+            }
+
+            Notifications.Bus.notify(
+                Notification(
+                    Cli.FLAGSHIP_CLI_ID,
+                    "Flagship",
+                    output,
+                    NotificationType.INFORMATION
+                )
+            )
+            return null
 
         } catch (exception: Exception) {
             println(exception)
@@ -390,8 +404,22 @@ class CliCommand {
                 println("Command failed with exit code $exitCode.")
             }
 
+            val flagEdited = gson.fromJson(output, Flag::class.java)
             Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
-            return gson.fromJson(output, Flag::class.java)
+
+            if (flagEdited.id != null) {
+                return flagEdited
+            }
+
+            Notifications.Bus.notify(
+                Notification(
+                    Cli.FLAGSHIP_CLI_ID,
+                    "Flagship",
+                    output,
+                    NotificationType.INFORMATION
+                )
+            )
+            return null
 
         } catch (exception: Exception) {
             println(exception)
@@ -497,7 +525,6 @@ class CliCommand {
                     ?: "")
             )
             processBuilder.redirectErrorStream(true)
-            processBuilder.command()
             val process = processBuilder.start()
 
             val output = process.inputStream.bufferedReader().use { it.readText() }
@@ -510,8 +537,22 @@ class CliCommand {
                 println("Command failed with exit code $exitCode.")
             }
 
+            val goalAdded = gson.fromJson(output, Goal::class.java)
             Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
-            return gson.fromJson(output, Goal::class.java)
+
+            if (goalAdded.id != null) {
+                return goalAdded
+            }
+
+            Notifications.Bus.notify(
+                Notification(
+                    Cli.FLAGSHIP_CLI_ID,
+                    "Flagship",
+                    output,
+                    NotificationType.INFORMATION
+                )
+            )
+            return null
 
         } catch (exception: Exception) {
             println(exception)
@@ -540,7 +581,6 @@ class CliCommand {
                     ?: "")
             )
             processBuilder.redirectErrorStream(true)
-            processBuilder.command()
             val process = processBuilder.start()
 
             val output = process.inputStream.bufferedReader().use { it.readText() }
@@ -553,8 +593,22 @@ class CliCommand {
                 println("Command failed with exit code $exitCode.")
             }
 
+            val goalEdited = gson.fromJson(output, Goal::class.java)
             Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
-            return gson.fromJson(output, Goal::class.java)
+
+            if (goalEdited.id != null) {
+                return goalEdited
+            }
+
+            Notifications.Bus.notify(
+                Notification(
+                    Cli.FLAGSHIP_CLI_ID,
+                    "Flagship",
+                    output,
+                    NotificationType.INFORMATION
+                )
+            )
+            return null
 
         } catch (exception: Exception) {
             println(exception)
@@ -657,7 +711,6 @@ class CliCommand {
                     ?: "")
             )
             processBuilder.redirectErrorStream(true)
-            processBuilder.command()
             val process = processBuilder.start()
 
             val output = process.inputStream.bufferedReader().use { it.readText() }
@@ -670,8 +723,22 @@ class CliCommand {
                 println("Command failed with exit code $exitCode.")
             }
 
+            val targetingKeyAdded = gson.fromJson(output, TargetingKey::class.java)
             Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
-            return gson.fromJson(output, TargetingKey::class.java)
+
+            if (targetingKeyAdded.id != null) {
+                return targetingKeyAdded
+            }
+
+            Notifications.Bus.notify(
+                Notification(
+                    Cli.FLAGSHIP_CLI_ID,
+                    "Flagship",
+                    output,
+                    NotificationType.INFORMATION
+                )
+            )
+            return null
 
         } catch (exception: Exception) {
             println(exception)
@@ -698,7 +765,6 @@ class CliCommand {
                     ?: "")
             )
             processBuilder.redirectErrorStream(true)
-            processBuilder.command()
             val process = processBuilder.start()
 
             val output = process.inputStream.bufferedReader().use { it.readText() }
@@ -711,8 +777,22 @@ class CliCommand {
                 println("Command failed with exit code $exitCode.")
             }
 
+            val targetingKeyEdited = gson.fromJson(output, TargetingKey::class.java)
             Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
-            return gson.fromJson(output, TargetingKey::class.java)
+
+            if (targetingKeyEdited.id != null) {
+                return targetingKeyEdited
+            }
+
+            Notifications.Bus.notify(
+                Notification(
+                    Cli.FLAGSHIP_CLI_ID,
+                    "Flagship",
+                    output,
+                    NotificationType.INFORMATION
+                )
+            )
+            return null
 
         } catch (exception: Exception) {
             println(exception)
@@ -812,7 +892,6 @@ class CliCommand {
                     ?: "")
             )
             processBuilder.redirectErrorStream(true)
-            processBuilder.command()
             val process = processBuilder.start()
 
             val output = process.inputStream.bufferedReader().use { it.readText() }
@@ -825,8 +904,22 @@ class CliCommand {
                 println("Command failed with exit code $exitCode.")
             }
 
+            val projectAdded = gson.fromJson(output, Project::class.java)
             Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
-            return gson.fromJson(output, Project::class.java)
+
+            if (projectAdded.id != null) {
+                return projectAdded
+            }
+
+            Notifications.Bus.notify(
+                Notification(
+                    Cli.FLAGSHIP_CLI_ID,
+                    "Flagship",
+                    output,
+                    NotificationType.INFORMATION
+                )
+            )
+            return null
 
         } catch (exception: Exception) {
             println(exception)
@@ -863,8 +956,22 @@ class CliCommand {
                 println("Command failed with exit code $exitCode.")
             }
 
+            val projectEdited = gson.fromJson(output, Project::class.java)
             Runtime.getRuntime().addShutdownHook(Thread { process.destroy() })
-            return gson.fromJson(output, Project::class.java)
+
+            if (projectEdited.id != null) {
+                return projectEdited
+            }
+
+            Notifications.Bus.notify(
+                Notification(
+                    Cli.FLAGSHIP_CLI_ID,
+                    "Flagship",
+                    output,
+                    NotificationType.INFORMATION
+                )
+            )
+            return null
 
         } catch (exception: Exception) {
             println(exception)

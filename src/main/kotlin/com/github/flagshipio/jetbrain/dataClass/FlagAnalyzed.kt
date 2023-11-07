@@ -10,6 +10,7 @@ data class FlagAnalyzed(
     @SerializedName("CodeLines") var codeLines: String?,
     @SerializedName("CodeLineHighlight") var codeLineHighlight: String?,
     @SerializedName("CodeLineURl") var codeLineURL: String?,
+    var flagFile: String?
 ) {
 
 }

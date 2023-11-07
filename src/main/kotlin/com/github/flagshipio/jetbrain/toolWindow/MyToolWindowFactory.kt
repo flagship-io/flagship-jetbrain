@@ -1,5 +1,6 @@
 package com.github.flagshipio.jetbrain.toolWindow
 
+import com.github.flagshipio.jetbrain.action.ActionHelpers
 import com.github.flagshipio.jetbrain.cli.Cli
 import com.github.flagshipio.jetbrain.store.*
 import com.intellij.openapi.diagnostic.thisLogger
@@ -46,7 +47,21 @@ class MyToolWindowFactory : ToolWindowFactory {
 
         if (currentOpenedFile != null) {
             flagsInFileStore.refreshFlag(currentOpenedFile)
+        } else {
+            project.basePath?.let { flagsInFileStore.refreshFlag(it) }
         }
+
+        ActionHelpers.getListProjectPanel(project).updateNodeInfo()
+
+        ActionHelpers.getListFlagPanel(project).updateNodeInfo()
+
+        ActionHelpers.getListTargetingKeyPanel(project).updateNodeInfo()
+
+        ActionHelpers.getListGoalPanel(project).updateNodeInfo()
+
+        ActionHelpers.getListConfigurationPanel(project).updateNodeInfo()
+
+        ActionHelpers.getListFlagsInFilePanel(project).updateNodeInfo()
     }
 
     override fun shouldBeAvailable(project: Project) = true

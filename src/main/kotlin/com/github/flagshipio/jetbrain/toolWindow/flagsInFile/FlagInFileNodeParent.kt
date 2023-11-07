@@ -12,6 +12,7 @@ const val KEY_PREFIX = "Key:"
 class FlagInFileNodeParent(private var viewModel: FlagInFileNodeViewModel) : SimpleNode() {
     private var children: MutableList<SimpleNode> = ArrayList()
     val flagAnalyzed get() = viewModel.flagAnalyzed
+    val key = viewModel.flagKey
 
     override fun getChildren(): Array<SimpleNode> {
         if (children.isNotEmpty()) {
