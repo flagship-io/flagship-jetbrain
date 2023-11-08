@@ -1,7 +1,5 @@
 package com.github.flagshipio.jetbrain.toolWindow.flagsInFile
 
-import com.github.flagshipio.jetbrain.store.FlagsInFileStore
-import com.github.flagshipio.jetbrain.store.GoalStore
 import com.intellij.openapi.project.Project
 import com.intellij.ui.OnePixelSplitter
 import java.awt.BorderLayout

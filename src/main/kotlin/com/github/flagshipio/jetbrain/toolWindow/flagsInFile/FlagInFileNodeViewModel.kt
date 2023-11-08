@@ -1,6 +1,5 @@
 package com.github.flagshipio.jetbrain.toolWindow.flagsInFile
 
-import com.github.flagshipio.jetbrain.dataClass.Configuration
 import com.github.flagshipio.jetbrain.dataClass.FlagAnalyzed
 
 class FlagInFileNodeViewModel(

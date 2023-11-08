@@ -14,6 +14,7 @@ import javax.swing.tree.DefaultMutableTreeNode
 class DeleteCampaignAction : AnAction() {
 
     private val cliCommand = CliCommand()
+
     companion object {
         const val ID = "com.github.flagshipio.jetbrain.action.DeleteCampaignAction"
     }

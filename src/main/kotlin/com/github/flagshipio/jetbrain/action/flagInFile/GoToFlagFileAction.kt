@@ -4,19 +4,11 @@ import com.github.flagshipio.jetbrain.action.ActionHelpers
 import com.github.flagshipio.jetbrain.toolWindow.flagsInFile.FlagInFileNodeParent
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import com.intellij.openapi.editor.Editor
-import com.intellij.openapi.editor.LogicalPosition
-import com.intellij.openapi.editor.ScrollType
-import com.intellij.openapi.editor.markup.EffectType
-import com.intellij.openapi.editor.markup.HighlighterLayer
-import com.intellij.openapi.editor.markup.HighlighterTargetArea
-import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.ui.JBColor
 import java.io.File
 import javax.swing.tree.DefaultMutableTreeNode
 
@@ -40,9 +32,12 @@ class GoToFlagFileAction : AnAction() {
                         val filePath: String = selectedIoFile.absolutePath
                         val virtualFile = LocalFileSystem.getInstance().findFileByPath(filePath)
                         if (virtualFile != null) {
-                            flagNodeParent.flagAnalyzed.lineNumber?.let { openFileInEditor(project, virtualFile,
-                                flagNodeParent.flagAnalyzed.lineNumber!!
-                            ) }
+                            flagNodeParent.flagAnalyzed.lineNumber?.let {
+                                openFileInEditor(
+                                    project, virtualFile,
+                                    flagNodeParent.flagAnalyzed.lineNumber!!
+                                )
+                            }
                         }
                     }
                 }

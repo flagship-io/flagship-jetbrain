@@ -9,7 +9,6 @@ import com.github.flagshipio.jetbrain.toolWindow.flag.FlagPanel
 import com.github.flagshipio.jetbrain.toolWindow.flag.ManageFlagPanel
 import com.github.flagshipio.jetbrain.toolWindow.flagsInFile.FlagsInFileListPanel
 import com.github.flagshipio.jetbrain.toolWindow.flagsInFile.FlagsInFilePanel
-import com.github.flagshipio.jetbrain.toolWindow.flagsInFile.ManageFlagsInFilePanel
 import com.github.flagshipio.jetbrain.toolWindow.goal.GoalListPanel
 import com.github.flagshipio.jetbrain.toolWindow.goal.GoalPanel
 import com.github.flagshipio.jetbrain.toolWindow.goal.ManageGoalPanel

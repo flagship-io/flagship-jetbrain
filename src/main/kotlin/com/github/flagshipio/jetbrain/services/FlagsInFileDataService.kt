@@ -1,7 +1,5 @@
 package com.github.flagshipio.jetbrain.services
 
-import com.github.flagshipio.jetbrain.dataClass.FileAnalyzed
-import com.github.flagshipio.jetbrain.dataClass.Flag
 import com.github.flagshipio.jetbrain.dataClass.FlagAnalyzed
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.Service

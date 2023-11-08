@@ -1,10 +1,8 @@
 package com.github.flagshipio.jetbrain.toolWindow.project
 
 import com.github.flagshipio.jetbrain.dataClass.Campaign
-import com.github.flagshipio.jetbrain.toolWindow.RootNode
 import com.github.flagshipio.jetbrain.toolWindow.project.campaign.*
 import com.intellij.icons.AllIcons
-import com.intellij.icons.AllIcons.Debugger
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.ui.treeStructure.SimpleNode
 
@@ -45,22 +43,22 @@ class ProjectNodeParent(private var viewModel: ProjectNodeViewModel) : SimpleNod
             }
         }
 
-        if (abTestCampaigns.isNotEmpty()){
+        if (abTestCampaigns.isNotEmpty()) {
             children.add(ABTestCampaignNodeParent(abTestCampaigns))
         }
-        if (toggleCampaigns.isNotEmpty()){
+        if (toggleCampaigns.isNotEmpty()) {
             children.add(ToggleCampaignNodeParent(toggleCampaigns))
         }
-        if (persoCampaigns.isNotEmpty()){
+        if (persoCampaigns.isNotEmpty()) {
             children.add(PersonalisationCampaignNodeParent(persoCampaigns))
         }
-        if (deploymentCampaigns.isNotEmpty()){
+        if (deploymentCampaigns.isNotEmpty()) {
             children.add(DeploymentCampaignNodeParent(deploymentCampaigns))
         }
-        if (flagCampaigns.isNotEmpty()){
+        if (flagCampaigns.isNotEmpty()) {
             children.add(FlagCampaignNodeParent(flagCampaigns))
         }
-        if (customCampaigns.isNotEmpty()){
+        if (customCampaigns.isNotEmpty()) {
             children.add(CustomizationCampaignNodeParent(customCampaigns))
         }
 

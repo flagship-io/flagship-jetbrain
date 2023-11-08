@@ -1,13 +1,9 @@
 package com.github.flagshipio.jetbrain.store
 
 import com.github.flagshipio.jetbrain.cli.CliCommand
-import com.github.flagshipio.jetbrain.dataClass.FileAnalyzed
-import com.github.flagshipio.jetbrain.dataClass.Flag
 import com.github.flagshipio.jetbrain.dataClass.FlagAnalyzed
-import com.github.flagshipio.jetbrain.services.FlagDataService
 import com.github.flagshipio.jetbrain.services.FlagsInFileDataService
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.Messages
 
 class FlagsInFileStore(project: Project) {
 

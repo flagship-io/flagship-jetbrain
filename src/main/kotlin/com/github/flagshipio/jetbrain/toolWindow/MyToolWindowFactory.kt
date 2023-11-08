@@ -4,7 +4,6 @@ import com.github.flagshipio.jetbrain.action.ActionHelpers
 import com.github.flagshipio.jetbrain.cli.Cli
 import com.github.flagshipio.jetbrain.store.*
 import com.intellij.openapi.diagnostic.thisLogger
-import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.ToolWindow

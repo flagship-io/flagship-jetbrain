@@ -3,13 +3,9 @@ package com.github.flagshipio.jetbrain.action.flagInFile
 import com.github.flagshipio.jetbrain.action.ActionHelpers
 import com.github.flagshipio.jetbrain.dataClass.Flag
 import com.github.flagshipio.jetbrain.store.FlagStore
-import com.github.flagshipio.jetbrain.toolWindow.flag.FlagNodeParent
 import com.github.flagshipio.jetbrain.toolWindow.flagsInFile.FlagInFileNodeParent
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
-import java.awt.Toolkit
-import java.awt.datatransfer.Clipboard
-import java.awt.datatransfer.StringSelection
 import javax.swing.tree.DefaultMutableTreeNode
 
 val KEY_PREFIX = "Key:"

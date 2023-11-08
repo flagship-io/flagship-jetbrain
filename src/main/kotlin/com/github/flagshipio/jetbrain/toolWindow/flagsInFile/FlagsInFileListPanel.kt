@@ -2,16 +2,10 @@ package com.github.flagshipio.jetbrain.toolWindow.flagsInFile
 
 import com.github.flagshipio.jetbrain.action.flagInFile.AddFlagAction
 import com.github.flagshipio.jetbrain.action.flagInFile.GoToFlagFileAction
-import com.github.flagshipio.jetbrain.action.goal.CopyGoalIdAction
-import com.github.flagshipio.jetbrain.action.goal.CopyGoalLabelAction
-import com.github.flagshipio.jetbrain.action.goal.DeleteGoalAction
-import com.github.flagshipio.jetbrain.action.goal.EditGoalAction
 import com.github.flagshipio.jetbrain.dataClass.FlagAnalyzed
 import com.github.flagshipio.jetbrain.store.FlagsInFileStore
 import com.github.flagshipio.jetbrain.toolWindow.NodeTreeStructure
 import com.github.flagshipio.jetbrain.toolWindow.RootNode
-import com.github.flagshipio.jetbrain.toolWindow.configuration.ConfigurationNodeParent
-import com.github.flagshipio.jetbrain.toolWindow.configuration.ConfigurationNodeViewModel
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.actionSystem.ActionPlaces
@@ -59,6 +53,7 @@ class FlagsInFileNode(private val intProject: Project) :
                     flagNodeChildren.add(FlagInFileNodeParent(flagInFileViewModel))
                 }
             }
+
             flagsAnalyzed.items == null -> flagNodeChildren.add(RootNode("No Flag detected."))
         }
 

@@ -1,8 +1,6 @@
 package com.github.flagshipio.jetbrain.toolWindow.flagsInFile
 
-import com.github.flagshipio.jetbrain.cli.CliCommand
 import com.github.flagshipio.jetbrain.toolWindow.RootNode
-import com.intellij.icons.AllIcons
 import com.intellij.icons.AllIcons.Debugger
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.ui.treeStructure.SimpleNode

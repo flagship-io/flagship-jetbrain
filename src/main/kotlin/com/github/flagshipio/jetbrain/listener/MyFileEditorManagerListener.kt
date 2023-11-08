@@ -10,7 +10,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 
-class MyFileEditorManagerListener: FileEditorManagerListener {
+class MyFileEditorManagerListener : FileEditorManagerListener {
 
     override fun fileOpened(source: FileEditorManager, file: VirtualFile) {
         //printSelectedFilePath(source)
@@ -22,7 +22,7 @@ class MyFileEditorManagerListener: FileEditorManagerListener {
 
     @OptIn(DelicateCoroutinesApi::class)
     override fun selectionChanged(event: FileEditorManagerEvent) {
-        GlobalScope.async{
+        GlobalScope.async {
             refreshFlagsInFile(event.manager)
         }
     }

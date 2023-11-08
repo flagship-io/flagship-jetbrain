@@ -3,7 +3,6 @@ package com.github.flagshipio.jetbrain.action.campaign
 import com.github.flagshipio.jetbrain.action.ActionHelpers
 import com.github.flagshipio.jetbrain.cli.CliCommand
 import com.github.flagshipio.jetbrain.store.ProjectStore
-import com.github.flagshipio.jetbrain.toolWindow.project.ProjectNodeParent
 import com.github.flagshipio.jetbrain.toolWindow.project.campaign.CampaignListNodeParent
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -15,6 +14,7 @@ import javax.swing.tree.DefaultMutableTreeNode
 class SwitchCampaignAction : AnAction() {
 
     private val cliCommand = CliCommand()
+
     companion object {
         const val ID = "com.github.flagshipio.jetbrain.action.SwitchCampaignAction"
     }
