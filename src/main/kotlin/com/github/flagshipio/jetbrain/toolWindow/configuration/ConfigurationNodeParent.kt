@@ -37,9 +37,8 @@ class ConfigurationNodeParent(private var viewModel: ConfigurationNodeViewModel)
         val currentConfig = cliCommand.currentConfigurationCli()
         if (currentConfig != null) {
             if (currentConfig.name == data.presentableText) {
-                data.setIcon(AllIcons.Actions.Commit)
+                data.setIcon(AllIcons.Actions.Execute)
             }
         }
-
     }
 }
