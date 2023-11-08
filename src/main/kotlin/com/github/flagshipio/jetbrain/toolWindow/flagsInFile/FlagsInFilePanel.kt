@@ -11,8 +11,6 @@ import javax.swing.border.Border
 
 class FlagsInFilePanel(project: Project) : JPanel() {
     private val splitter = OnePixelSplitter(true, "FlagsInFileSplitter", .05f)
-    private val flagsInFileStore = FlagsInFileStore(project)
-    private val goalStore = GoalStore(project)
     private val listFlagsInFileTitle = "Flags In File"
 
     private val listFlagsInFilePanel = FlagsInFileListPanel(project)

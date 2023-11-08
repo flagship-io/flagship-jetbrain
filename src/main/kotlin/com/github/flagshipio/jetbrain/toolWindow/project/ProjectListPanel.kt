@@ -44,11 +44,9 @@ class ProjectNode(private val intProject: Project) :
     private var projectNodeChildren: MutableList<SimpleNode> = ArrayList()
 
     override fun getChildren(): Array<SimpleNode> {
-        val projectsLocal = ProjectStore(intProject).getProjects()
-        println(projectsLocal)
-
+        val projectsClass = ProjectStore(intProject).getProjects()
         val projects = Projects()
-        projectsLocal.map { projects.addItemsItem(it) }
+        projectsClass.map { projects.addItemsItem(it) }
 
         when {
             projectNodeChildren.isEmpty() && projects.items != null -> {

@@ -4,12 +4,22 @@ import com.github.flagshipio.jetbrain.action.ActionHelpers
 import com.github.flagshipio.jetbrain.toolWindow.flagsInFile.FlagInFileNodeParent
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.editor.LogicalPosition
+import com.intellij.openapi.editor.ScrollType
+import com.intellij.openapi.editor.markup.EffectType
+import com.intellij.openapi.editor.markup.HighlighterLayer
+import com.intellij.openapi.editor.markup.HighlighterTargetArea
+import com.intellij.openapi.editor.markup.TextAttributes
 import com.intellij.openapi.fileEditor.FileEditorManager
+import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.ui.JBColor
 import java.io.File
 import javax.swing.tree.DefaultMutableTreeNode
+
 
 class GoToFlagFileAction : AnAction() {
 
@@ -23,7 +33,6 @@ class GoToFlagFileAction : AnAction() {
         while (selectedNode != null) {
             if (selectedNode.userObject is FlagInFileNodeParent) {
                 val flagNodeParent = selectedNode.userObject as FlagInFileNodeParent
-                //println(flagNodeParent.flagAnalyzed.flagFile)
                 val selectedIoFile = flagNodeParent.flagAnalyzed.flagFile?.let { File(it) }
 
                 if (selectedIoFile != null) {
@@ -31,7 +40,9 @@ class GoToFlagFileAction : AnAction() {
                         val filePath: String = selectedIoFile.absolutePath
                         val virtualFile = LocalFileSystem.getInstance().findFileByPath(filePath)
                         if (virtualFile != null) {
-                            openFileInEditor(project, virtualFile)
+                            flagNodeParent.flagAnalyzed.lineNumber?.let { openFileInEditor(project, virtualFile,
+                                flagNodeParent.flagAnalyzed.lineNumber!!
+                            ) }
                         }
                     }
                 }
@@ -54,6 +65,7 @@ class GoToFlagFileAction : AnAction() {
     }
 }
 
-private fun openFileInEditor(project: Project, virtualFile: VirtualFile) {
-    FileEditorManager.getInstance(project).openFile(virtualFile, true)
+private fun openFileInEditor(project: Project, virtualFile: VirtualFile, lineNumber: Number) {
+    val openFileDescriptor = OpenFileDescriptor(project, virtualFile, lineNumber.toInt() - 1, 0)
+    FileEditorManager.getInstance(project).openTextEditor(openFileDescriptor, true)
 }

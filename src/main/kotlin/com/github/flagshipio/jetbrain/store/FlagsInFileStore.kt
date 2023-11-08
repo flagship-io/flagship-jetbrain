@@ -27,7 +27,6 @@ class FlagsInFileStore(project: Project) {
                 flagResults.add(flag)
             }
         }
-        println(files)
         if (files != null) {
             flagsInFileDataService.loadState(flagResults)
         }

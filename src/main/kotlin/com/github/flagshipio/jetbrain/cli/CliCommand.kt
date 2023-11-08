@@ -1211,7 +1211,6 @@ class CliCommand {
 
     fun listAnalyzedFlag(path: String): List<FileAnalyzed>? {
         println("running")
-        println(path)
         try {
             val processBuilder = ProcessBuilder(
                 PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/" + cli.cliVersion + "/flagship",
