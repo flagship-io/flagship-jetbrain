@@ -6,8 +6,6 @@
 
     <depends>com.intellij.modules.platform</depends>
 
-    <resource-bundle>messages.MyBundle</resource-bundle>
-
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow factoryClass="com.github.flagshipio.jetbrain.toolWindow.MyToolWindowFactory" id="Flagship"
                     icon="/icons/logo.svg" anchor="right"/>
