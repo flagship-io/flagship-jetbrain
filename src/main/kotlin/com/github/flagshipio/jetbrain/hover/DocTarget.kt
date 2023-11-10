@@ -4,20 +4,13 @@ import com.github.flagshipio.jetbrain.dataClass.Flag
 import com.github.flagshipio.jetbrain.store.ConfigurationStore
 import com.github.flagshipio.jetbrain.store.FlagStore
 import com.intellij.icons.AllIcons
-import com.intellij.lang.Language
 import com.intellij.model.Pointer
-import com.intellij.patterns.PlatformPatterns
-import com.intellij.patterns.StandardPatterns
 import com.intellij.platform.backend.documentation.DocumentationResult
 import com.intellij.platform.backend.documentation.DocumentationTarget
 import com.intellij.platform.backend.presentation.TargetPresentation
-import com.intellij.pom.Navigatable
 import com.intellij.psi.PsiElement
-import com.intellij.psi.impl.source.tree.LeafPsiElement
 import com.intellij.refactoring.suggested.createSmartPointer
-import com.intellij.ui.JBColor
 import io.pebbletemplates.pebble.PebbleEngine
-import java.awt.Color
 import java.io.StringWriter
 
 class DocTarget(private val targetElement: PsiElement?) : DocumentationTarget{
@@ -39,7 +32,7 @@ class DocTarget(private val targetElement: PsiElement?) : DocumentationTarget{
         return null
     }
     override fun computePresentation(): TargetPresentation {
-        return TargetPresentation.builder("Flag").icon(AllIcons.Nodes.Plugin).presentation()
+        return TargetPresentation.builder("Flag").icon(AllIcons.Nodes.Field).presentation()
     }
 
     override fun createPointer(): Pointer<out DocumentationTarget> {
