@@ -9,7 +9,9 @@
     <extensions defaultExtensionNs="com.intellij">
         <toolWindow factoryClass="com.github.flagshipio.jetbrain.toolWindow.MyToolWindowFactory" id="Flagship"
                     icon="/icons/logo.svg" anchor="right"/>
-        <documentationProvider implementation="com.github.flagshipio.jetbrain.hover.HoverDoc"/>
+
+        <platform.backend.documentation.psiTargetProvider implementation="com.github.flagshipio.jetbrain.hover.MyDocumentationTargetProvider"/>
+
         <completion.contributor language="any"
                                 implementationClass="com.github.flagshipio.jetbrain.codeInsight.MyCompletionContributor"/>
     </extensions>

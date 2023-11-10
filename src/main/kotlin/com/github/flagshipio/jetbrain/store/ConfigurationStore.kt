@@ -10,16 +10,12 @@ import com.intellij.openapi.ui.Messages
 
 class ConfigurationStore(var project: Project) {
 
-    private var configurationDataService: ConfigurationDataService
+    private var configurationDataService: ConfigurationDataService = project.getService(ConfigurationDataService::class.java)
     private val cliCommand = CliCommand()
     private val flagStore = FlagStore(project)
     private val projectStore = ProjectStore(project)
     private val targetingKeyStore = TargetingKeyStore(project)
     private val goalStore = GoalStore(project)
-
-    init {
-        configurationDataService = project.getService(ConfigurationDataService::class.java)
-    }
 
     fun refreshConfiguration(): List<Configuration>? {
         val configurationList = cliCommand.listConfigurationCli()
@@ -102,5 +98,9 @@ class ConfigurationStore(var project: Project) {
 
     fun getConfigurations(): List<Configuration> {
         return configurationDataService.state
+    }
+
+    fun getCurrentConfiguration(): Configuration? {
+        return cliCommand.currentConfigurationCli()
     }
 }
