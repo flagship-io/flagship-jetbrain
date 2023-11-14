@@ -10,7 +10,7 @@
             margin-top: 10px;
         }
 
-        .flagDescription {
+        .flagURL {
             margin-top: 10px;
             padding-bottom: 5px;
         }
@@ -20,15 +20,23 @@
 <div class="rootContainer">
     <section>
         <div>
-            <span>{{ flag.name }}</span>
+            <span>Flag: {{ flag.name }}</span>
+            <div class="marginTop">
+                <span>Type: {{ flag.type }}</span>
+            </div>
         </div>
         {% if flag.description %}
         <div class="marginTop">
-            {{ flag.description }}
+            <span>Description: {{ flag.description }}</span>
         </div>
         {% endif %}
-        <div class="flagDescription">
-            <a href="{{ flag.url }}">Open in Flagship</a>
+        {% if flag.default_value %}
+        <div class="marginTop">
+            <span>Default value: {{ flag.default_value }}</span>
+        </div>
+        {% endif %}
+        <div class="flagURL">
+            <a href="{{ flag.url }}">Open in Flagship Platform</a>
         </div>
     </section>
 </div>

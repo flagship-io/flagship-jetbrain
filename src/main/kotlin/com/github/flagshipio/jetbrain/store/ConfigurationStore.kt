@@ -10,7 +10,8 @@ import com.intellij.openapi.ui.Messages
 
 class ConfigurationStore(var project: Project) {
 
-    private var configurationDataService: ConfigurationDataService = project.getService(ConfigurationDataService::class.java)
+    private var configurationDataService: ConfigurationDataService =
+        project.getService(ConfigurationDataService::class.java)
     private val cliCommand = CliCommand()
     private val flagStore = FlagStore(project)
     private val projectStore = ProjectStore(project)

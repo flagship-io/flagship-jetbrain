@@ -13,7 +13,7 @@ import com.intellij.refactoring.suggested.createSmartPointer
 import io.pebbletemplates.pebble.PebbleEngine
 import java.io.StringWriter
 
-class DocTarget(private val targetElement: PsiElement?) : DocumentationTarget{
+class DocTarget(private val targetElement: PsiElement?) : DocumentationTarget {
 
     private fun getFlag(contextElement: PsiElement): Flag? {
         val flagStore = FlagStore(contextElement.project)
@@ -31,6 +31,7 @@ class DocTarget(private val targetElement: PsiElement?) : DocumentationTarget{
         }
         return null
     }
+
     override fun computePresentation(): TargetPresentation {
         return TargetPresentation.builder("Flag").icon(AllIcons.Nodes.Field).presentation()
     }
@@ -44,12 +45,14 @@ class DocTarget(private val targetElement: PsiElement?) : DocumentationTarget{
 
     override fun computeDocumentationHint(): String? {
         val flag = targetElement?.let { getFlag(it) } ?: return null
+        val envID = getCurrentConfigurationEnvID(targetElement) ?: return null
 
         val flagViewModel = buildMap {
             put("name", flag.name)
             put("description", flag.description)
-            put("on", true)
-            put("url", "url")
+            put("type", flag.type)
+            put("default_value", flag.defaultValue)
+            put("url", "https://app.flagship.io/env/$envID/flags-list")
         }
 
         val template = PebbleEngine.Builder().build()
@@ -67,7 +70,8 @@ class DocTarget(private val targetElement: PsiElement?) : DocumentationTarget{
         val flagViewModel = buildMap {
             put("name", flag.name)
             put("description", flag.description)
-            put("on", true)
+            put("type", flag.type)
+            put("default_value", flag.defaultValue)
             put("url", "https://app.flagship.io/env/$envID/flags-list")
         }
 
