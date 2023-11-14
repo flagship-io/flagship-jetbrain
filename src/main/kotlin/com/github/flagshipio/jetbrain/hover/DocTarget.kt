@@ -18,8 +18,9 @@ class DocTarget(private val targetElement: PsiElement?) : DocumentationTarget {
     private fun getFlag(contextElement: PsiElement): Flag? {
         val flagStore = FlagStore(contextElement.project)
         val flags = flagStore.getFlags()
+        val element = contextElement.text.replace("\"", "")
 
-        return flags.find { contextElement.text.contains(it.name.toString()) }
+        return flags.find { element == it.name.toString() }
     }
 
     private fun getCurrentConfigurationEnvID(contextElement: PsiElement): String? {
@@ -43,42 +44,40 @@ class DocTarget(private val targetElement: PsiElement?) : DocumentationTarget {
         }
     }
 
-    override fun computeDocumentationHint(): String? {
-        val flag = targetElement?.let { getFlag(it) } ?: return null
-        val envID = getCurrentConfigurationEnvID(targetElement) ?: return null
-
-        val flagViewModel = buildMap {
-            put("name", flag.name)
-            put("description", flag.description)
-            put("type", flag.type)
-            put("default_value", flag.defaultValue)
-            put("url", "https://app.flagship.io/env/$envID/flags-list")
-        }
-
-        val template = PebbleEngine.Builder().build()
-        val temp = template.getTemplate("htmlTemplates/flagKeyHover.html")
-        val writer = StringWriter()
-        temp.evaluate(writer, mapOf("flag" to flagViewModel))
-        return writer.toString()
+    override fun computeDocumentationHint(): String {
+        return docWriter(targetElement)
     }
 
-    override fun computeDocumentation(): DocumentationResult? {
-        val flag = targetElement?.let { getFlag(it) } ?: return null
-        val envID = getCurrentConfigurationEnvID(targetElement) ?: return null
+    override fun computeDocumentation(): DocumentationResult {
+        return DocumentationResult.Companion.documentation(docWriter(targetElement))
+    }
 
-        // Construct view models in kotlin to avoid logic operations in pebble (pain!)
-        val flagViewModel = buildMap {
-            put("name", flag.name)
-            put("description", flag.description)
-            put("type", flag.type)
-            put("default_value", flag.defaultValue)
-            put("url", "https://app.flagship.io/env/$envID/flags-list")
+    private fun docWriter(targetElement: PsiElement?): String {
+        val flag = targetElement?.let { getFlag(it) }
+        val envID = targetElement?.let { getCurrentConfigurationEnvID(it) }
+        val template = PebbleEngine.Builder().build()
+        val writer = StringWriter()
+
+        if (flag != null) {
+            val flagViewModel = buildMap {
+                put("name", flag.name)
+                put("description", flag.description)
+                put("type", flag.type)
+                put("default_value", flag.defaultValue)
+                put("url", "https://app.flagship.io/env/$envID/flags-list")
+            }
+            val temp = template.getTemplate("htmlTemplates/flagKeyHover.html")
+            temp.evaluate(writer, mapOf("flag" to flagViewModel))
+        }else {
+            val flagViewModel = buildMap {
+                if (targetElement != null) {
+                    put("name", targetElement.text.replace("\"",""))
+                }
+            }
+            val temp = template.getTemplate("htmlTemplates/flagKeyNotFound.html")
+            temp.evaluate(writer, mapOf("flag" to flagViewModel))
         }
 
-        val template = PebbleEngine.Builder().build()
-        val temp = template.getTemplate("htmlTemplates/flagKeyHover.html")
-        val writer = StringWriter()
-        temp.evaluate(writer, mapOf("flag" to flagViewModel))
-        return DocumentationResult.Companion.documentation(writer.toString())
+        return writer.toString()
     }
 }

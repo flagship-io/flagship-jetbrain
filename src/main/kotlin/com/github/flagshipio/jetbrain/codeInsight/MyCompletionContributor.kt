@@ -33,7 +33,6 @@ class MyCompletionContributor : CompletionContributor() {
     }
 
     private fun isGetFlagFunction(linePrefix: String): Boolean {
-        println(linePrefix)
         return (Regex("getFlag\\(\\s*['\"][\\w\\-\\_]*").containsMatchIn(linePrefix) && !Regex("getFlag\\(\\s*['\"][\\w\\-\\_]*['\"]").containsMatchIn(
             linePrefix
         )) ||
