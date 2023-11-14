@@ -22,7 +22,10 @@ class MyCompletionContributor : CompletionContributor() {
             if (suggestions != null) {
                 for (suggestion in suggestions) {
                     resultSet.restartCompletionOnAnyPrefixChange();
-                    suggestion.name?.let { LookupElementBuilder.create(it).withTypeText(suggestion.description).withIcon(AllIcons.Debugger.Db_no_suspend_method_breakpoint) }
+                    suggestion.name?.let {
+                        LookupElementBuilder.create(it).withTypeText(suggestion.description)
+                            .withIcon(AllIcons.Debugger.Db_no_suspend_method_breakpoint)
+                    }
                         ?.let { resultSet.addElement(it) }
                 }
             }
