@@ -9,7 +9,6 @@ import com.github.flagshipio.jetbrain.toolWindow.quickLink.LinkPanel
 import com.github.flagshipio.jetbrain.toolWindow.targetingKey.TargetingKeyPanel
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.Service
-import com.intellij.openapi.keymap.impl.ui.QuickListsPanel
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.ToolWindow
@@ -24,7 +23,7 @@ class ApplicationToolWindow(project: Project) : DumbAware, Disposable {
     private val targetingKeyPanel: TargetingKeyPanel = TargetingKeyPanel(project)
     private val goalPanel: GoalPanel = GoalPanel(project)
     private val flagsInFilePanel: FlagsInFilePanel = FlagsInFilePanel(project)
-    private val linkPanel: LinkPanel  = LinkPanel(project)
+    private val linkPanel: LinkPanel = LinkPanel(project)
 
     fun initializeFlagPanel(toolWindow: ToolWindow) {
         val contentFactory = ContentFactory.getInstance()

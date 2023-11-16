@@ -68,10 +68,10 @@ class DocTarget(private val targetElement: PsiElement?) : DocumentationTarget {
             }
             val temp = template.getTemplate("htmlTemplates/flagKeyHover.html")
             temp.evaluate(writer, mapOf("flag" to flagViewModel))
-        }else {
+        } else {
             val flagViewModel = buildMap {
                 if (targetElement != null) {
-                    put("name", targetElement.text.replace("\"",""))
+                    put("name", targetElement.text.replace("\"", ""))
                 }
             }
             val temp = template.getTemplate("htmlTemplates/flagKeyNotFound.html")

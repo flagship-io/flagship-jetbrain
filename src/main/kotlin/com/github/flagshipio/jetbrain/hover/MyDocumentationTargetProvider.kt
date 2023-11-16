@@ -9,7 +9,8 @@ class MyDocumentationTargetProvider : PsiDocumentationTargetProvider {
 
     override fun documentationTarget(element: PsiElement, originalElement: PsiElement?): DocTarget? {
         if (element.containingFile != null) {
-            val document: Document? = PsiDocumentManager.getInstance(element.project).getDocument(element.containingFile)
+            val document: Document? =
+                PsiDocumentManager.getInstance(element.project).getDocument(element.containingFile)
             if (document != null) {
                 val offset = element.textOffset
                 val lineStartOffset: Int = document.getLineStartOffset(document.getLineNumber(offset))
