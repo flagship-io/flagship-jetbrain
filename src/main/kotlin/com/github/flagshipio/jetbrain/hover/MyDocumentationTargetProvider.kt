@@ -5,28 +5,27 @@ import com.intellij.platform.backend.documentation.PsiDocumentationTargetProvide
 import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiElement
 
-
 class MyDocumentationTargetProvider : PsiDocumentationTargetProvider {
 
     override fun documentationTarget(element: PsiElement, originalElement: PsiElement?): DocTarget? {
-        val document: Document? = PsiDocumentManager.getInstance(element.project).getDocument(element.containingFile)
-        if (document != null) {
-            val offset = element.textOffset
-            val lineStartOffset: Int = document.getLineStartOffset(document.getLineNumber(offset))
-            val lineText = document.text.substring(lineStartOffset, offset)
+        if (element.containingFile != null) {
+            val document: Document? = PsiDocumentManager.getInstance(element.project).getDocument(element.containingFile)
+            if (document != null) {
+                val offset = element.textOffset
+                val lineStartOffset: Int = document.getLineStartOffset(document.getLineNumber(offset))
+                val lineText = document.text.substring(lineStartOffset, offset)
 
-            if (isGetFlagFunctionHover(lineText)) {
-                println("hit")
-                return DocTarget(element)
+                if (isGetFlagFunctionHover(lineText)) {
+                    return DocTarget(element)
+                }
             }
+            return null
         }
         return null
     }
-
 }
 
 fun isGetFlagFunctionHover(linePrefix: String): Boolean {
-    println(linePrefix)
     return (Regex("getFlag\\(\\s*[\\w\\-\\_]*").containsMatchIn(linePrefix) && !Regex("getFlag\\(\\s*[\\w\\-\\_]*['\"]").containsMatchIn(
         linePrefix
     )) ||

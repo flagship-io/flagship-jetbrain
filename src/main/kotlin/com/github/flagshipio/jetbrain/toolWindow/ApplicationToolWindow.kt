@@ -5,9 +5,11 @@ import com.github.flagshipio.jetbrain.toolWindow.flag.FlagPanel
 import com.github.flagshipio.jetbrain.toolWindow.flagsInFile.FlagsInFilePanel
 import com.github.flagshipio.jetbrain.toolWindow.goal.GoalPanel
 import com.github.flagshipio.jetbrain.toolWindow.project.ProjectPanel
+import com.github.flagshipio.jetbrain.toolWindow.quickLink.LinkPanel
 import com.github.flagshipio.jetbrain.toolWindow.targetingKey.TargetingKeyPanel
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.components.Service
+import com.intellij.openapi.keymap.impl.ui.QuickListsPanel
 import com.intellij.openapi.project.DumbAware
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.ToolWindow
@@ -22,6 +24,7 @@ class ApplicationToolWindow(project: Project) : DumbAware, Disposable {
     private val targetingKeyPanel: TargetingKeyPanel = TargetingKeyPanel(project)
     private val goalPanel: GoalPanel = GoalPanel(project)
     private val flagsInFilePanel: FlagsInFilePanel = FlagsInFilePanel(project)
+    private val linkPanel: LinkPanel  = LinkPanel(project)
 
     fun initializeFlagPanel(toolWindow: ToolWindow) {
         val contentFactory = ContentFactory.getInstance()
@@ -77,6 +80,15 @@ class ApplicationToolWindow(project: Project) : DumbAware, Disposable {
         toolWindow.contentManager.addContent(contentFlagsInFilePanel)
     }
 
+    fun initializeQuickLinkPanel(toolWindow: ToolWindow) {
+        val contentFactory = ContentFactory.getInstance()
+
+        val contentLinkPanel: Content = contentFactory.createContent(null, "Documentation", false)
+        contentLinkPanel.component = linkPanel
+
+        toolWindow.contentManager.addContent(contentLinkPanel)
+    }
+
     fun getProjectPanel(): ProjectPanel {
         return projectPanel
     }
@@ -99,6 +111,10 @@ class ApplicationToolWindow(project: Project) : DumbAware, Disposable {
 
     fun getFlagsInFilePanel(): FlagsInFilePanel {
         return flagsInFilePanel
+    }
+
+    fun getLinkPanel(): LinkPanel {
+        return linkPanel
     }
 
     companion object {

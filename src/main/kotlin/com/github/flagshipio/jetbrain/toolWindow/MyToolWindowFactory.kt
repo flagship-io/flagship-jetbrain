@@ -41,6 +41,7 @@ class MyToolWindowFactory : ToolWindowFactory {
         applicationToolWindow.initializeFlagsInFilePanel(toolWindow)
         applicationToolWindow.initializeTargetingKeyPanel(toolWindow)
         applicationToolWindow.initializeGoalPanel(toolWindow)
+        applicationToolWindow.initializeQuickLinkPanel(toolWindow)
 
         val currentOpenedFile = getCurrentEditorFilePath(project)
 
@@ -64,7 +65,6 @@ class MyToolWindowFactory : ToolWindowFactory {
     }
 
     override fun shouldBeAvailable(project: Project) = true
-
 }
 
 fun getCurrentEditorFilePath(project: Project): String? {
