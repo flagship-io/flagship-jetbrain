@@ -15,6 +15,7 @@ import com.intellij.util.ui.JBUI
 import org.apache.commons.io.IOUtils
 import java.awt.BorderLayout
 import java.awt.Dimension
+import java.awt.FlowLayout
 import java.io.File
 import java.io.IOException
 import java.nio.charset.StandardCharsets
@@ -87,16 +88,36 @@ class ManageConfigurationPanel(
 
         credFormPanel.setBorder(JBUI.Borders.empty(0, 50))
 
-        credFormPanel.add(JLabel("Name:"))
+        val innerNameLabel = JPanel(FlowLayout(FlowLayout.LEFT))
+        innerNameLabel.add(JLabel("Name:"))
+        credFormPanel.add(innerNameLabel)
+
         credFormPanel.add(nameTextField)
-        credFormPanel.add(JLabel("Client ID:"))
+
+        val innerClientIDLabel = JPanel(FlowLayout(FlowLayout.LEFT))
+        innerClientIDLabel.add(JLabel("Client ID:"))
+        credFormPanel.add(innerClientIDLabel)
+
         credFormPanel.add(clientIdTextField)
-        credFormPanel.add(JLabel("Client Secret:"))
+
+        val innerClientSecretLabel = JPanel(FlowLayout(FlowLayout.LEFT))
+        innerClientSecretLabel.add(JLabel("Client Secret:"))
+        credFormPanel.add(innerClientSecretLabel)
+
         credFormPanel.add(clientSecretTextField)
-        credFormPanel.add(JLabel("Account ID:"))
+
+        val innerAccountIDLabel = JPanel(FlowLayout(FlowLayout.LEFT))
+        innerAccountIDLabel.add(JLabel("Account ID:"))
+        credFormPanel.add(innerAccountIDLabel)
+
         credFormPanel.add(accountIdTextField)
-        credFormPanel.add(JLabel("Account Environment ID:"))
+
+        val innerAccountEnvIDLabel = JPanel(FlowLayout(FlowLayout.LEFT))
+        innerAccountEnvIDLabel.add(JLabel("Account Environment ID:"))
+        credFormPanel.add(innerAccountEnvIDLabel)
+
         credFormPanel.add(accountEnvIdTextField)
+
         fromCredPanel.add(credFormPanel, BorderLayout.CENTER)
 
         val cancelBtn = JButton("Cancel")

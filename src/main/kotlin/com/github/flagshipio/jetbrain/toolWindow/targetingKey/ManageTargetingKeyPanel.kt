@@ -9,6 +9,7 @@ import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.util.ui.JBUI
 import java.awt.BorderLayout
+import java.awt.FlowLayout
 import javax.swing.*
 
 class ManageTargetingKeyPanel(
@@ -72,11 +73,22 @@ class ManageTargetingKeyPanel(
 
         credFormPanel.setBorder(JBUI.Borders.empty(0, 50))
 
-        credFormPanel.add(JLabel("Name:"))
+        val innerNameLabel = JPanel(FlowLayout(FlowLayout.LEFT))
+        innerNameLabel.add(JLabel("Name:"))
+        credFormPanel.add(innerNameLabel)
+
         credFormPanel.add(nameTextField)
-        credFormPanel.add(typeLabel)
+
+        val innerTypeLabel = JPanel(FlowLayout(FlowLayout.LEFT))
+        innerTypeLabel.add(typeLabel)
+        credFormPanel.add(innerTypeLabel)
+
         credFormPanel.add(typeComboBox)
-        credFormPanel.add(descriptionLabel)
+
+        val innerDescriptionLabel = JPanel(FlowLayout(FlowLayout.LEFT))
+        innerDescriptionLabel.add(descriptionLabel)
+        credFormPanel.add(innerDescriptionLabel)
+
         credFormPanel.add(descriptionTextField)
 
         fromCredPanel.add(credFormPanel, BorderLayout.CENTER)

@@ -29,7 +29,6 @@ configurations.all {
 
 // Dependencies are managed with Gradle version catalog - read more: https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog
 dependencies {
-    implementation("io.pebbletemplates:pebble:3.2.1")
 //    implementation(libs.annotations)
 }
 

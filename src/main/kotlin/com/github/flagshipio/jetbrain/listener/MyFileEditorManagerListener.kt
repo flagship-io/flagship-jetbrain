@@ -20,6 +20,7 @@ class MyFileEditorManagerListener : FileEditorManagerListener {
         // Handle file closure if needed
     }
 
+
     @OptIn(DelicateCoroutinesApi::class)
     override fun selectionChanged(event: FileEditorManagerEvent) {
         GlobalScope.async {

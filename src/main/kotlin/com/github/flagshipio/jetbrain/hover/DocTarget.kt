@@ -10,8 +10,6 @@ import com.intellij.platform.backend.documentation.DocumentationTarget
 import com.intellij.platform.backend.presentation.TargetPresentation
 import com.intellij.psi.PsiElement
 import com.intellij.refactoring.suggested.createSmartPointer
-import io.pebbletemplates.pebble.PebbleEngine
-import java.io.StringWriter
 
 class DocTarget(private val targetElement: PsiElement?) : DocumentationTarget {
 
@@ -55,29 +53,67 @@ class DocTarget(private val targetElement: PsiElement?) : DocumentationTarget {
     private fun docWriter(targetElement: PsiElement?): String {
         val flag = targetElement?.let { getFlag(it) }
         val envID = targetElement?.let { getCurrentConfigurationEnvID(it) }
-        val template = PebbleEngine.Builder().build()
-        val writer = StringWriter()
+        val url = "https://app.flagship.io/env/$envID/flags-list"
+        val flagKeyDetect = targetElement?.text?.replace("\"", "")
 
+        return flagKeyHover(flag, url, flagKeyDetect)
+    }
+
+    private fun flagKeyHover(flag: Flag?, url: String, flagNotFoundKey: String?): String {
         if (flag != null) {
-            val flagViewModel = buildMap {
-                put("name", flag.name)
-                put("description", flag.description)
-                put("type", flag.type)
-                put("default_value", flag.defaultValue)
-                put("url", "https://app.flagship.io/env/$envID/flags-list")
-            }
-            val temp = template.getTemplate("htmlTemplates/flagKeyHover.html")
-            temp.evaluate(writer, mapOf("flag" to flagViewModel))
-        } else {
-            val flagViewModel = buildMap {
-                if (targetElement != null) {
-                    put("name", targetElement.text.replace("\"", ""))
-                }
-            }
-            val temp = template.getTemplate("htmlTemplates/flagKeyNotFound.html")
-            temp.evaluate(writer, mapOf("flag" to flagViewModel))
+            return "<!DOCTYPE html>\n" +
+                    "<html lang=\"en\">\n" +
+                    "<head>\n" +
+                    "    <style>\n" +
+                    "        .rootContainer {\n" +
+                    "            display: flex;\n" +
+                    "            flex-direction: column;\n" +
+                    "        }\n" +
+                    "\n" +
+                    "        .marginTop {\n" +
+                    "            margin-top: 10px;\n" +
+                    "        }\n" +
+                    "\n" +
+                    "        .flagURL {\n" +
+                    "            margin-top: 10px;\n" +
+                    "            padding-bottom: 5px;\n" +
+                    "        }\n" +
+                    "    </style>\n" +
+                    "    <title></title>\n" +
+                    "</head>\n" +
+                    "<body>\n" +
+                    "<div class=\"rootContainer\">\n" +
+                    "    <section>\n" +
+                    "        <div>\n" +
+                    "            <span>Flag: ${flag.name}</span>\n" +
+                    "            <div class=\"marginTop\">\n" +
+                    "                <span>Type: ${flag.type}</span>\n" +
+                    "            </div>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"marginTop\">\n" +
+                    "            <span>Description: ${flag.description}</span>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"marginTop\">\n" +
+                    "            <span>Default value: ${flag.defaultValue}</span>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"flagURL\">\n" +
+                    "            <a href=\"${url}\">Open in Flagship Platform</a>\n" +
+                    "        </div>\n" +
+                    "    </section>\n" +
+                    "</div>\n" +
+                    "</body>\n" +
+                    "</html>"
         }
 
-        return writer.toString()
+        return "<!DOCTYPE html>\n" +
+                "<html lang=\"en\">\n" +
+                "<head>\n" +
+                "    <meta charset=\"UTF-8\">\n" +
+                "    <title></title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "Flag Not Found: $flagNotFoundKey - Add it with the commands\n" +
+                "</body>\n" +
+                "</html>"
     }
 }

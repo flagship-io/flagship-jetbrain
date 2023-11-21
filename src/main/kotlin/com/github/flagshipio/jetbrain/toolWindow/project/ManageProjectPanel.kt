@@ -11,6 +11,7 @@ import com.intellij.ui.JBColor
 import com.intellij.util.ui.JBUI
 import java.awt.BorderLayout
 import java.awt.Dimension
+import java.awt.FlowLayout
 import javax.swing.*
 import javax.swing.border.LineBorder
 
@@ -71,7 +72,10 @@ class ManageProjectPanel(
 
         credFormPanel.setBorder(JBUI.Borders.empty(0, 50))
 
-        credFormPanel.add(JLabel("Name:"))
+        val innerNameLabel = JPanel(FlowLayout(FlowLayout.LEFT))
+        innerNameLabel.add(JLabel("Name:"))
+        credFormPanel.add(innerNameLabel)
+
         credFormPanel.add(nameTextField)
 
         fromCredPanel.add(credFormPanel, BorderLayout.CENTER)

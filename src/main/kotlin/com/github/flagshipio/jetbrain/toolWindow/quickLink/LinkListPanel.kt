@@ -22,10 +22,6 @@ import javax.swing.JPanel
 import javax.swing.tree.DefaultMutableTreeNode
 import javax.swing.tree.TreeSelectionModel
 
-/*
- * FlagPanel renders the ToolWindow Flag Treeview and associated action buttons.
- */
-
 
 class LinkListPanel(private val myProject: Project) :
     SimpleToolWindowPanel(false, false), Disposable {

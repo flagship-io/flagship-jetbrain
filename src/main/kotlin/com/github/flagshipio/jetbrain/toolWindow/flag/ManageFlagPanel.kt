@@ -9,7 +9,9 @@ import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.SimpleToolWindowPanel
 import com.intellij.util.ui.JBUI
 import java.awt.BorderLayout
+import java.awt.FlowLayout
 import javax.swing.*
+
 
 class ManageFlagPanel(
     private var project: Project,
@@ -81,14 +83,30 @@ class ManageFlagPanel(
 
         credFormPanel.setBorder(JBUI.Borders.empty(0, 50))
 
-        credFormPanel.add(JLabel("Key:"))
+        val innerKeyLabel = JPanel(FlowLayout(FlowLayout.LEFT))
+        innerKeyLabel.add(JLabel("Key:"))
+        credFormPanel.add(innerKeyLabel)
+
         credFormPanel.add(keyTextField)
-        credFormPanel.add(typeLabel)
+
+        val innerTypeLabel = JPanel(FlowLayout(FlowLayout.LEFT))
+        innerTypeLabel.add(typeLabel)
+        credFormPanel.add(innerTypeLabel)
+
         credFormPanel.add(typeComboBox)
-        credFormPanel.add(JLabel("Description:"))
+
+        val innerDescriptionLabel = JPanel(FlowLayout(FlowLayout.LEFT))
+        innerDescriptionLabel.add(JLabel("Description:"))
+        credFormPanel.add(innerDescriptionLabel)
+
         credFormPanel.add(descriptionTextField)
-        credFormPanel.add(defaultValueLabel)
+
+        val innerDefaultValueLabel = JPanel(FlowLayout(FlowLayout.LEFT))
+        innerDefaultValueLabel.add(defaultValueLabel)
+        credFormPanel.add(innerDefaultValueLabel)
+
         credFormPanel.add(defaultValueTextField)
+
         typeComboBox.addActionListener {
             if (typeComboBox.selectedItem == "boolean") {
                 defaultValueLabel.isVisible = false
@@ -98,7 +116,6 @@ class ManageFlagPanel(
                 defaultValueTextField.isVisible = true
             }
         }
-
         fromCredPanel.add(credFormPanel, BorderLayout.CENTER)
 
         val cancelBtn = JButton("Cancel")
