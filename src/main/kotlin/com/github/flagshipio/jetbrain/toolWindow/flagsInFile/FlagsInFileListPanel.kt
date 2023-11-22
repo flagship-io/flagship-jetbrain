@@ -3,7 +3,6 @@ package com.github.flagshipio.jetbrain.toolWindow.flagsInFile
 import com.github.flagshipio.jetbrain.action.flagInFile.AddFlagAction
 import com.github.flagshipio.jetbrain.action.flagInFile.GoToFlagFileAction
 import com.github.flagshipio.jetbrain.dataClass.FileAnalyzed
-import com.github.flagshipio.jetbrain.dataClass.FlagAnalyzed
 import com.github.flagshipio.jetbrain.store.FlagsInFileStore
 import com.github.flagshipio.jetbrain.toolWindow.NodeTreeStructure
 import com.github.flagshipio.jetbrain.toolWindow.RootNode
@@ -114,14 +113,14 @@ class FlagsInFileListPanel(private val myProject: Project) :
         val actionToolbar: ActionToolbar = actionManager.createActionToolbar("ACTION_TOOLBAR", actionGroup, true)
         toolbar = actionToolbar.component
         val addFlagAction = actionManager.getAction(AddFlagAction.ID)
-        val GoToFlagFileAction = actionManager.getAction(GoToFlagFileAction.ID)
+        val goToFlagFileAction = actionManager.getAction(GoToFlagFileAction.ID)
 
         actionToolbar.targetComponent = this
         PopupHandler.installPopupMenu(
             tree,
             actionPopup.apply {
                 add(addFlagAction)
-                add(GoToFlagFileAction)
+                add(goToFlagFileAction)
             },
             ActionPlaces.POPUP
         )

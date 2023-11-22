@@ -118,5 +118,14 @@
             <keyboard-shortcut first-keystroke="ctrl shift H" keymap="Mac OS X"/>
             <keyboard-shortcut first-keystroke="ctrl shift H" keymap="Mac OS X 10.5+"/>
         </action>
+
+        <action class="com.github.flagshipio.jetbrain.action.RefreshFlagsInFileAction"
+                id="com.github.flagshipio.jetbrain.action.RefreshFlagsInFileAction" text="Synchronize Resources"
+                icon="/icons/logo.svg">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+            <keyboard-shortcut first-keystroke="ctrl shift G" keymap="$default"/>
+            <keyboard-shortcut first-keystroke="ctrl shift G" keymap="Mac OS X"/>
+            <keyboard-shortcut first-keystroke="ctrl shift G" keymap="Mac OS X 10.5+"/>
+        </action>
     </actions>
 </idea-plugin>

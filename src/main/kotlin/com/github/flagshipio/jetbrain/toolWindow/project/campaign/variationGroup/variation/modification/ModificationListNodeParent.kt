@@ -19,7 +19,7 @@ class ModificationListNodeParent(private var viewModel: ModificationNodeViewMode
 
     private fun buildChildren() {
         children.add(RootNode("Type: ${viewModel.modificationType}"))
-        if (viewModel.modificationValue is LinkedTreeMap <*, *>) {
+        if (viewModel.modificationValue is LinkedTreeMap<*, *>) {
             val modificationValueLinkedTree = viewModel.modificationValue as LinkedTreeMap<*, *>
             children.add(ModificationValueNodeParent(modificationValueLinkedTree))
         }

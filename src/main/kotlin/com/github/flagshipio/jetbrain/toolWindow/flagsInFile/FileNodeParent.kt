@@ -16,7 +16,8 @@ class FileNodeParent(private var viewModel: FileNodeViewModel) : SimpleNode() {
     }
 
     private fun addChildren() {
-        file.results?.map{
+        file.results?.map {
+            it.flagFile = file.file
             val flagViewModel = FlagInFileNodeViewModel(it)
             children.add(FlagInFileNodeParent(flagViewModel))
         }
@@ -24,6 +25,7 @@ class FileNodeParent(private var viewModel: FileNodeViewModel) : SimpleNode() {
 
     override fun update(data: PresentationData) {
         super.update(data)
-        data.presentableText = viewModel.fileName?.split("/")?.last() + " - " + (viewModel.flagInFile?.count() ?: 0) + " Flag(s) detected"
+        data.presentableText =
+            viewModel.fileName?.split("/")?.last() + " - " + (viewModel.flagInFile?.count() ?: 0) + " Flag(s) detected"
     }
 }
