@@ -46,9 +46,9 @@ class MyToolWindowFactory : ToolWindowFactory {
         val currentOpenedFile = getCurrentEditorFilePath(project)
 
         if (currentOpenedFile != null) {
-            flagsInFileStore.refreshFlag(currentOpenedFile)
+            flagsInFileStore.refreshFlagInFile(currentOpenedFile)
         } else {
-            project.basePath?.let { flagsInFileStore.refreshFlag(it) }
+            project.basePath?.let { flagsInFileStore.refreshFlagInFile(it) }
         }
 
         ActionHelpers.getListProjectPanel(project).updateNodeInfo()

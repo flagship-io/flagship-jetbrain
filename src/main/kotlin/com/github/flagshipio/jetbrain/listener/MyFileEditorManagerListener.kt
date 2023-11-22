@@ -34,12 +34,12 @@ class MyFileEditorManagerListener : FileEditorManagerListener {
         if (selectedEditor != null) {
             val file = selectedEditor.file
             if (file != null) {
-                flagsInFileStore.refreshFlag(file.path)
+                flagsInFileStore.refreshFlagInFile(file.path)
                 ActionHelpers.getListFlagsInFilePanel(fileEditorManager.project).updateNodeInfo()
                 return
             }
         }
-        fileEditorManager.project.basePath?.let { flagsInFileStore.refreshFlag(it) }
+        fileEditorManager.project.basePath?.let { flagsInFileStore.refreshFlagInFile(it) }
         ActionHelpers.getListFlagsInFilePanel(fileEditorManager.project).updateNodeInfo()
     }
 }

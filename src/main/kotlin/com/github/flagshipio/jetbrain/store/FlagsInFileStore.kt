@@ -1,35 +1,30 @@
 package com.github.flagshipio.jetbrain.store
 
 import com.github.flagshipio.jetbrain.cli.CliCommand
+import com.github.flagshipio.jetbrain.dataClass.FileAnalyzed
 import com.github.flagshipio.jetbrain.dataClass.FlagAnalyzed
+import com.github.flagshipio.jetbrain.services.FileDataService
 import com.github.flagshipio.jetbrain.services.FlagsInFileDataService
 import com.intellij.openapi.project.Project
 
 class FlagsInFileStore(project: Project) {
 
-    private var flagsInFileDataService: FlagsInFileDataService
+    private var fileDataService: FileDataService
     private val cliCommand = CliCommand()
 
     init {
-        flagsInFileDataService = project.getService(FlagsInFileDataService::class.java)
+        fileDataService = project.getService(FileDataService::class.java)
     }
 
-    fun refreshFlag(path: String): List<FlagAnalyzed> {
-        val flagResults: ArrayList<FlagAnalyzed> = ArrayList()
+    fun refreshFlagInFile(path: String): List<FileAnalyzed>? {
         val files = cliCommand.listAnalyzedFlag(path)
-        files?.map { file ->
-            file.results?.map { flag ->
-                flag.flagFile = file.file
-                flagResults.add(flag)
-            }
-        }
         if (files != null) {
-            flagsInFileDataService.loadState(flagResults)
+            fileDataService.loadState(files)
         }
-        return flagResults
+        return files
     }
 
-    fun getFlags(): List<FlagAnalyzed> {
-        return flagsInFileDataService.state
+    fun getFiles(): List<FileAnalyzed> {
+        return fileDataService.state
     }
 }

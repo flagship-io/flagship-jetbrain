@@ -9,5 +9,4 @@ class FlagInFileNodeViewModel(
     val flagType = flagAnalyzed.flagType
     val flagDefaultValue = flagAnalyzed.flagDefaultValue
     val flagLineNumber = flagAnalyzed.lineNumber
-    val flagFile = flagAnalyzed.flagFile
 }

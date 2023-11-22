@@ -27,7 +27,6 @@ class ModificationListNodeParent(private var viewModel: ModificationNodeViewMode
 
     override fun update(data: PresentationData) {
         super.update(data)
-
         data.presentableText = "Modification"
     }
 }

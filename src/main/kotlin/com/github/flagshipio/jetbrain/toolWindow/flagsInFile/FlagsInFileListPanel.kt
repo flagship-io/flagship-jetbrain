@@ -2,6 +2,7 @@ package com.github.flagshipio.jetbrain.toolWindow.flagsInFile
 
 import com.github.flagshipio.jetbrain.action.flagInFile.AddFlagAction
 import com.github.flagshipio.jetbrain.action.flagInFile.GoToFlagFileAction
+import com.github.flagshipio.jetbrain.dataClass.FileAnalyzed
 import com.github.flagshipio.jetbrain.dataClass.FlagAnalyzed
 import com.github.flagshipio.jetbrain.store.FlagsInFileStore
 import com.github.flagshipio.jetbrain.toolWindow.NodeTreeStructure
@@ -24,10 +25,10 @@ import java.awt.CardLayout
 import javax.swing.JPanel
 import javax.swing.tree.TreeSelectionModel
 
-class FlagsAnalyzed {
+class FilesAnalyzed {
 
-    var items: MutableList<FlagAnalyzed>? = null
-    fun addItemsItem(itemsItem: FlagAnalyzed): FlagsAnalyzed {
+    var items: MutableList<FileAnalyzed>? = null
+    fun addItemsItem(itemsItem: FileAnalyzed): FilesAnalyzed {
         if (items == null) {
             items = ArrayList()
         }
@@ -38,26 +39,27 @@ class FlagsAnalyzed {
 
 class FlagsInFileNode(private val intProject: Project) :
     SimpleNode() {
-    private var flagNodeChildren: MutableList<SimpleNode> = ArrayList()
+    private var fileNodeChildren: MutableList<SimpleNode> = ArrayList()
 
     override fun getChildren(): Array<SimpleNode> {
-        val flagsLocal = FlagsInFileStore(intProject).getFlags()
+        val filesLocal = FlagsInFileStore(intProject).getFiles()
 
-        val flagsAnalyzed = FlagsAnalyzed()
-        flagsLocal.map { flagsAnalyzed.addItemsItem(it) }
+        val filesAnalyzed = FilesAnalyzed()
+
+        filesLocal.map { filesAnalyzed.addItemsItem(it) }
 
         when {
-            flagNodeChildren.isEmpty() && flagsAnalyzed.items != null -> {
-                for (flag in flagsAnalyzed.items!!) {
-                    val flagInFileViewModel = FlagInFileNodeViewModel(flag)
-                    flagNodeChildren.add(FlagInFileNodeParent(flagInFileViewModel))
+            fileNodeChildren.isEmpty() && filesAnalyzed.items != null -> {
+                for (file in filesAnalyzed.items!!) {
+                    val fileViewModel = FileNodeViewModel(file)
+                    fileNodeChildren.add(FileNodeParent(fileViewModel))
                 }
             }
 
-            flagsAnalyzed.items == null -> flagNodeChildren.add(RootNode("No Flag detected."))
+            filesAnalyzed.items == null -> fileNodeChildren.add(RootNode("No Flag detected."))
         }
 
-        return flagNodeChildren.toTypedArray()
+        return fileNodeChildren.toTypedArray()
     }
 }
 
