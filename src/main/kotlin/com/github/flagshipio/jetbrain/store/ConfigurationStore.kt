@@ -31,7 +31,7 @@ class ConfigurationStore(var project: Project) {
         if (cliResponse != null) {
             if (cliResponse.contains("created successfully", true)) {
                 configurationDataService.saveConfiguration(configuration)
-                Messages.showMessageDialog("Feature Flag saved", "Status", Messages.getInformationIcon())
+                Messages.showMessageDialog("Configuration saved", "Status", Messages.getInformationIcon())
             }
         }
         return cliResponse
