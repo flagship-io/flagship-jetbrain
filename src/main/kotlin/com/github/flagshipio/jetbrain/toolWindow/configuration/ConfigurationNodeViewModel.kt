@@ -6,8 +6,8 @@ class ConfigurationNodeViewModel(
     val configuration: Configuration,
 ) {
     val configName = configuration.name
-    val configClientID = configuration.clientID
-    val configClientSecret = configuration.clientSecret
+    val configClientID = "xxxx" + (configuration.clientID?.takeLast(8) ?: "")
+    val configClientSecret = "xxxx" + (configuration.clientSecret?.takeLast(8) ?: "")
     val configAccountID = configuration.accountID
     val configAccountEnvID = configuration.accountEnvironmentID
 }

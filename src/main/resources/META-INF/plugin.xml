@@ -110,13 +110,13 @@
                 id="com.github.flagshipio.jetbrain.action.GoToFlagFileAction" text="Go to Flag"
                 description="Add the flag automatically" icon="AllIcons.Actions.Find"/>
 
-        <!--<action class="com.github.flagshipio.jetbrain.action.CreateCredentialPanel"
-                id="com.github.flagshipio.jetbrain.action.CreateCredentialPanel" text="Create Configuration"
+        <action class="com.github.flagshipio.jetbrain.action.SyncResourceAction"
+                id="com.github.flagshipio.jetbrain.action.SyncResourceAction" text="Synchronize Resources"
                 icon="/icons/logo.svg">
             <add-to-group group-id="ToolsMenu" anchor="first"/>
             <keyboard-shortcut first-keystroke="ctrl shift H" keymap="$default"/>
             <keyboard-shortcut first-keystroke="ctrl shift H" keymap="Mac OS X"/>
             <keyboard-shortcut first-keystroke="ctrl shift H" keymap="Mac OS X 10.5+"/>
-        </action> -->
+        </action>
     </actions>
 </idea-plugin>

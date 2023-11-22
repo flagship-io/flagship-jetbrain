@@ -13,7 +13,7 @@ class MyDocumentationTargetProvider : PsiDocumentationTargetProvider {
                 PsiDocumentManager.getInstance(element.project).getDocument(element.containingFile)
             if (document != null) {
                 val offset = element.textOffset
-                if (offset != -1){
+                if (offset != -1) {
                     val lineStartOffset: Int = document.getLineStartOffset(document.getLineNumber(offset))
                     val lineText = document.text.substring(lineStartOffset, offset)
                     if (isGetFlagFunctionHover(lineText)) {
