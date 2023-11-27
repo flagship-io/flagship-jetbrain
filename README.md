@@ -1,54 +1,55 @@
-# flagship-jetbrain
+# Flagship for Jetbrain
 
-![Build](https://github.com/flagship-io/flagship-jetbrain/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+#### Disclaimer
 
-## Template ToDo list
+> ⚠️ **Beta phase**
+>
+> Please note that as a beta phase, it may still contain some bugs and imperfections. Your feedback is instrumental in helping us identify and resolve any issues, so don't hesitate to report them by mail product.feedback@abtasty.com or open a ticket issue at [Github issues](https://github.com/flagship-io/flagship-code/issues)
+>
 
-- [x] Create a new [IntelliJ Platform Plugin Template][template] project.
-- [ ] Get familiar with the [template documentation][template].
-- [ ] Adjust the [pluginGroup](./gradle.properties), [plugin ID](./src/main/resources/META-INF/plugin.xml)
-  and [sources package](./src/main/kotlin).
-- [ ] Adjust the plugin description in `README` (see [Tips][docs:plugin-description])
-- [ ] Review
-  the [Legal Agreements](https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html?from=IJPluginTemplate).
-- [ ] [Publish a plugin manually](https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html?from=IJPluginTemplate)
-  for the first time.
-- [ ] Set the `PLUGIN_ID` in the above README badges.
-- [ ] Set the [Plugin Signing](https://plugins.jetbrains.com/docs/intellij/plugin-signing.html?from=IJPluginTemplate)
-  related [secrets](https://github.com/JetBrains/intellij-platform-plugin-template#environment-variables).
-- [ ] Set
-  the [Deployment Token](https://plugins.jetbrains.com/docs/marketplace/plugin-upload.html?from=IJPluginTemplate).
-- [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified
-  about releases containing new features and fixes.
+## Overview
 
-<!-- Plugin description -->
-This Fancy IntelliJ Platform Plugin is going to be your implementation of the brilliant ideas that you have.
+[Flagship](https://www.abtasty.com/feature-experimentation) optimization platform lets you manage, release, and experiment with features across all codebases and devices to drive growth with every deployment. This extension is designed to enhance your productivity within the Jetbrain environment, it offers a comprehensive set of utilities that simplify the management and utilization of feature flags using Flagship and let you handle most aspects of feature flag workflows directly within Jetbrain, eliminating the need to switch between your coding environment and the platform.
 
-This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be
-extracted by the [Gradle](/build.gradle.kts) during the build process.
+## Features
 
-To keep everything working, do not remove `<!-- ... -->` sections.
-<!-- Plugin description end -->
+- Manage your configurations which is a combination of the Flagship Client ID, Client Secret, Account ID, Account Environment ID (To set up your credentials follow these [instructions](https://flagship.zendesk.com/hc/en-us/articles/4499017687708--Acting-on-your-account-remotely) or check this [documentation](https://docs.developers.flagship.io/docs/manage-configurations-jetbrain#overview)).
+  To create a configuration:
 
-## Installation
+  ![Create configuration](./media/createConfiguration.gif)
 
-- Using the IDE built-in plugin system:
+  To change configurations:
 
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "
-  flagship-jetbrain"</kbd> >
-  <kbd>Install</kbd>
+  ![Change configuration](./media/changeConfiguration.gif)
 
-- Manually:
+- Manage your Flagship resources (Project, Feature Flags, Targeting Keys, Goals).
 
-  Download the [latest release](https://github.com/flagship-io/flagship-jetbrain/releases/latest) and install it
-  manually using
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
+  ![Manage resource feature](./media/resources.gif)
 
----
-Plugin based on the [IntelliJ Platform Plugin Template][template].
+- Check feature flags in your files. This feature gives you information on the flags in your current working file and retrieve the flag directly in the code.
 
-[template]: https://github.com/JetBrains/intellij-platform-plugin-template
+  ![Flags in file](./media/flagsInFile.gif)
 
-[docs:plugin-description]: https://plugins.jetbrains.com/docs/intellij/plugin-user-experience.html#plugin-description-and-presentation
+- Autocomplete for feature flags.
+
+  ![Autocomplete feature](./media/autoCompletionFeature.gif)
+
+- Hover your feature flags.
+
+  ![Hover feature](./media/hoverFeature.gif)
+
+## Documentation
+
+Check out our [documentation](https://docs.developers.flagship.io/docs/flagship-jetbrain) for further explanation.
+
+## Contributors
+
+- Chadi Laoulaou [@Chadiii](https://github.com/chadiii)
+
+## Contributing
+
+We encourage any form of contribution, whether that be issues, comments, or pull requests.
+
+## Licence
+
+[Apache License.](https://github.com/flagship-io/flagship-jetbrain/blob/main/LICENSE.md)
