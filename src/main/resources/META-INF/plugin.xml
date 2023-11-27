@@ -1,0 +1,131 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>com.github.flagshipio.jetbrain</id>
+    <name>Flagship Jetbrain</name>
+    <vendor>flagship-io</vendor>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow factoryClass="com.github.flagshipio.jetbrain.toolWindow.MyToolWindowFactory" id="Flagship"
+                    icon="/icons/logo.svg" anchor="right"/>
+
+        <platform.backend.documentation.psiTargetProvider
+                implementation="com.github.flagshipio.jetbrain.hover.MyDocumentationTargetProvider"/>
+
+        <completion.contributor language="any"
+                                implementationClass="com.github.flagshipio.jetbrain.codeInsight.MyCompletionContributor"/>
+    </extensions>
+
+    <applicationListeners>
+        <listener
+                class="com.github.flagshipio.jetbrain.listener.MyFileEditorManagerListener"
+                topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"
+        />
+    </applicationListeners>
+
+    <actions>
+        <action class="com.github.flagshipio.jetbrain.action.flag.CopyFlagIdAction"
+                id="com.github.flagshipio.jetbrain.action.CopyFlagIdAction" text="Copy Flag ID"
+                description="Copy flag id to clipboard" icon="AllIcons.Actions.Copy"/>
+        <action class="com.github.flagshipio.jetbrain.action.flag.CopyFlagKeyAction"
+                id="com.github.flagshipio.jetbrain.action.CopyFlagKeyAction" text="Copy Flag Key"
+                description="Copy flag key to clipboard" icon="AllIcons.Actions.Copy"/>
+        <action class="com.github.flagshipio.jetbrain.action.flag.DeleteFlagAction"
+                id="com.github.flagshipio.jetbrain.action.DeleteFlagAction" text="Delete Flag"
+                description="Delete flag from your system" icon="AllIcons.Actions.GC"/>
+        <action class="com.github.flagshipio.jetbrain.action.flag.EditFlagAction"
+                id="com.github.flagshipio.jetbrain.action.EditFlagAction" text="Edit Flag"
+                description="Edit flag from your system" icon="AllIcons.Actions.Edit"/>
+
+        <action class="com.github.flagshipio.jetbrain.action.configuration.DeleteConfigurationAction"
+                id="com.github.flagshipio.jetbrain.action.DeleteConfigurationAction" text="Delete Configuration"
+                description="Delete Configuration from your system" icon="AllIcons.Actions.GC"/>
+        <action class="com.github.flagshipio.jetbrain.action.configuration.EditConfigurationAction"
+                id="com.github.flagshipio.jetbrain.action.EditConfigurationAction" text="Edit Configuration"
+                description="Edit Configuration from your system" icon="AllIcons.Actions.Edit"/>
+        <action class="com.github.flagshipio.jetbrain.action.configuration.SelectConfigurationAction"
+                id="com.github.flagshipio.jetbrain.action.SelectConfigurationAction" text="Select This Configuration"
+                description="Select this configuration" icon="AllIcons.Actions.Forward"/>
+
+        <action class="com.github.flagshipio.jetbrain.action.goal.CopyGoalIdAction"
+                id="com.github.flagshipio.jetbrain.action.CopyGoalIdAction" text="Copy Goal ID"
+                description="Copy goal id to clipboard" icon="AllIcons.Actions.Copy"/>
+        <action class="com.github.flagshipio.jetbrain.action.goal.CopyGoalLabelAction"
+                id="com.github.flagshipio.jetbrain.action.CopyGoalLabelAction" text="Copy Goal Label"
+                description="Copy goal label to clipboard" icon="AllIcons.Actions.Copy"/>
+        <action class="com.github.flagshipio.jetbrain.action.goal.DeleteGoalAction"
+                id="com.github.flagshipio.jetbrain.action.DeleteGoalAction" text="Delete Goal"
+                description="Delete goal from your system" icon="AllIcons.Actions.GC"/>
+        <action class="com.github.flagshipio.jetbrain.action.goal.EditGoalAction"
+                id="com.github.flagshipio.jetbrain.action.EditGoalAction" text="Edit Goal"
+                description="Edit goal from your system" icon="AllIcons.Actions.Edit"/>
+
+        <action class="com.github.flagshipio.jetbrain.action.targetingKey.CopyTargetingKeyIdAction"
+                id="com.github.flagshipio.jetbrain.action.CopyTargetingKeyIdAction" text="Copy Targeting Key ID"
+                description="Copy targeting key id to clipboard" icon="AllIcons.Actions.Copy"/>
+        <action class="com.github.flagshipio.jetbrain.action.targetingKey.CopyTargetingKeyNameAction"
+                id="com.github.flagshipio.jetbrain.action.CopyTargetingKeyNameAction" text="Copy Targeting Key Name"
+                description="Copy targeting key name to clipboard" icon="AllIcons.Actions.Copy"/>
+        <action class="com.github.flagshipio.jetbrain.action.targetingKey.DeleteTargetingKeyAction"
+                id="com.github.flagshipio.jetbrain.action.DeleteTargetingKeyAction" text="Delete Targeting Key"
+                description="Delete targeting key from your system" icon="AllIcons.Actions.GC"/>
+        <action class="com.github.flagshipio.jetbrain.action.targetingKey.EditTargetingKeyAction"
+                id="com.github.flagshipio.jetbrain.action.EditTargetingKeyAction" text="Edit Targeting Key"
+                description="Edit targeting key from your system" icon="AllIcons.Actions.Edit"/>
+
+        <action class="com.github.flagshipio.jetbrain.action.project.CopyProjectIdAction"
+                id="com.github.flagshipio.jetbrain.action.CopyProjectIdAction" text="Copy Project ID"
+                description="Copy project id to clipboard" icon="AllIcons.Actions.Copy"/>
+        <action class="com.github.flagshipio.jetbrain.action.project.CopyProjectNameAction"
+                id="com.github.flagshipio.jetbrain.action.CopyProjectNameAction" text="Copy Project Name"
+                description="Copy project name to clipboard" icon="AllIcons.Actions.Copy"/>
+        <action class="com.github.flagshipio.jetbrain.action.project.DeleteProjectAction"
+                id="com.github.flagshipio.jetbrain.action.DeleteProjectAction" text="Delete Project"
+                description="Delete project from your system" icon="AllIcons.Actions.GC"/>
+        <action class="com.github.flagshipio.jetbrain.action.project.EditProjectAction"
+                id="com.github.flagshipio.jetbrain.action.EditProjectAction" text="Edit Project"
+                description="Edit project from your system" icon="AllIcons.Actions.Edit"/>
+        <action class="com.github.flagshipio.jetbrain.action.project.SwitchProjectAction"
+                id="com.github.flagshipio.jetbrain.action.SwitchProjectAction" text="Switch Project State"
+                description="Switch project state in the platform" icon="AllIcons.Diff.ApplyNotConflicts"/>
+
+        <action class="com.github.flagshipio.jetbrain.action.campaign.CopyCampaignIdAction"
+                id="com.github.flagshipio.jetbrain.action.CopyCampaignIdAction" text="Copy Campaign ID"
+                description="Copy campaign id to clipboard" icon="AllIcons.Actions.Copy"/>
+        <action class="com.github.flagshipio.jetbrain.action.campaign.CopyCampaignNameAction"
+                id="com.github.flagshipio.jetbrain.action.CopyCampaignNameAction" text="Copy Campaign Name"
+                description="Copy campaign name to clipboard" icon="AllIcons.Actions.Copy"/>
+        <action class="com.github.flagshipio.jetbrain.action.campaign.DeleteCampaignAction"
+                id="com.github.flagshipio.jetbrain.action.DeleteCampaignAction" text="Delete Campaign"
+                description="Delete project from your system" icon="AllIcons.Actions.GC"/>
+        <action class="com.github.flagshipio.jetbrain.action.campaign.SwitchCampaignAction"
+                id="com.github.flagshipio.jetbrain.action.SwitchCampaignAction" text="Switch Campaign State"
+                description="Switch campaign state in the platform" icon="AllIcons.Diff.ApplyNotConflicts"/>
+
+        <action class="com.github.flagshipio.jetbrain.action.flagInFile.AddFlagAction"
+                id="com.github.flagshipio.jetbrain.action.AddFlagAction" text="Add Flag"
+                description="Add the flag automatically" icon="AllIcons.General.Add"/>
+        <action class="com.github.flagshipio.jetbrain.action.flagInFile.GoToFlagFileAction"
+                id="com.github.flagshipio.jetbrain.action.GoToFlagFileAction" text="Go to Flag"
+                description="Add the flag automatically" icon="AllIcons.Actions.Find"/>
+
+        <action class="com.github.flagshipio.jetbrain.action.SyncResourceAction"
+                id="com.github.flagshipio.jetbrain.action.SyncResourceAction" text="Synchronize Resources"
+                icon="/icons/logo.svg">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+            <keyboard-shortcut first-keystroke="ctrl shift H" keymap="$default"/>
+            <keyboard-shortcut first-keystroke="ctrl shift H" keymap="Mac OS X"/>
+            <keyboard-shortcut first-keystroke="ctrl shift H" keymap="Mac OS X 10.5+"/>
+        </action>
+
+        <action class="com.github.flagshipio.jetbrain.action.RefreshFlagsInFileAction"
+                id="com.github.flagshipio.jetbrain.action.RefreshFlagsInFileAction" text="Synchronize Resources"
+                icon="/icons/logo.svg">
+            <add-to-group group-id="ToolsMenu" anchor="first"/>
+            <keyboard-shortcut first-keystroke="ctrl shift G" keymap="$default"/>
+            <keyboard-shortcut first-keystroke="ctrl shift G" keymap="Mac OS X"/>
+            <keyboard-shortcut first-keystroke="ctrl shift G" keymap="Mac OS X 10.5+"/>
+        </action>
+    </actions>
+</idea-plugin>
