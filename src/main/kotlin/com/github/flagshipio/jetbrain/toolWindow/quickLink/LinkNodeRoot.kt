@@ -10,32 +10,38 @@ class LinkNodeRoot :
     override fun getChildren(): Array<SimpleNode> {
         myChildren.add(
             LinkNodeBase(
-                "Flags",
-                "https://example.com"
+                "Set up the credentials",
+                "https://flagship.zendesk.com/hc/en-us/articles/4499017687708--Acting-on-your-account-remotely"
             )
         )
         myChildren.add(
             LinkNodeBase(
-                "Segments",
-                "https://example.com"
+                "Manage configurations",
+                "https://docs.developers.flagship.io/docs/manage-configurations-jetbrain"
             )
         )
         myChildren.add(
             LinkNodeBase(
-                "Users",
-                "https://example.com"
+                "Manage flagship resources",
+                "https://docs.developers.flagship.io/docs/manage-flagship-resource-jetbrain"
             )
         )
         myChildren.add(
             LinkNodeBase(
-                "Debugger",
-                "https://example.com"
+                "Hover feature",
+                "https://docs.developers.flagship.io/docs/hover-feature-jetbrain"
             )
         )
         myChildren.add(
             LinkNodeBase(
-                "Experiments",
-                "https://example.com"
+                "Flags in file feature",
+                "https://docs.developers.flagship.io/docs/flags-in-file-feature-jetbrain"
+            )
+        )
+        myChildren.add(
+            LinkNodeBase(
+                "Autocomplete feature",
+                "https://docs.developers.flagship.io/docs/autocomplete-feature-jetbrain"
             )
         )
 
