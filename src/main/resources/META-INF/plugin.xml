@@ -4,6 +4,8 @@
     <name>Flagship</name>
     <vendor>ABTasty</vendor>
 
+    <description>This plugin is designed to help you use Flagship, directly in JetBrains environment. It will simplify the management and utilization of feature flags by eliminating the need to switch between your coding environment and the platform.</description>
+
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
