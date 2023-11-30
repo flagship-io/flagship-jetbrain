@@ -1,4 +1,4 @@
-# Flagship for Jetbrain
+# Flagship for JetBrains
 
 #### Disclaimer
 
@@ -13,7 +13,14 @@
 
 <!-- Plugin description -->
 
-This plugin is designed to help you use Flagship, directly in the Jetbrain environment. It will simplify the management and utilization of feature flags by eliminating the need to switch between your coding environment and the platform.
+This plugin is designed to help you use Flagship, directly in JetBrains environment. It will simplify the management and utilization of feature flags by eliminating the need to switch between your coding environment and the platform. <br />
+Some Features:
+<ul>
+<li>Manage Flagship resources</li>
+<li>Autocomplete feature flags</li>
+<li>Hover feature flags for details</li>
+<li>Analyze files for existing features flags</li>
+</ul>
 
 <!-- Plugin description end -->
 
@@ -46,7 +53,7 @@ This plugin is designed to help you use Flagship, directly in the Jetbrain envir
 
 ## Documentation
 
-Check out our [documentation](https://docs.developers.flagship.io/docs/flagship-jetbrain) for further explanation.
+Check out our [documentation](https://docs.developers.flagship.io/docs/flagship-jetbrains) for further explanation.
 
 ## Installation
 

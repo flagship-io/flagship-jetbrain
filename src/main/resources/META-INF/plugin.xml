@@ -2,9 +2,19 @@
 <idea-plugin>
     <id>com.github.flagshipio.jetbrain</id>
     <name>Flagship</name>
-    <vendor>ABTasty</vendor>
+    <vendor url="https://www.abtasty.com" email="support@abtasty.com">ABTasty</vendor>
 
-    <description>This plugin is designed to help you use Flagship, directly in JetBrains environment. It will simplify the management and utilization of feature flags by eliminating the need to switch between your coding environment and the platform.</description>
+    <description><![CDATA[
+        This plugin is designed to help you use Flagship, directly in JetBrains environment. It will simplify the management and utilization of feature flags by eliminating the need to switch between your coding environment and the platform. <br />
+        Some Features:
+        <ul>
+            <li>Manage Flagship resources</li>
+            <li>Autocomplete feature flags</li>
+            <li>Hover feature flags for details</li>
+            <li>Analyze files for existing features flags</li>
+        </ul>
+    ]]>
+    </description>
 
     <depends>com.intellij.modules.platform</depends>
 
