@@ -34,30 +34,30 @@ fun isGetFlagFunctionHover(linePrefix: String): Boolean {
             (Regex("getModification\\(\\s*[\\w\\-\\_]*").containsMatchIn(linePrefix) && !Regex("getModification\\(\\s*[\\w\\-\\_]*['\"]").containsMatchIn(
                 linePrefix
             )) ||
-            (Regex("get_modification\\(\\s*[\\w\\-\\_]*").containsMatchIn(linePrefix) && !Regex("get_modification\\(\\s*['\"][\\w\\-\\_]*['\"]").containsMatchIn(
+            (Regex("get_modification\\(\\s*[\\w\\-\\_]*").containsMatchIn(linePrefix) && !Regex("get_modification\\(\\s*[\\w\\-\\_]*['\"]").containsMatchIn(
                 linePrefix
             )) ||
-            (Regex("GetModification\\(String|Number|Bool|Object|Array\\)\\(\\s*[\\w\\-\\_]*").containsMatchIn(
+            (Regex("GetModification(String|Number|Bool|Object|Array)\\(\\s*[\\w\\-\\_]*").containsMatchIn(
                 linePrefix
-            ) && !Regex("GetModification\\(String|Number|Bool|Object|Array\\)\\(\\s*[\\w\\-\\_]*['\"]").containsMatchIn(
-                linePrefix
-            )) ||
-            (Regex("GetModification\\(\\s*[\\w\\-\\_]*").containsMatchIn(linePrefix) && !Regex("GetModification\\(\\s*['\"][\\w\\-\\_]*['\"]").containsMatchIn(
+            ) && !Regex("GetModification(String|Number|Bool|Object|Array)\\(\\s*[\\w\\-\\_]*['\"]").containsMatchIn(
                 linePrefix
             )) ||
-            (Regex("GetFlag\\(\\s*[\\w\\-\\_]*").containsMatchIn(linePrefix) && !Regex("GetFlag\\(\\s*['\"][\\w\\-\\_]*['\"]").containsMatchIn(
+            (Regex("GetModification\\(\\s*[\\w\\-\\_]*").containsMatchIn(linePrefix) && !Regex("GetModification\\(\\s*[\\w\\-\\_]*['\"]").containsMatchIn(
                 linePrefix
             )) ||
-            (Regex("useFsFlag\\(\\s*[\\w\\-\\_]*").containsMatchIn(linePrefix) && !Regex("useFsFlag\\(\\s*['\"][\\w\\-\\_]*['\"]").containsMatchIn(
+            (Regex("GetFlag\\(\\s*[\\w\\-\\_]*").containsMatchIn(linePrefix) && !Regex("GetFlag\\(\\s*[\\w\\-\\_]*['\"]").containsMatchIn(
                 linePrefix
             )) ||
-            (Regex("getModification:\\s*@\\s*[\\w\\-\\_]*").containsMatchIn(linePrefix) && !Regex("getModification:\\s*@\\s*['\"][\\w\\-\\_]*['\"]").containsMatchIn(
+            (Regex("useFsFlag\\(\\s*[\\w\\-\\_]*").containsMatchIn(linePrefix) && !Regex("useFsFlag\\(\\s*[\\w\\-\\_]*['\"]").containsMatchIn(
                 linePrefix
             )) ||
-            (Regex("getFlagWithKey:\\s*@\\s*[\\w\\-\\_]*").containsMatchIn(linePrefix) && !Regex("getFlagWithKey:\\s*@\\s*['\"][\\w\\-\\_]*['\"]").containsMatchIn(
+            (Regex("getModification:\\s*@\\s*[\\w\\-\\_]*").containsMatchIn(linePrefix) && !Regex("getModification:\\s*@\\s*[\\w\\-\\_]*['\"]").containsMatchIn(
                 linePrefix
             )) ||
-            (Regex("getFlag\\(\\s*key\\s*:\\s*[\\w\\-\\_]*").containsMatchIn(linePrefix) && !Regex("getFlag\\(\\s*key\\s*:\\s*['\"][\\w\\-\\_]*['\"]").containsMatchIn(
+            (Regex("getFlagWithKey:\\s*@\\s*[\\w\\-\\_]*").containsMatchIn(linePrefix) && !Regex("getFlagWithKey:\\s*@\\s*[\\w\\-\\_]*['\"]").containsMatchIn(
+                linePrefix
+            )) ||
+            (Regex("getFlag\\(\\s*key\\s*:\\s*[\\w\\-\\_]*").containsMatchIn(linePrefix) && !Regex("getFlag\\(\\s*key\\s*:\\s*[\\w\\-\\_]*['\"]").containsMatchIn(
                 linePrefix
             ))
 }

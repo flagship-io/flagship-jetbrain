@@ -16,9 +16,9 @@ class DocTarget(private val targetElement: PsiElement?) : DocumentationTarget {
     private fun getFlag(contextElement: PsiElement): Flag? {
         val flagStore = FlagStore(contextElement.project)
         val flags = flagStore.getFlags()
-        val element = contextElement.text.replace("\"", "")
+        val elementWithoutQuotes = contextElement.text.replace("\"", "").replace("\'", "")
 
-        return flags.find { element == it.name.toString() }
+        return flags.find { elementWithoutQuotes == it.name.toString() }
     }
 
     private fun getCurrentConfigurationEnvID(contextElement: PsiElement): String? {

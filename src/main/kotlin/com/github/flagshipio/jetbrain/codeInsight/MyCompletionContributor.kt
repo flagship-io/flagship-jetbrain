@@ -42,9 +42,9 @@ class MyCompletionContributor : CompletionContributor() {
                 (Regex("get_modification\\(\\s*['\"][\\w\\-\\_]*").containsMatchIn(linePrefix) && !Regex("get_modification\\(\\s*['\"][\\w\\-\\_]*['\"]").containsMatchIn(
                     linePrefix
                 )) ||
-                (Regex("GetModification\\(String|Number|Bool|Object|Array\\)\\(\\s*['\"][\\w\\-\\_]*").containsMatchIn(
+                (Regex("GetModification(String|Number|Bool|Object|Array)\\(\\s*['\"][\\w\\-\\_]*").containsMatchIn(
                     linePrefix
-                ) && !Regex("GetModification\\(String|Number|Bool|Object|Array\\)\\(\\s*['\"][\\w\\-\\_]*['\"]").containsMatchIn(
+                ) && !Regex("GetModification(String|Number|Bool|Object|Array)\\(\\s*['\"][\\w\\-\\_]*['\"]").containsMatchIn(
                     linePrefix
                 )) ||
                 (Regex("GetModification\\(\\s*['\"][\\w\\-\\_]*").containsMatchIn(linePrefix) && !Regex("GetModification\\(\\s*['\"][\\w\\-\\_]*['\"]").containsMatchIn(
