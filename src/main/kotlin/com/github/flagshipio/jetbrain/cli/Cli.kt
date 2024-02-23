@@ -19,7 +19,7 @@ import java.nio.file.Path
 import java.nio.file.Paths
 
 class Cli {
-    val cliVersion = "1.0"
+    val cliVersion = "1.0.1"
     val cliPath = PathManager.getPluginsPath() + "/flagship-jetbrain/bin/cli/"
 
     fun downloadCli(project: Project? = null): DownloadResult {
